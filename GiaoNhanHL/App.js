@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AsyncStorage from '@react-native-community/async-storage';
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import Icon from 'react-native-vector-icons/FontAwesome5'
 
 import { AuthContext } from './src/utils/authContext';
 import { reducer, initialState } from './src/utils/reducer'
@@ -32,14 +32,13 @@ function MainScreen() {
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
-
           if (route.name === 'Home') {
-            iconName = focused ? 'heart' : 'heart';
+            iconName = 'home'
           } else if (route.name === 'Profile') {
-            iconName = focused ? 'heart' : 'heart';
+            iconName = 'user'
           }
 
-          const myIcon = <Ionicons name="rocket" size={30} color="#900" />;
+          const myIcon = <Icon name={iconName} size={size} color={color} />;
 
           // You can return any component that you like here!
           return myIcon;
@@ -47,9 +46,8 @@ function MainScreen() {
         },
       })}
       tabBarOptions={{
-        activeTintColor: '#547DD3',
-        inactiveTintColor: 'gray',
-        showIcon: true
+        activeTintColor: 'deepskyblue',
+        inactiveTintColor: 'grey',
       }}>
       <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 3 }} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
