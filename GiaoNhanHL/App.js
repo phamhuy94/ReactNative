@@ -2,19 +2,14 @@ import * as React from 'react';
 import { Alert, Button, Text, TextInput, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AsyncStorage from '@react-native-community/async-storage';
-import Icon from 'react-native-vector-icons/FontAwesome5'
+
 
 import { AuthContext } from './src/utils/authContext';
 import { reducer, initialState } from './src/utils/reducer'
 
 import SignInScreen from './src/screens/SignInScreen'
-import HomeScreen from './src/screens/HomeScreen'
-import ProfileScreen from './src/screens/ProfileScreen'
-
-const ACTIVE_TAB_COLOR = '#60C3FF'
-const INACTIVE_TAB_COLOR = '#aaa'
+import MainScreen from './src/screens/MainScreen'
 
 function SplashScreen() {
   return (
@@ -24,40 +19,7 @@ function SplashScreen() {
   );
 }
 
-function MainScreen() {
-
-  return (
-    <Tab.Navigator
-      initialRouteName='Home'
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
-          if (route.name === 'Home') {
-            iconName = 'home'
-          } else if (route.name === 'Profile') {
-            iconName = 'user'
-          }
-
-          const myIcon = <Icon name={iconName} size={size} color={color} />;
-
-          // You can return any component that you like here!
-          return myIcon;
-
-        },
-      })}
-      tabBarOptions={{
-        activeTintColor: 'deepskyblue',
-        inactiveTintColor: 'grey',
-      }}>
-      <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 3 }} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
-    </Tab.Navigator>
-  );
-}
-
 const Stack = createStackNavigator();
-
-const Tab = createBottomTabNavigator();
 
 export default function App({ navigation }) {
 
@@ -133,7 +95,7 @@ export default function App({ navigation }) {
   return (
     <AuthContext.Provider value={authContext}>
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{headerShown: false}}>
           {state.isLoading ? (
             // We haven't finished checking for the token yet
             <Stack.Screen name="Splash" component={SplashScreen} />
