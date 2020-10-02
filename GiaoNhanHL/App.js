@@ -10,14 +10,9 @@ import { reducer, initialState } from './src/utils/reducer'
 
 import SignInScreen from './src/screens/SignInScreen'
 import MainScreen from './src/screens/MainScreen'
+import SplashScreen from './src/screens/MainScreen'
 
-function SplashScreen() {
-  return (
-    <View>
-      <Text>Loading...</Text>
-    </View>
-  );
-}
+const token_key = 'userToken'
 
 const Stack = createStackNavigator();
 
@@ -27,7 +22,7 @@ export default function App({ navigation }) {
 
   const saveToken = async (data) => {
     try {
-      await AsyncStorage.setItem('userToken', data.username);
+      await AsyncStorage.setItem(token_key, data.username);
     } catch (error) {
       // Error saving data
     }
@@ -39,7 +34,7 @@ export default function App({ navigation }) {
       let userToken;
 
       try {
-        userToken = await AsyncStorage.getItem('userToken');
+        userToken = await AsyncStorage.getItem(token_key);
       } catch (e) {
         // Restoring token failed
       }
@@ -77,16 +72,8 @@ export default function App({ navigation }) {
           });
       },
       signOut: async data => {
-        await AsyncStorage.removeItem('userToken');
+        await AsyncStorage.removeItem(token_key);
         dispatch({ type: 'SIGN_OUT' });
-      },
-      signUp: async data => {
-        // In a production app, we need to send user data to server and get a token
-        // We will also need to handle errors if sign up failed
-        // After getting token, we need to persist the token using `AsyncStorage`
-        // In the example, we'll use a dummy token
-
-        dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' });
       },
     }),
     []
