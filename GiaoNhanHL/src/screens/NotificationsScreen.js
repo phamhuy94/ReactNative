@@ -6,7 +6,7 @@ import { Alert, Button, Text, TextInput, View,Dimensions,SafeAreaView,TouchableO
     FlatList,
     Image,
     ImageBackground } from 'react-native';
-    import { Tile, List, ListItem,Card,Icon,SearchBar } from 'react-native-elements';
+    import FastImage from 'react-native-fast-image'
 
 function NotificationsScreen({ navigation }) {
     const [state, setState] = useState([]);
@@ -51,14 +51,14 @@ function NotificationsScreen({ navigation }) {
                 renderItem={({ item, index }) => (
                     <TouchableOpacity style={[styles.label, { backgroundColor: index % 2 == 0 ? "#f2f2f2" : "#FFFFFF" }]}>
                         <View style={styles.left}>
-                            <Image style={styles.image} source={{ uri: 'http://sales.hoplong.com/Content/Images/BaiViet//' + item.ANH_BAI_VIET }} resizeMode="contain"/>
+                            <FastImage style={styles.image} source={{ uri: 'http://sales.hoplong.com/Content/Images/BaiViet/' + item.ANH_BAI_VIET }} resizeMode="contain"/>
                         </View>
                         <View style={styles.right}>
                             <Text style={styles.title}>{item.TIEU_DE_BAI_VIET}</Text>
                         </View>
                     </TouchableOpacity>
                 )}
-                keyExtractor={item => item.MA_BAI_VIET}
+                keyExtractor={item => item.MA_BAI_VIET.toString()}
             />
         </SafeAreaView>
     );

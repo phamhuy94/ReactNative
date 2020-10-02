@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 // import Icon from 'react-native-vector-icons/FontAwesome5'
 import { Tile, List, ListItem,Card,Icon } from 'react-native-elements';
-import { format } from "date-fns";
+import FastImage from 'react-native-fast-image'
 
 export default function ViewDetail({ data }) {
     const state = data
@@ -32,21 +32,6 @@ export default function ViewDetail({ data }) {
     state.NGAY_SINH_CONVERT = (day + '/' + month + '/' + date.getFullYear())
 
     return (
-        // <SafeAreaView style={style2.container}>
-        //     <View>               
-        //         <Image style={style2.detail_image} source={{ uri: 'http://sales.hoplong.com/Content/Images/Avatar/' + state.AVATAR }} />
-        //         <Text style={style2.detail_title}>{state.HO_VA_TEN} - {state.TEN_PHONG_BAN}</Text> 
-        //         <View style={style2.detail_table}>
-        //             <View>
-        //                 <Text>Điện thoại: {state.SDT}</Text>
-        //                 <Text>Email cá nhân: {state.EMAIL}</Text>
-        //                 <Text>Email công ty: {state.EMAIL_CONG_TY}</Text>
-        //                 <Text>Facebook: {state.FACEBOOK}</Text>
-        //                 <Text>Skype: {state.SKYPE}</Text>
-        //             </View>
-        //         </View>                   
-        //     </View>
-        // </SafeAreaView>
         <ScrollView style={styles.scroll}>
             <View style={styles.container}>
                 <Card containerStyle={styles.cardContainer}>
@@ -57,7 +42,7 @@ export default function ViewDetail({ data }) {
                             source={{ uri: 'https://www.pixel4k.com/wp-content/uploads/2018/11/sea-waves-blur-4k_1541114602.jpg' }}
                         >
                             <View style={styles.headerColumn}>
-                                <Image
+                                <FastImage
                                     style={styles.userImage}
                                     source={{ uri: 'http://sales.hoplong.com/Content/Images/Avatar/' + state.AVATAR }}
                                 />
