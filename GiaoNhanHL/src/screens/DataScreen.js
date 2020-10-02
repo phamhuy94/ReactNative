@@ -7,13 +7,16 @@ import { Alert, Button, Text, TextInput, View,Dimensions,SafeAreaView,TouchableO
     Image,
     ImageBackground } from 'react-native';
     import { Tile, List, ListItem,Card,Icon,SearchBar } from 'react-native-elements';
+    import FastImage from 'react-native-fast-image'
+    import SelectPhongBan from '../components/SelectPhongBan'  
 
 function DataScreen({ navigation }) {
     const [state, setState] = useState([]);
     const [text, setText] = useState('')
     const [filtered, setFiltered] = useState([]);
-
-    const LoadAPI = () => {
+    const [maPhongBan,setPhongBan] = useState('PURC_HL')
+   
+    const LoadAPI = () => {       
         const url = 'http://sales.hoplong.com/api/Api_NhanVien/NhanVienPhongBan';
         fetch(url, {
             method: 'POST',
@@ -23,23 +26,23 @@ function DataScreen({ navigation }) {
             },
             body: JSON.stringify({
                 isadmin: false,
-                maphongban: 'PURC_HL',
+                maphongban: maPhongBan,
                 macongty: 'HOPLONG'
             })
         })
-            .then(res => res.json())
-            .then(res => {
-                setState(res)
-                setFiltered(res)
-            })
-            .catch(error => {
+        .then(res => res.json())
+        .then(res => {
+            setState(res)
+            setFiltered(res)
+        })
+        .catch(error => {
 
-            });
+        });
     }
 
-    useEffect(() => {
+    useEffect(() => {       
         LoadAPI()
-    }, []);
+    }, [maPhongBan]);
 
     const searchData = (text) => {
         const newData = state.filter(item => {
@@ -54,19 +57,14 @@ function DataScreen({ navigation }) {
 
     return (
       <SafeAreaView style={styles.container}>
-            {/* <TextInput
-                style={styles.textInput}
-                onChangeText={(text) => searchData(text)}
-                value={text}
-                underlineColorAndroid='transparent'
-                placeholder="Search Here" /> */}
             <SearchBar        
             placeholder="Type Name Here..."        
             lightTheme        
             round      
             value={text}  
             onChangeText={text => searchData(text)}        
-            />    
+            /> 
+            <SelectPhongBan data={maPhongBan} action={setPhongBan}></SelectPhongBan>   
             <FlatList
                 data={filtered}
                 renderItem={({ item, index }) => (
@@ -76,47 +74,13 @@ function DataScreen({ navigation }) {
                         })
                     }>
                         <View style={styles.left}>
-                            <Image style={styles.image} source={{ uri: 'http://sales.hoplong.com/Content/Images/Avatar/' + item.AVATAR }} />
+                            <FastImage style={styles.image} source={{ uri: 'http://sales.hoplong.com/Content/Images/Avatar/' + item.AVATAR }} />
                         </View>
                         <View style={styles.right}>
                             <Text style={styles.title}>{item.HO_VA_TEN}</Text>
                             <Text style={styles.subtitle}>{item.TEN_PHONG_BAN}</Text>
                         </View>
                     </TouchableOpacity>
-                    // <TouchableOpacity style={styles.headerContainer} 
-                    //     onPress={() =>
-                    //         navigation.navigate('Chi tiết nhân viên', {
-                    //             itemId: item.USERNAME,
-                    //     })
-                    // }>
-                    //     <ImageBackground
-                    //         style={styles.headerBackgroundImage}
-                    //         blurRadius={10}
-                    //         source={{ uri: 'https://www.pixel4k.com/wp-content/uploads/2018/11/sea-waves-blur-4k_1541114602.jpg' }}
-                    //     >
-                    //         <View style={styles.headerColumn}>
-                    //             <Image
-                    //                 style={styles.userImage}
-                    //                 source={{ uri: 'http://sales.hoplong.com/Content/Images/Avatar/' + item.AVATAR }}
-                    //             />
-                    //             <Text style={styles.userNameText}>{item.HO_VA_TEN}</Text>
-                    //             <View style={styles.userAddressRow}>
-                    //                 <View>
-                    //                     <Icon
-                    //                         name="place"
-                    //                         underlayColor="transparent"
-                    //                         iconStyle={styles.placeIcon}
-                    //                     />
-                    //                 </View>
-                    //                 <View style={styles.userCityRow}>
-                    //                     <Text style={styles.userCityText}>
-                    //                         {item.CHUC_VU}-{item.TEN_PHONG_BAN}
-                    //                     </Text>
-                    //                 </View>
-                    //             </View>
-                    //         </View>
-                    //     </ImageBackground>
-                    // </TouchableOpacity>
                 )}
                 keyExtractor={item => item.USERNAME}
             />
