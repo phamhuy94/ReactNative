@@ -22,7 +22,7 @@ export const reducer = (prevState, action) => {
   };
   
   export const initialState = {
-    sLoading: true,
+    isLoading: true,
     isSignout: false,
     userToken: null,
   };
