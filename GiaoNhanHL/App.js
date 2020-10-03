@@ -3,7 +3,8 @@ import { Alert, Button, Text, TextInput, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import AsyncStorage from '@react-native-community/async-storage';
-
+import store from './src/redux'
+import {Provider} from 'react-redux'
 
 import { AuthContext } from './src/utils/authContext';
 import { reducer, initialState } from './src/utils/reducer'
@@ -11,6 +12,7 @@ import { reducer, initialState } from './src/utils/reducer'
 import SignInScreen from './src/screens/SignInScreen'
 import MainScreen from './src/screens/MainScreen'
 import SplashScreen from './src/screens/MainScreen'
+import ReduxScreen from './src/screens/ReduxScreen';
 
 const token_key = 'userToken'
 
@@ -79,30 +81,41 @@ export default function App({ navigation }) {
     []
   );
 
+  // return (
+  //   <AuthContext.Provider value={authContext}>
+  //     <NavigationContainer>
+  //       <Stack.Navigator screenOptions={{headerShown: false}}>
+  //         {state.isLoading ? (
+  //           // We haven't finished checking for the token yet
+  //           <Stack.Screen name="Splash" component={SplashScreen} />
+  //         ) : state.userToken == null ? (
+  //           // No token found, user isn't signed in
+  //           <Stack.Screen
+  //             name="SignIn"
+  //             component={SignInScreen}
+  //             options={{
+  //               title: 'Đăng nhập',
+  //               // When logging out, a pop animation feels intuitive
+  //               animationTypeForReplace: state.isSignout ? 'pop' : 'push',
+  //             }}
+  //           />
+  //         ) : (
+  //               // User is signed in
+  //               <Stack.Screen name="Main" component={MainScreen} />
+  //             )}
+  //       </Stack.Navigator>
+  //     </NavigationContainer>
+  //   </AuthContext.Provider>
+  // );
+
   return (
-    <AuthContext.Provider value={authContext}>
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{headerShown: false}}>
-          {state.isLoading ? (
-            // We haven't finished checking for the token yet
-            <Stack.Screen name="Splash" component={SplashScreen} />
-          ) : state.userToken == null ? (
-            // No token found, user isn't signed in
-            <Stack.Screen
-              name="SignIn"
-              component={SignInScreen}
-              options={{
-                title: 'Đăng nhập',
-                // When logging out, a pop animation feels intuitive
-                animationTypeForReplace: state.isSignout ? 'pop' : 'push',
-              }}
-            />
-          ) : (
-                // User is signed in
-                <Stack.Screen name="Main" component={MainScreen} />
-              )}
-        </Stack.Navigator>
-      </NavigationContainer>
-    </AuthContext.Provider>
+    <Provider store={store}>
+      <AuthContext.Provider value={authContext}>
+        <ReduxScreen>
+
+        </ReduxScreen>
+      </AuthContext.Provider>
+    </Provider>
+
   );
 }
