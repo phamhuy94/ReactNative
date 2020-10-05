@@ -1,48 +1,35 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Alert, Button, Text, TextInput, View,Dimensions,SafeAreaView,TouchableOpacity,
-    StyleSheet,
-    ScrollView,
-    StatusBar,
-    FlatList,
-    Image,
-    ImageBackground } from 'react-native';
-    import { Tile, List, ListItem,Card,Icon,SearchBar } from 'react-native-elements';
-    import FastImage from 'react-native-fast-image'
-    import SelectPhongBan from '../components/SelectPhongBan'  
+StyleSheet,
+ScrollView,
+StatusBar,
+FlatList,
+Image,
+ImageBackground } from 'react-native';
+import { Tile, List, ListItem,Card,Icon,SearchBar } from 'react-native-elements';
+import FastImage from 'react-native-fast-image'
+import SelectPhongBan from '../components/SelectPhongBan'  
+
+import {useDispatch,useSelector} from 'react-redux'
+import {getUser} from '../redux/user/action'
 
 function DataScreen({ navigation }) {
-    const [state, setState] = useState([]);
+    const dispatch = useDispatch(); 
+
+    const [state, setState] = useState(useSelector((store) => store.user.ListUser));   
+    const [filtered, setFiltered] = useState(useSelector((store) => store.user.ListUser));
+
     const [text, setText] = useState('')
-    const [filtered, setFiltered] = useState([]);
     const [maPhongBan,setPhongBan] = useState('PURC_HL')
-   
-    const LoadAPI = () => {       
-        const url = 'http://sales.hoplong.com/api/Api_NhanVien/NhanVienPhongBan';
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                isadmin: false,
-                maphongban: maPhongBan,
-                macongty: 'HOPLONG'
-            })
-        })
-        .then(res => res.json())
-        .then(res => {
-            setState(res)
-            setFiltered(res)
-        })
-        .catch(error => {
+         
+    useEffect(() => {
+        dispatch(getUser(maPhongBan));
+    }, []);
 
-        });
-    }
-
-    useEffect(() => {       
-        LoadAPI()
+    useEffect(() => {
+        dispatch(getUser(maPhongBan));
     }, [maPhongBan]);
+    
 
     const searchData = (text) => {
         const newData = state.filter(item => {
