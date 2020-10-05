@@ -81,41 +81,32 @@ export default function App({ navigation }) {
     []
   );
 
-  // return (
-  //   <AuthContext.Provider value={authContext}>
-  //     <NavigationContainer>
-  //       <Stack.Navigator screenOptions={{headerShown: false}}>
-  //         {state.isLoading ? (
-  //           // We haven't finished checking for the token yet
-  //           <Stack.Screen name="Splash" component={SplashScreen} />
-  //         ) : state.userToken == null ? (
-  //           // No token found, user isn't signed in
-  //           <Stack.Screen
-  //             name="SignIn"
-  //             component={SignInScreen}
-  //             options={{
-  //               title: 'Đăng nhập',
-  //               // When logging out, a pop animation feels intuitive
-  //               animationTypeForReplace: state.isSignout ? 'pop' : 'push',
-  //             }}
-  //           />
-  //         ) : (
-  //               // User is signed in
-  //               <Stack.Screen name="Main" component={MainScreen} />
-  //             )}
-  //       </Stack.Navigator>
-  //     </NavigationContainer>
-  //   </AuthContext.Provider>
-  // );
-
   return (
     <Provider store={store}>
       <AuthContext.Provider value={authContext}>
-        <ReduxScreen>
-
-        </ReduxScreen>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+            {state.isLoading ? (
+              // We haven't finished checking for the token yet
+              <Stack.Screen name="Splash" component={SplashScreen} />
+            ) : state.userToken == null ? (
+              // No token found, user isn't signed in
+              <Stack.Screen
+                name="SignIn"
+                component={SignInScreen}
+                options={{
+                  title: 'Đăng nhập',
+                  // When logging out, a pop animation feels intuitive
+                  animationTypeForReplace: state.isSignout ? 'pop' : 'push',
+                }}
+              />
+            ) : (
+                  // User is signed in
+                  <Stack.Screen name="Main" component={MainScreen} />
+                )}
+          </Stack.Navigator>
+        </NavigationContainer>
       </AuthContext.Provider>
     </Provider>
-
   );
 }
