@@ -6,8 +6,6 @@ import { Alert, Button, Text, TextInput, View, Dimensions, SafeAreaView, Touchab
     FlatList,
     Image } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { AuthContext } from '../utils/authContext';
-
 import ViewDetail from '../components/ViewDetail'
 
 const ProfileScreen = ({ navigation }) => {
@@ -30,8 +28,6 @@ const ProfileScreen = ({ navigation }) => {
 
             });
     }
-
-    const { signOut } = React.useContext(AuthContext);
 
     useEffect(() => {
         load()

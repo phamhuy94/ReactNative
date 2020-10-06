@@ -1,34 +1,4 @@
-// import React, { useEffect, useState, useContext } from 'react';
-// import { Alert, Button, Text, TextInput, View } from 'react-native';
-// import { AuthContext } from '../utils/authContext';
-
-// const SignInScreen = ({ navigation }) => {
-//     const [username, setUsername] = React.useState('');
-//     const [password, setPassword] = React.useState('');
-
-//     const { signIn } = React.useContext(AuthContext);
-
-//     return (
-//         <View>
-//             <TextInput
-//                 placeholder="Username"
-//                 value={username}
-//                 onChangeText={setUsername}
-//             />
-//             <TextInput
-//                 placeholder="Password"
-//                 value={password}
-//                 onChangeText={setPassword}
-//                 secureTextEntry
-//             />
-//             <Button title="Đăng nhập" onPress={() => signIn({ username, password })} />
-//         </View>
-//     );
-// }
-
-// export default SignInScreen;
-
-import React, { Component } from 'react';
+import React, { Component, useCallback } from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -44,7 +14,8 @@ import {
     Keyboard
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { AuthContext } from '../utils/authContext';
+import {useDispatch,useSelector} from 'react-redux'
+import {login} from '../redux/authentication/action'
 
 const { width, height } = Dimensions.get("window");
 
@@ -54,11 +25,13 @@ const lockIcon = require("../images/login1_lock.png");
 const personIcon = require("../images/login1_person.png");
 
 const SignInScreen = ({ navigation }) => {
+    const dispatch = useDispatch();
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
 
-    const { signIn } = React.useContext(AuthContext);
-
+    const signIn = useCallback((username,password) => {
+        dispatch(login(username,password))
+    })
 
     return (
         <ScrollView>

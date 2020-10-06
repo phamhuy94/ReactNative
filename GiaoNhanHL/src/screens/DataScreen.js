@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useCallback } from 'react';
 import { Alert, Button, Text, TextInput, View,Dimensions,SafeAreaView,TouchableOpacity,
 StyleSheet,
 ScrollView,
@@ -16,23 +16,23 @@ import {getUser} from '../redux/user/action'
 function DataScreen({ navigation }) {
     const dispatch = useDispatch(); 
 
-    const [state, setState] = useState(useSelector((store) => store.user.ListUser));   
-    const [filtered, setFiltered] = useState(useSelector((store) => store.user.ListUser));
+    const isLoading = useSelector((store) => store.user.isLoading);
+    const listUser = useSelector((store) => store.user.listUser);
+    const [filtered, setFiltered] = useState(listUser);
 
     const [text, setText] = useState('')
     const [maPhongBan,setPhongBan] = useState('PURC_HL')
-         
-    useEffect(() => {
-        dispatch(getUser(maPhongBan));
-    }, []);
 
     useEffect(() => {
         dispatch(getUser(maPhongBan));
     }, [maPhongBan]);
-    
 
-    const searchData = (text) => {
-        const newData = state.filter(item => {
+    useEffect(() => {
+        setFiltered(listUser)
+    }, [listUser])
+    
+    const searchData = ((text) => {
+        const newData = listUser.filter(item => {
             const itemData = item.HO_VA_TEN.toUpperCase();
             const textData = text.toUpperCase();
             return itemData.indexOf(textData) > -1
@@ -40,7 +40,7 @@ function DataScreen({ navigation }) {
 
         setFiltered(newData)
         setText(text)
-    }
+    })
 
     return (
       <SafeAreaView style={styles.container}>
@@ -51,26 +51,34 @@ function DataScreen({ navigation }) {
             value={text}  
             onChangeText={text => searchData(text)}        
             /> 
-            <SelectPhongBan data={maPhongBan} action={setPhongBan}></SelectPhongBan>   
-            <FlatList
-                data={filtered}
-                renderItem={({ item, index }) => (
-                    <TouchableOpacity style={[styles.label, { backgroundColor: index % 2 == 0 ? "#f2f2f2" : "#FFFFFF" }]} onPress={() =>
-                        navigation.navigate('Chi tiết nhân viên', {
-                            itemId: item.USERNAME,
-                        })
-                    }>
-                        <View style={styles.left}>
-                            <FastImage style={styles.image} source={{ uri: 'http://sales.hoplong.com/Content/Images/Avatar/' + item.AVATAR }} />
-                        </View>
-                        <View style={styles.right}>
-                            <Text style={styles.title}>{item.HO_VA_TEN}</Text>
-                            <Text style={styles.subtitle}>{item.TEN_PHONG_BAN}</Text>
-                        </View>
-                    </TouchableOpacity>
-                )}
-                keyExtractor={item => item.USERNAME}
-            />
+            <SelectPhongBan data={maPhongBan} action={setPhongBan} />   
+            {isLoading? (
+              // We haven't finished checking for the token yet
+              <View>
+                  <Text>Loading...</Text>
+              </View>
+            ) : (
+                <FlatList
+                    data={filtered}
+                    renderItem={({ item, index }) => (
+                        <TouchableOpacity style={[styles.label, { backgroundColor: index % 2 == 0 ? "#f2f2f2" : "#FFFFFF" }]} onPress={() =>
+                            navigation.navigate('Chi tiết nhân viên', {
+                                itemId: item.USERNAME,
+                            })
+                        }>
+                            <View style={styles.left}>
+                                <FastImage style={styles.image} source={{ uri: 'http://sales.hoplong.com/Content/Images/Avatar/' + item.AVATAR }} />
+                            </View>
+                            <View style={styles.right}>
+                                <Text style={styles.title}>{item.HO_VA_TEN}</Text>
+                                <Text style={styles.subtitle}>{item.TEN_PHONG_BAN}</Text>
+                            </View>
+                        </TouchableOpacity>
+                    )}
+                    keyExtractor={item => item.USERNAME}
+                />
+            )}
+            
         </SafeAreaView>
     );
   }
