@@ -16,7 +16,6 @@ export default function SelectPhongBan({ data,action }) {
         {MA_PHONG_BAN:'INTE_HL',TEN_PHONG_BAN:'IT'},
         {MA_PHONG_BAN:'PURC_HL',TEN_PHONG_BAN:'Mua hàng'},
         {MA_PHONG_BAN:'WALO_HL',TEN_PHONG_BAN:'Kho vận'},
-        {MA_PHONG_BAN:'SALE_HL',TEN_PHONG_BAN:'Sale'}
     ]
 
     return(

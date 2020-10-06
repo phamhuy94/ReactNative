@@ -1,5 +1,5 @@
 const initialState = {
-    ListUser: [],
+    listUser: [],
     UserDetail:[],
     isLoading: true,
     err: null
@@ -14,7 +14,7 @@ const user = (state = initialState, action) => {
         case 'GET_USER_SUCCESS':
             return {
                 ...state,
-                ListUser: action.data,
+                listUser: action.data,
                 isLoading: false
             };
         case 'GET_USER_DETAIL_SUCCESS':
