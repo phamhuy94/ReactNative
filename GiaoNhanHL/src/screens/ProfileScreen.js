@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext,useCallback } from 'react';
 import { Alert, Button, Text, TextInput, View, Dimensions, SafeAreaView, TouchableOpacity,
     StyleSheet,
     ScrollView,
@@ -7,8 +7,11 @@ import { Alert, Button, Text, TextInput, View, Dimensions, SafeAreaView, Touchab
     Image } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import ViewDetail from '../components/ViewDetail'
+import {useDispatch,useSelector} from 'react-redux'
+import {logout} from '../redux/authentication/action'
 
 const ProfileScreen = ({ navigation }) => {
+    const dispatch = useDispatch();
     const [state, setState] = useState([]);
 
     const load = async () => {
@@ -16,6 +19,10 @@ const ProfileScreen = ({ navigation }) => {
             LoadAPI(result)
         })
     }
+
+    const signOut = useCallback(() => {
+        dispatch(logout())
+    })
 
     const LoadAPI = (username) => {
         const url = 'http://sales.hoplong.com/api/Api_NhanVien/GetChiTietNhanVien/' + username;

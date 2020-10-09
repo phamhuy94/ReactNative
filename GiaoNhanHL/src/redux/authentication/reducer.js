@@ -3,7 +3,7 @@ const initialState = {
     isSignout: false,
     userToken: null,
 };
-const authentication = (state = initialState, action) => {
+const authentication = (state = initialState, action) => {   
     switch (action.type) {
         case 'RESTORE_TOKEN':
           return {

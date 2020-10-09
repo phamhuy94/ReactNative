@@ -1,7 +1,10 @@
 import axios from "axios";
 import AsyncStorage from '@react-native-community/async-storage';
+import { Alert, Button, Text, TextInput, View } from 'react-native';
 
-export const getToken = (token_key) => async dispatch => {
+const token_key = 'userToken'
+
+export const getToken = () => async dispatch => { 
   const userToken = null;
 
   try {
@@ -9,14 +12,14 @@ export const getToken = (token_key) => async dispatch => {
   } catch (e) {
     // Restoring token failed
   }
-  dispatch({ type: 'RESTORE_TOKEN', token: userToken });
+  return dispatch({ type: 'RESTORE_TOKEN', token: userToken });
 }
 
-export const login = (username, password) => async dispatch => {
-  const url = 'http://sales.hoplong.com/api/Api_NhanVien/LoginERP/' + username + '/' + password;
+export const login = (data) => async dispatch => {
+  const url = 'http://sales.hoplong.com/api/Api_NhanVien/LoginERP/' + data.username + '/' + data.password;
   const saveToken = async () => {
     try {
-      await AsyncStorage.setItem(token_key, username);
+      await AsyncStorage.setItem(token_key, data.username);
     } catch (error) {
       // Error saving data
     }
@@ -25,7 +28,7 @@ export const login = (username, password) => async dispatch => {
     .then(function (response) {
       if (response.data.indexOf('thành công') >= 0) {
         saveToken(data)
-        dispatch({ type: 'SIGN_IN', token: username });
+        dispatch({ type: 'SIGN_IN', token: data.username });
       } else {
         Alert.alert('Đăng nhập không thành công', 'Tài khoản hoặc mật khẩu sai')
         return
