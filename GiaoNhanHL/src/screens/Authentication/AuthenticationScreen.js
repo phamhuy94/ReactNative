@@ -7,10 +7,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { Provider, useDispatch, useSelector } from 'react-redux'
 
-import SignInScreen from './SignInScreen'
-import MainScreen from './MainScreen'
-import SplashScreen from './SplashScreen'
-import { getToken } from '../redux/authentication/action'
+import SignInScreen from '../Authentication/SignInScreen'
+import MainScreen from '../MainScreen'
+import SplashScreen from '../SplashScreen'
+import { getToken } from '../../redux/authentication/action'
 
 const Stack = createStackNavigator();
 

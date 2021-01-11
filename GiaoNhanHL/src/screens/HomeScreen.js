@@ -11,17 +11,18 @@ import Icon from 'react-native-vector-icons/FontAwesome5'
 import DataScreen from './DataScreen'
 import ProfileScreen from './ProfileScreen'
 import NotificationsScreen from './NotificationsScreen'
+import HomeGiaoNhanScreen from './GiaoNhan/HomeGiaoNhanScreen'
   
 const Tab = createBottomTabNavigator();
 
 const HomeScreen = ({ navigation }) => {
     return (        
         <Tab.Navigator 
-        initialRouteName="Data" 
+        initialRouteName="Home" 
         screenOptions={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
               let iconName;
-              if (route.name === 'Data') {
+              if (route.name === 'Home') {
                 iconName = 'home'
               } else if (route.name === 'Profile') {
                 iconName = 'user'
@@ -41,7 +42,7 @@ const HomeScreen = ({ navigation }) => {
             inactiveTintColor: 'grey',
             swipeEnabled: true,
           }}>
-            <Tab.Screen name="Data" component={DataScreen}/>
+            <Tab.Screen name="Home" component={HomeGiaoNhanScreen}/>
             <Tab.Screen name="Notifications" component={NotificationsScreen} />
             <Tab.Screen name="Profile" component={ProfileScreen} />
         </Tab.Navigator>             

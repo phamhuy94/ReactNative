@@ -1,4 +1,4 @@
-import React, { Component, useCallback } from 'react';
+import React, { useEffect, useState, useContext, useCallback } from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -11,27 +11,36 @@ import {
     TouchableOpacity,
     ImageBackground,
     TouchableWithoutFeedback,
-    Keyboard
+    Keyboard, Alert
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import {useDispatch,useSelector} from 'react-redux'
-import {login} from '../redux/authentication/action'
+import {_login} from '../../redux/authentication/action'
 
 const { width, height } = Dimensions.get("window");
 
-const background = require("../images/login1_bg.png");
-const mark = require("../images/logo_hoplong1.png");
-const lockIcon = require("../images/login1_lock.png");
-const personIcon = require("../images/login1_person.png");
+const background = require("../../images/login1_bg.png");
+const mark = require("../../images/logo_hoplong1.png");
+const lockIcon = require("../../images/login1_lock.png");
+const personIcon = require("../../images/login1_person.png");
 
 const SignInScreen = ({ navigation }) => {
     const dispatch = useDispatch();
+    const isSignInFailed = useSelector((store) => store.authentication.isSignInFailed)
+    const alertText = useSelector((store) => store.authentication.alertText)
+
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
-
+   
     const signIn = useCallback((username,password) => {
-        dispatch(login(username,password))
+        dispatch(_login(username,password))
     })
+
+    useEffect(() => {
+        if(isSignInFailed == true){
+            Alert.alert(alertText)
+        }
+    }, [isSignInFailed]);
 
     return (
         <ScrollView>

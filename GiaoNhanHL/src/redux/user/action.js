@@ -1,38 +1,38 @@
-import axios from "axios";
+import { _getUser, _getUserDetail } from '../../api/user/user'
 
-export const getUser = (maPhongBan) => async dispatch => {
-    await dispatch({ type: 'GET_USER_REQUEST' });
-    try {
-        axios.post('http://sales.hoplong.com/api/Api_NhanVien/NhanVienPhongBan', {
-            isadmin: false,
-            maphongban: maPhongBan,
-            macongty: 'HOPLONG'
-          })
-          .then(function (response) {
-            return dispatch({
+export const getUser = (maPhongBan) => {
+    const data = {
+        isadmin: false,
+        maphongban: maPhongBan,
+        macongty: 'HOPLONG'
+    }
+    return async (dispatch) => {
+        try {
+            const response = await _getUser(data);
+            dispatch({
                 type: 'GET_USER_SUCCESS',
-                data: response.data
+                data: response
             });
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-        
-    } catch (err) {
-        return dispatch({ type: 'GET_USER_ERROR', err });
+        } catch (e) {
+            return dispatch({ type: 'GET_USER_ERROR', err });
+        }
     }
 }
 
-export const getUserDetail = (username) => async dispatch => {
-    const url = 'http://sales.hoplong.com/api/Api_NhanVien/GetChiTietNhanVien/' + username;
-    axios.get(url)
-          .then(function (response) {
-            return dispatch({
+export const getUserDetail = (username) => {
+    return async (dispatch) => {
+        try {
+            const response = await _getUserDetail(username);
+            dispatch({
                 type: 'GET_USER_DETAIL_SUCCESS',
-                data: response.data
+                data: response
             });
-          })
-          .catch(function (error) {
+        } catch (e) {
             console.log(error);
-          });
+        }
+    }
 }
+
+export const getUserRequest = () => ({
+    type: 'GET_USER_REQUEST'
+})
