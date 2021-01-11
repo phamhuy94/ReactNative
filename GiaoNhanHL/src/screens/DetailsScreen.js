@@ -18,26 +18,9 @@ function DetailsScreen({ route, navigation }) {
 
     const dispatch = useDispatch(); 
     const state = useSelector((store) => store.user.UserDetail);
-    
     useEffect(() => {
         dispatch(getUserDetail(username));
     }, [dispatch]);
-
-    // const LoadAPI = () => {
-    //     const url = 'http://sales.hoplong.com/api/Api_NhanVien/GetChiTietNhanVien/' + username;
-    //     fetch(url)
-    //         .then(res => res.json())
-    //         .then(res => {
-    //             setState(res)
-    //         })
-    //         .catch(error => {
-
-    //         });
-    // }
-
-    // useEffect(() => {
-    //     LoadAPI()
-    // }, []);
 
     return (
         <View style={styles.container}>

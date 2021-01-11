@@ -11,7 +11,7 @@ import FastImage from 'react-native-fast-image'
 import SelectPhongBan from '../components/SelectPhongBan'  
 
 import {useDispatch,useSelector} from 'react-redux'
-import {getUser} from '../redux/user/action'
+import {getUser,getUserRequest} from '../redux/user/action'
 
 function DataScreen({ navigation }) {
     const dispatch = useDispatch(); 
@@ -25,6 +25,9 @@ function DataScreen({ navigation }) {
 
     useEffect(() => {
         dispatch(getUser(maPhongBan));
+        return () => {
+            dispatch(getUserRequest())
+        }
     }, [maPhongBan]);
 
     useEffect(() => {

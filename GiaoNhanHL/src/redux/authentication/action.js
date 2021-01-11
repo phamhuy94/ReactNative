@@ -1,45 +1,45 @@
-import axios from "axios";
 import AsyncStorage from '@react-native-community/async-storage';
-import { Alert, Button, Text, TextInput, View } from 'react-native';
+import {login} from '../../api/authentication/authentication'
 
 const token_key = 'userToken'
 
-export const getToken = () => async dispatch => { 
-  const userToken = null;
+export const RESTORE_TOKEN = 'RESTORE_TOKEN';
+export const BEFORE_SIGN_IN = 'BEFORE_SIGN_IN';
+export const SIGN_IN = 'SIGN_IN';
+export const SIGN_IN_FAILED = 'SIGN_IN_FAILED';
+export const SIGN_OUT = 'SIGN_OUT';
 
-  try {
-    userToken = await AsyncStorage.getItem(token_key);
-  } catch (e) {
-    // Restoring token failed
-  }
-  return dispatch({ type: 'RESTORE_TOKEN', token: userToken });
+export const getToken = () => async dispatch => { 
+  const userToken = await AsyncStorage.getItem(token_key);
+
+  return dispatch({ type: RESTORE_TOKEN, token: userToken });
 }
 
-export const login = (data) => async dispatch => {
-  const url = 'http://sales.hoplong.com/api/Api_NhanVien/LoginERP/' + data.username + '/' + data.password;
+export const _login = (data) => {  
   const saveToken = async () => {
     try {
       await AsyncStorage.setItem(token_key, data.username);
     } catch (error) {
-      // Error saving data
+      
     }
   }
-  axios.get(url)
-    .then(function (response) {
-      if (response.data.indexOf('thành công') >= 0) {
+  return async (dispatch) => {
+    dispatch({ type: BEFORE_SIGN_IN});
+    try {
+      const response = await login(data);
+      if(response.notification.indexOf('thành công') >= 0){
         saveToken(data)
-        dispatch({ type: 'SIGN_IN', token: data.username });
-      } else {
-        Alert.alert('Đăng nhập không thành công', 'Tài khoản hoặc mật khẩu sai')
-        return
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+        dispatch({ type: SIGN_IN, token: data.username });
+      }else{
+        dispatch({ type: SIGN_IN_FAILED,alertText:response.notification});
+      }     
+    } catch (e) {
+      console.log(e);
+    }
+  };  
 }
 
 export const logout = () => async dispatch => {
   await AsyncStorage.removeItem(token_key);
-  dispatch({ type: 'SIGN_OUT' });
+  dispatch({ type: SIGN_OUT });
 }

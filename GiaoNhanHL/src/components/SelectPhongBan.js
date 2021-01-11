@@ -1,12 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
-    Alert, Button, Text, TextInput, View, Dimensions, SafeAreaView, TouchableOpacity,
     StyleSheet,
-    ScrollView,
-    StatusBar,
-    FlatList,
-    Image,
-    ImageBackground
 } from 'react-native';
 import {Picker} from '@react-native-community/picker';
 

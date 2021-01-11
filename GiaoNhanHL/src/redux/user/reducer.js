@@ -9,7 +9,9 @@ const user = (state = initialState, action) => {
         case 'GET_USER_REQUEST':
             return {
                 ...state,
-                isLoading: true
+                isLoading: true,
+                listUser: [],
+                UserDetail: []
             };
         case 'GET_USER_SUCCESS':
             return {

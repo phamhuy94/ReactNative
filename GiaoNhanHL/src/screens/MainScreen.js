@@ -4,15 +4,23 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import HomeScreen from './HomeScreen'
 import DetailsScreen from './DetailsScreen';
+import DanhSachCanNhanScreen from './GiaoNhan/DanhSachCanNhanScreen';
+import DanhSachDaNhanScreen from './GiaoNhan/DanhSachDaNhanScreen';
+import XacNhanScreen from './GiaoNhan/XacNhanScreen';
+import DNTTScreen from './GiaoNhan/DNTTScreen';
 
 const Stack = createStackNavigator();
 
-const MainScreen = ({ navigation }) => {
+const MainScreen = () => {
 
     return (
       <Stack.Navigator initialRouteName='Home' screenOptions={{headerShown: false}}>
         <Stack.Screen name="Home" component={HomeScreen}/>
         <Stack.Screen name="Chi tiết nhân viên" component={DetailsScreen} />
+        <Stack.Screen name="Danh sách cần nhận" component={DanhSachCanNhanScreen} />
+        <Stack.Screen name="Danh sách đã nhận" component={DanhSachDaNhanScreen} />
+        <Stack.Screen name="Xác nhận giao hàng" component={XacNhanScreen} />
+        <Stack.Screen name="Đề nghị thanh toán" component={DNTTScreen} />
       </Stack.Navigator>
     );
   }
