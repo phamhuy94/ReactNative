@@ -2,7 +2,7 @@ import {default as axios} from 'axios';
 import * as AxiosLogger from 'axios-logger';
 
 // Please change baseURL when build production
-const baseURL = 'http://sales.hoplong.com:55/';
+const baseURL = 'http://sales.hoplong.com:56/';
 const headers = {
   Accept: 'application/json',
   'Content-Type': 'application/json;charset=UTF-8',

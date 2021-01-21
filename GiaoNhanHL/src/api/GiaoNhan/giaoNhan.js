@@ -2,8 +2,8 @@ import giaonhan from '../baseUrl2';
 
 const data = {
     macongty: 'HOPLONG',
-    username: 'INTE005_HL',
-    isadmin: true,
+    username: 'WALO040_HL',
+    isadmin: false,
     maphongban: 'INTE_HL',       
 }
 

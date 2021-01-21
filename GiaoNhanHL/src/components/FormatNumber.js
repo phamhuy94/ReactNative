@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text,TextInput } from 'react-native';
+import { Text,TextInput,StyleSheet } from 'react-native';
 import NumberFormat from 'react-number-format';
 
 export function ReactNativeNumberFormat({ string,value }) {
@@ -8,7 +8,7 @@ export function ReactNativeNumberFormat({ string,value }) {
       value={value}
       displayType={'text'}
       thousandSeparator={true}
-      renderText={formattedValue => <Text>{string} {formattedValue}</Text>} // <--- Don't forget this!
+      renderText={formattedValue => <Text style={styles.number}>{string} {formattedValue}</Text>} // <--- Don't forget this!
     />
   );
 }
@@ -30,3 +30,8 @@ export function InputFormatNumber({value,action}) {
     />
   );
 }
+const styles = StyleSheet.create({
+  number: {
+    fontSize:18
+  }
+});
