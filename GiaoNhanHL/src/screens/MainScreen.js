@@ -8,6 +8,9 @@ import DanhSachCanNhanScreen from './GiaoNhan/DanhSachCanNhanScreen';
 import DanhSachDaNhanScreen from './GiaoNhan/DanhSachDaNhanScreen';
 import XacNhanScreen from './GiaoNhan/XacNhanScreen';
 import DNTTScreen from './GiaoNhan/DNTTScreen';
+import ViewTaoDonNghiPhep from '../components/ViewTaoDonNghiPhep';
+import ViewTaoDonXacNhan from '../components/ViewTaoDonXacNhan';
+import ViewTaoDNTT from '../components/DeNghiThanhToan/ViewTaoDNTT';
 
 const Stack = createStackNavigator();
 
@@ -21,6 +24,9 @@ const MainScreen = () => {
         <Stack.Screen name="Danh sách đã nhận" component={DanhSachDaNhanScreen} />
         <Stack.Screen name="Xác nhận giao hàng" component={XacNhanScreen} />
         <Stack.Screen name="Đề nghị thanh toán" component={DNTTScreen} />
+        <Stack.Screen name="Tạo đơn nghỉ phép" component={ViewTaoDonNghiPhep} />
+        <Stack.Screen name="Tạo đơn xác nhận" component={ViewTaoDonXacNhan} />
+        <Stack.Screen name="Tạo đề nghị thanh toán" component={ViewTaoDNTT} />
       </Stack.Navigator>
     );
   }

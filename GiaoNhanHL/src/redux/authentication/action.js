@@ -1,7 +1,9 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import {login} from '../../api/authentication/authentication'
 
-const token_key = 'userToken'
+const token_key = 'userToken';
+const ho_ten = 'hoTen';
+const truc_thuoc = 'trucThuoc';
 
 export const RESTORE_TOKEN = 'RESTORE_TOKEN';
 export const BEFORE_SIGN_IN = 'BEFORE_SIGN_IN';
