@@ -38,7 +38,7 @@ const HomeScreen = ({ navigation }) => {
             },
           })}
           tabBarOptions={{
-            activeTintColor: 'deepskyblue',
+            activeTintColor: '#2179A9',
             inactiveTintColor: 'grey',
             swipeEnabled: true,
           }}>

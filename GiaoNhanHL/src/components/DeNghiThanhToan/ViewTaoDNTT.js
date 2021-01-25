@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  ScrollView
 } from 'react-native';
 import {Card} from 'react-native-elements';
 import {Appbar} from 'react-native-paper';
@@ -59,6 +60,8 @@ const ViewTaoDNTT = ({navigation}) => {
   const [nguoiThuHuong, setNguoiThuHuong] = useState('');
   const [loaiTaiKhoan, setLoaiTaiKhoan] = useState('');
 
+  const [disable, setDisable] = useState(true);
+
   const buttonCreate = () => {
     dispatch(
       PostDeNghiTT(
@@ -81,33 +84,43 @@ const ViewTaoDNTT = ({navigation}) => {
     )
     navigation.goBack();
   }
+
+  useEffect(() => {
+    if (noiDungDNTT != '' && thanhTien != '') {
+      setDisable(false);
+    }
+    if (noiDungDNTT == '' || thanhTien == '') {
+      setDisable(true);
+    }
+  }, [noiDungDNTT, thanhTien]);
+
   return (
-    <View style={styles.container}>
+    <ScrollView>
+  <View style={styles.container}>
       <View style={styles.header}>
-        <Appbar.Header>
+      <Appbar.Header style={styles.colorHeader}>
           <TouchableOpacity
             style={styles.button}
             onPress={() => navigation.goBack()}>
             <Icon
               name="ios-chevron-back-outline"
-              size={26}
+              size={30}
+              color={'#2179A9'}
               style={styles.iconPage}
             />
           </TouchableOpacity>
           <Appbar.Content
             title="Tạo đề nghị thanh toán"
-            color={'#fff'}></Appbar.Content>
+            color={'#2179A9'}
+            style={{marginLeft: -15}}
+            ></Appbar.Content>
         </Appbar.Header>
       </View>
       <View>
-        <Card>
+      <View style={styles.card}>
+
           <View style={styles.flex}>
-            <Icon name="ios-copy-outline" size={26} style={styles.icon} />
-            <Text>{username}</Text>
-         
-          </View>
-          <View style={styles.flex}>
-            <Icon name="ios-copy-outline" size={26} style={styles.icon} />
+            <Icon name="ios-reader-sharp" size={26} style={styles.icon} />
             <TextInput
               style={styles.input}
               onChangeText={setNoiDungDNTT}
@@ -117,14 +130,14 @@ const ViewTaoDNTT = ({navigation}) => {
             />
           </View>
           <View style={styles.flex}>
-            <Icon name="ios-copy-outline" size={26} style={styles.icon} />
+            <Icon name="ios-cash" size={26} style={styles.icon} />
             <DropDownTienMat
               hinhThucThanhToan={hinhThucThanhToan}
               setHinhThucThanhToan={setHinhThucThanhToan}
             />
           </View>
           <View style={styles.flex}>
-            <Icon name="ios-copy-outline" size={26} style={styles.icon} />
+            <Icon name="ios-chatbox-sharp" size={26} style={styles.icon} />
             <TextInput
               style={styles.input}
               onChangeText={setDienGiai}
@@ -134,7 +147,7 @@ const ViewTaoDNTT = ({navigation}) => {
             />
           </View>
           <View style={styles.flex}>
-            <Icon name="ios-copy-outline" size={26} style={styles.icon} />
+            <Icon name="ios-logo-html5" size={26} style={styles.icon} />
             <TextInput
               style={styles.input}
               onChangeText={setThanhTien}
@@ -144,7 +157,7 @@ const ViewTaoDNTT = ({navigation}) => {
             />
           </View>
           <View style={styles.flex}>
-            <Icon name="ios-copy-outline" size={26} style={styles.icon} />
+            <Icon name="ios-newspaper" size={26} style={styles.icon} />
             <TextInput
               style={styles.input}
               onChangeText={setGhiChu}
@@ -153,16 +166,18 @@ const ViewTaoDNTT = ({navigation}) => {
               underlineColorAndroid="transparent"
             />
           </View>
-
-          <Button
-            onPress={() => buttonCreate() }>
-          
-            <Icon name="ios-add" size={26} />
-            <Text>Tạo</Text>
-          </Button>
-        </Card>
+        </View>
+        <Button
+          disabled={disable}
+          onPress={() => buttonCreate()}
+          style={disable ? (styles.buttonAddDisable) : (styles.buttonAddEnable)}>
+          <Icon name="ios-add" size={26} color={'#fff'} />
+          <Text style={{color: '#fff'}}>Tạo</Text>
+        </Button>
       </View>
     </View>
+    </ScrollView>
+  
   );
 };
 
@@ -179,6 +194,7 @@ const styles = StyleSheet.create({
   },
   flex: {
     flexDirection: 'row',
+    marginBottom: 30,
   },
   flexTime: {
     flexDirection: 'row',
@@ -186,13 +202,39 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 10,
+    fontSize: 20,
+    backgroundColor: '#eee',
+    borderRadius: 44 / 2,
+    height: 35,
+    width: 35,
     alignSelf: 'center',
+    textAlignVertical: 'center',
+    textAlign: 'center',
+    color: '#2179A9',
   },
   iconPage: {
-    color: '#fff',
+    marginRight: 5,
+  },
+  card: {
+    marginTop: 20,
+    margin: 15,
+    padding: 15,
+    borderRadius: 5,
+    backgroundColor: '#fff',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 5.25,
+    shadowRadius: 3.84,
+    elevation: 6,
   },
   colorHeader: {
-    backgroundColor: '#00B4FF',
+    shadowColor: '#000',
+    shadowOffset: {width: 1, height: 3},
+    shadowOpacity: 0.2,
+    backgroundColor: 'transparent',
+    elevation: 1,
   },
   input: {
     borderBottomColor: '#ccc',
@@ -215,5 +257,30 @@ const styles = StyleSheet.create({
   button: {
     flexDirection: 'row',
     color: '#fff',
+  },
+  buttonAddEnable: {
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    textAlign: 'center',
+    alignSelf: 'center',
+    borderRadius: 50,
+    marginTop: 20,
+    width: 350,
+    color: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor:'#2179A9'
+  },
+  buttonAddDisable: {
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    textAlign: 'center',
+    alignSelf: 'center',
+    borderRadius: 50,
+    marginTop: 20,
+    width: 350,
+    color: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

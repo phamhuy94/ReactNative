@@ -42,7 +42,13 @@ export default function ViewPayRoll() {
   return (
     <View style={styles.container}>
          <Appbar.Header style={styles.colorHeader}>
-        <Appbar.Content title="Bảng Lương" color={'#fff'} />
+         <Appbar.Action
+        icon="currency-usd-circle-outline"
+        color={'#2179A9'}
+        size={30}
+       
+      />
+        <Appbar.Content title="Bảng Lương" color={'#2179A9'} style={{marginLeft: -15}}/>
       </Appbar.Header>
       <FlatList
         inverted
@@ -172,12 +178,9 @@ export default function ViewPayRoll() {
                 </Text>
               </View>
             </View>
-            <Text style={styles.border}></Text>
-            <View style={styles.timesheet}>
-              <Text style={styles.title}>Tổng thu nhập</Text>
-              <Text style={styles.value}>{item.TONG_THU_NHAP}</Text>
-            </View>
-            <Text style={styles.border}></Text>
+       
+         
+          
             <View style={styles.timesheet}>
               <Text style={styles.title}>Tạm ứng</Text>
               <Text style={styles.value}>{item.TAM_UNG}</Text>
@@ -186,6 +189,10 @@ export default function ViewPayRoll() {
             <View style={styles.timesheet}>
               <Text style={styles.title}>Vay tín dụng</Text>
               <Text style={styles.value}>{item.VAY_TIN_DUNG}</Text>
+            </View>
+            <View style={styles.timesheet}>
+            <Text style={styles.title}>Tổng thu nhập</Text>
+              <Text style={styles.value}>{item.TONG_THU_NHAP}</Text>
             </View>
 
             <View>
@@ -218,8 +225,8 @@ export default function ViewPayRoll() {
               <Text style={styles.value}>{item.LUONG_LAO_CONG}</Text>
             </View>
             <View style={styles.timesheet}>
-              <Text style={styles.title}>Thực lĩnh</Text>
-              <Text style={styles.value}>{item.THUC_LINH}</Text>
+              <Text style={[styles.title,{color:'#2179A9'}]}>Thực lĩnh</Text>
+              <Text style={[styles.value,{color:'#2179A9'}]}>{item.THUC_LINH}</Text>
             </View>
           </View>
         )}
@@ -234,14 +241,18 @@ const styles = StyleSheet.create({
     flex:1
   },
   textHeader: {
-    color: '#000',
+    color: '#2179A9',
     width: '100%',
     alignItems: 'center',
     textAlign: 'center',
-    fontSize: 24,
+    fontSize: 18,
   },
   colorHeader: {
-    backgroundColor: '#00B4FF',
+    shadowColor: '#000',
+    shadowOffset: {width: 1, height: 3},
+    shadowOpacity: 0.2,
+    backgroundColor: 'transparent',
+    elevation: 1,
   },
   homeLayout: {
     margin: 15,
@@ -249,7 +260,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingLeft: 10,
     paddingRight: 10,
-    backgroundColor: 'rgba(0,0,0, 0.3)',
+    backgroundColor:'#f4f4f4',
+    shadowOffset: {width: 2, height: 5},
+    borderColor:'#eee',
+    shadowColor: '#ddd',
+    borderWidth:1,
+    shadowOpacity: 0.8,
+    elevation: 4,
   },
 
   timesheet: {
@@ -262,33 +279,42 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'flex-end',
     textTransform: 'capitalize',
-    color: '#000',
-    fontSize: 20,
+    color: '#444',
+    fontSize: 16,
   },
   titleCenter: {
-    color: '#000',
-    fontSize: 20,
+    color: '#2179A9',
+    fontSize: 18,
     textAlign: 'center',
   },
   border: {
-    borderBottomColor: 'red',
+  
+    borderBottomColor:'#2179A9',
     borderBottomWidth: 1,
+    flex: 1,
+    width:200,
+    textAlign:'center',
+
+    alignSelf: 'center',
+    flexDirection:'row',
+    marginHorizontal: 'auto',
+    marginVertical:0,
   },
   value: {
-    color: '#000',
-    fontSize: 20,
+    color: '#444',
+    fontSize: 16,
     flex: 3,
     flexWrap: 'wrap',
     textAlign: 'right',
   },
   valueLeft: {
     textAlign: 'left',
-    color: '#000',
-    fontSize: 20,
+    color: '#444',
+    fontSize: 1,
   },
   valueGhichu: {
-    color: '#000',
-    fontSize: 20,
+    color: '#444',
+    fontSize: 16,
   },
   flex: {
     flexDirection: 'row',

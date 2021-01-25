@@ -122,7 +122,7 @@ export default function ViewDetail({data}) {
                   <Text style={style3.emailText}>{state.EMAIL}</Text>
                 </View>
                 <View style={style3.emailNameColumn}>
-                  <Text style={style3.emailNameText}>Personal</Text>
+                  {/* <Text style={style3.emailNameText}>Personal</Text> */}
                 </View>
               </View>
             </View>
@@ -145,7 +145,7 @@ export default function ViewDetail({data}) {
                   </Text>
                 </View>
                 <View style={style3.emailNameColumn}>
-                  <Text style={style3.emailNameText}>Personal</Text>
+                  {/* <Text style={style3.emailNameText}>Personal</Text> */}
                 </View>
               </View>
             </View>

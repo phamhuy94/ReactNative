@@ -11,6 +11,7 @@ import {
   RefreshControl,
   FlatList,
   Button,
+  TouchableOpacity,
   ScrollView,
 } from 'react-native';
 import {Card} from 'react-native-elements';
@@ -111,14 +112,20 @@ const ViewDNTTDaHuy = ({
 
   return (
     <View style={styles.container}>
-      <Appbar.Header>
-        <Appbar.Content title="DNTT Đã hủy" color={'#fff'} />
-        <Button
+           <Appbar.Header style={styles.colorHeader}>
+           <Appbar.Action
+        icon="close-octagon-outline"
+        color={'#2179A9'}
+        size={30}
+       
+      />
+        <Appbar.Content title="DNTT Đã hủy" color={'#2179A9'} style={{marginLeft: -15}}/>
+        <TouchableOpacity
           title="Click"
           onPress={() => navigation.navigate('Tạo đề nghị thanh toán')}
         >
-
-        </Button>
+<Icon name="ios-add-circle-outline" size={30} style={styles.iconAdd} /> 
+        </TouchableOpacity>
       </Appbar.Header>
       <ScrollView 
           contentContainerStyle={styles.scrollView}
@@ -135,7 +142,7 @@ const ViewDNTTDaHuy = ({
                 <Card.Title>
                   <Icon
                     name="ios-close-circle-sharp"
-                    size={26}
+                    size={24}
                     style={styles.iconStatusCancel}
                   />
                   <Text style={styles.textHeader}>
@@ -145,31 +152,31 @@ const ViewDNTTDaHuy = ({
                 <View style={styles.flex}>
                   <Icon
                     name="ios-person-circle-outline"
-                    size={26}
+                    size={24}
                     style={styles.icon}
                   />
                   <Text style={styles.textHeader}>{item.HO_VA_TEN}</Text>
                 </View>
                 <View style={styles.flex}>
                   <Icon
-                    name="ios-reader-outline"
-                    size={26}
+                    name="ios-reader"
+                    size={24}
                     style={styles.icon}
                   />
                   <Text style={styles.textHeader}>{item.NOI_DUNG_DNTT}</Text>
                 </View>
                 <View style={styles.flex}>
-                  <Icon name="ios-logo-usd" size={26} style={styles.icon} />
+                  <Icon name="ios-logo-usd" size={24} style={styles.icon} />
                   <Text style={styles.textHeader}>{item.TONG_TIEN}</Text>
                 </View>
                 <View style={styles.flex}>
-                  <Icon name="ios-close-sharp" size={26} style={styles.icon} />
+                  <Icon name="ios-trash-bin" size={24} style={styles.icon} />
                   <Text style={styles.textHeader}>{item.LY_DO_HUY}</Text>
                 </View>
                 <View style={styles.flex}>
                   <Icon
-                    name="ios-person-circle-outline"
-                    size={26}
+                    name="ios-person-circle"
+                    size={24}
                     style={styles.icon}
                   />
                   <Text style={styles.textHeader}>
@@ -178,10 +185,9 @@ const ViewDNTTDaHuy = ({
                 </View>
               </Card>
             </View>
-  
         )}
       />
-              </ScrollView>
+        </ScrollView>
     </View>
   );
 };
@@ -195,14 +201,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   textHeader: {
-    color: '#000',
-    fontSize: 20,
+    color: '#444',
+    fontSize: 16,
     flexShrink: 1,
-    flexWrap: 'wrap',
+  },
+  colorHeader: {
+    shadowColor: '#000',
+    
+    shadowOffset: {width: 1, height: 3},
+    shadowOpacity: 0.2,
+    backgroundColor: 'transparent',
+    elevation: 1,
   },
   icon: {
     marginRight: 10,
-    color: '#000',
+    color: '#2179A9',
+  },
+  iconAdd: {
+    color:'#2179A9',
   },
   iconStatusCheck: {
     color: 'green',

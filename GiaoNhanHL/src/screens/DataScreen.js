@@ -92,6 +92,7 @@ const height = Dimensions.get('window').height; //full height
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+       
     },
     label: {
         padding:10,

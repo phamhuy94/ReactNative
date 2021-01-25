@@ -16,8 +16,8 @@ const datePicker = ({onPress, maxDate}) => {
             animationType={"fade"}
             androidMode={"default"}
             placeHolderText={date}
-            textStyle={{ color: "#000", backgroundColor:'#0b46458f' }}
-            placeHolderTextStyle={{ color: "#000", backgroundColor:'#0f3c3e00',borderBottomWidth:1 }}
+            textStyle={{ color: "#444", borderBottomColor:'#444', borderBottomWidth:1,}}
+            placeHolderTextStyle={{ color: "#444", backgroundColor:'#0f3c3e00',borderBottomWidth:1 }}
             onDateChange={onPress}
             disabled={false}
             />

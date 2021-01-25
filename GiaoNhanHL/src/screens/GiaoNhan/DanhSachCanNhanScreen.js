@@ -57,9 +57,9 @@ function DanhSachCanNhanScreen({navigation}) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Appbar.Header>
+      <Appbar.Header style={styles.colorHeader}>
         <Appbar.BackAction onPress={() => navigation.goBack()} />
-        <Appbar.Content title="Cần nhận" />
+        <Appbar.Content title="Cần nhận" color={'#2179A9'}/>
       </Appbar.Header>
       <ScrollView 
           contentContainerStyle={styles.scrollView}
@@ -119,9 +119,8 @@ function DanhSachCanNhanScreen({navigation}) {
         keyExtractor={(item, index) => index.toString()}
       />
       </ScrollView>
-    
       <View style={styles.center}>
-        <Icon.Button name="check" onPress={() => xacNhan()}>
+        <Icon.Button name="check" onPress={() => xacNhan()} style={styles.button}>
           Xác nhận giao hàng
         </Icon.Button>
       </View>
@@ -131,6 +130,7 @@ function DanhSachCanNhanScreen({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor:'#f0f2f2',
   },
   flex: {
     flexDirection: 'row',
@@ -141,6 +141,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+
   flex1: {
     flexDirection: 'row',
   },
@@ -154,13 +155,23 @@ const styles = StyleSheet.create({
     color: '#aaa',
     marginRight: 5,
   },
+  textHeader: {
+    color: '#444',
+    fontSize: 16,
+    flexShrink: 1,
+  },
+  colorHeader: {
+    shadowColor: '#000',
+    shadowOffset: {width: 1, height: 3},
+    shadowOpacity: 0.2,
+    backgroundColor: 'transparent',
+    elevation: 1,
+  },
   header: {
     fontSize: 18,
-    color: '#000',
+    color: '#2179A9',
     paddingHorizontal: 10,
     flex: 1,
-
-    // textTransform:'ca'
   },
   company: {
     fontSize: 18,
@@ -192,8 +203,11 @@ const styles = StyleSheet.create({
   },
   center: {
     flexDirection: 'row',
-    textAlign: 'center',
     justifyContent: 'center',
+
   },
+  button: {
+    backgroundColor:'#2179A9'
+  }
 });
 export default DanhSachCanNhanScreen;
