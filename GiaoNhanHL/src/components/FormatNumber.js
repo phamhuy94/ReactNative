@@ -32,6 +32,7 @@ export function InputFormatNumber({value,action}) {
 }
 const styles = StyleSheet.create({
   number: {
-    fontSize:18
+    fontSize:16,
+    color:'#444'
   }
 });

@@ -9,6 +9,7 @@ import {
   Text,
   StyleSheet,
   RefreshControl,
+  TouchableOpacity,
   FlatList,
   Button,
   ScrollView,
@@ -110,14 +111,20 @@ const ViewDNTTDaThanhToan = ({
 
   return (
     <View style={styles.container}>
-      <Appbar.Header>
-        <Appbar.Content title="DNTT Đã thanh toán" color={'#fff'} />
-        <Button
+      <Appbar.Header style={styles.colorHeader}>
+      <Appbar.Action
+        icon="checkbox-marked-outline"
+        color={'#2179A9'}
+        size={30}
+       
+      />
+        <Appbar.Content title="DNTT Đã thanh toán" color={'#2179A9'} style={{marginLeft: -15}}/>
+        <TouchableOpacity
           title="Click"
           onPress={() => navigation.navigate('Tạo đề nghị thanh toán')}
         >
-
-        </Button>
+<Icon name="ios-add-circle-outline" size={30} style={styles.iconAdd} /> 
+        </TouchableOpacity>
       </Appbar.Header>
       <ScrollView 
           contentContainerStyle={styles.scrollView}
@@ -190,14 +197,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   textHeader: {
-    color: '#000',
-    fontSize: 20,
+    color: '#444',
+    fontSize: 16,
     flexShrink: 1,
-    flexWrap: 'wrap',
+  },
+  colorHeader: {
+    shadowColor: '#000',
+    
+    shadowOffset: {width: 1, height: 3},
+    shadowOpacity: 0.2,
+    backgroundColor: 'transparent',
+    elevation: 1,
   },
   icon: {
     marginRight: 10,
-    color: '#000',
+    color: '#2179A9',
+  },
+  iconAdd: {
+    color:'#2179A9',
   },
   iconStatusCheck: {
     color: 'green',

@@ -26,5 +26,6 @@ const styles = StyleSheet.create({
     },
   picker: {
     color: '#000',
+    
   },
 });

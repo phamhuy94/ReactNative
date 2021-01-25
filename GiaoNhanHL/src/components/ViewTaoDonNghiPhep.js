@@ -4,8 +4,10 @@ import {
   View,
   Text,
   StyleSheet,
+  ScrollView,
   TextInput,
   TouchableOpacity,
+  Dimensions
 } from 'react-native';
 import {PostDonXinNghiNV, GetDonXinNghiNV} from '../redux/nghiPhep/action';
 import {Card} from 'react-native-elements';
@@ -17,86 +19,126 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {Button} from 'native-base';
 import moment from 'moment';
 import AsyncStorage from '@react-native-community/async-storage';
+const {width, height} = Dimensions.get('window');
 
 const ViewTaoDonNghiPhep = ({navigation}) => {
   const dispatch = useDispatch();
-    //lay username
-    const [username, setUsername] = useState();
-    const getToken = async () => {
-      const username = await AsyncStorage.getItem('userToken');
-      setUsername(username);
-    };
-    useEffect(() => {
-      getToken();
-    }, []);
+  //lay username
+  const [username, setUsername] = useState();
+  const getToken = async () => {
+    const username = await AsyncStorage.getItem('userToken');
+    setUsername(username);
+  };
+  useEffect(() => {
+    getToken();
+  }, []);
 
-    //useState
-    const [lyDoNghi, setLydoNghi] = useState('');
-    const [loaiNghiPhep, setLoaiNghiPhep] = useState('Nghỉ thường');
-    const [dateTime, setDateTime] = useState(moment(new Date()).format('DD/MM/YYYY'));
-    const [tongSoNgay, setTongSoNgay] = useState('');
-    const [trucThuoc, setTrucThuoc] = useState('HOPLONG');
-    const [dateTimeRow, setDateTimeRow] = useState(new Date());
-    const [day, setDay] = useState('Cả ngày');
 
-    const buttonCreate = () => {
-      dispatch(PostDonXinNghiNV(username, lyDoNghi, loaiNghiPhep, dateTime, tongSoNgay, trucThuoc, dateTimeRow, day));
-      navigation.navigate('Xin nghỉ phép');
-      
+  //useState
+  const [lyDoNghi, setLydoNghi] = useState('');
+  const [loaiNghiPhep, setLoaiNghiPhep] = useState('Nghỉ thường');
+  const [dateTime, setDateTime] = useState(
+    moment(new Date()).format('DD/MM/YYYY'),
+  );
+  const [tongSoNgay, setTongSoNgay] = useState('');
+  const [trucThuoc, setTrucThuoc] = useState('HOPLONG');
+  const [dateTimeRow, setDateTimeRow] = useState(new Date());
+  const [day, setDay] = useState('Cả ngày');
+  const [disable, setDisable] = useState(true);
+
+  const buttonCreate = () => {
+    dispatch(
+      PostDonXinNghiNV(
+        username,
+        lyDoNghi,
+        loaiNghiPhep,
+        dateTime,
+        tongSoNgay,
+        trucThuoc,
+        dateTimeRow,
+        day,
+      ),
+    );
+    navigation.navigate('Xin nghỉ phép');
+  };
+
+  useEffect(() => {
+    if (lyDoNghi != '' && tongSoNgay != '') {
+      setDisable(false);
     }
-    
+    if (lyDoNghi == '' || tongSoNgay == '') {
+      setDisable(true);
+    }
+  }, [lyDoNghi, tongSoNgay]);
 
   return (
-    <View style={styles.container}>
+    <ScrollView>
+          <View style={styles.container}>
       <View style={styles.header}>
         <Appbar.Header style={styles.colorHeader}>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigation.navigate('Home')}>
+            onPress={() => navigation.goBack()}>
             <Icon
               name="ios-chevron-back-outline"
-              size={26}
+              size={30}
+              color={'#2179A9'}
               style={styles.iconPage}
             />
           </TouchableOpacity>
-          <Appbar.Content title="Tạo đơn nghỉ phép" color={'#fff'} />
+          {/* <Appbar.BackAction underlayColor='#fff' onPress={() => navigation.goBack()} style={styles.iconBack}/> */}
+          <Appbar.Content
+            title="Tạo đơn nghỉ phép"
+            color={'#2179A9'}
+            style={{marginLeft: -15}}
+          />
         </Appbar.Header>
       </View>
       <View>
-        <Card>
+        <View style={styles.card}>
           <View style={styles.flex}>
-            <Icon name="ios-calendar-outline" size={26} style={styles.icon} />
-            <Text style={styles.textHeader}>{dateTime}</Text>
+            <Icon name="ios-calendar" size={26} style={styles.icon} />
+            <Text
+              style={[
+                styles.textHeader,
+                {
+                  color: '#000',
+                  marginLeft: 8,
+                  alignItems: 'center',
+                  alignSelf: 'center',
+                  alignContent: 'center',
+                },
+              ]}>
+              {dateTime}
+            </Text>
           </View>
           <View style={styles.flex}>
-            <Icon name="md-ribbon-outline" size={26} style={styles.icon} />
+            <Icon name="ios-chatbox-ellipses" size={26} style={styles.icon} />
             <View style={styles.dropdown}>
-              <PickNghiPhep 
+              <PickNghiPhep
                 loaiNghiPhep={loaiNghiPhep}
                 setLoaiNghiPhep={setLoaiNghiPhep}
               />
             </View>
           </View>
           <View style={styles.flexTime}>
-            <View style={styles.flex}>
-              <Icon name="today-outline" size={26} style={styles.icon} />
+            <View style={[styles.flex, {marginRight: 15}]}>
+              <Icon name="today" size={26} style={styles.icon} />
               <DatePicker
                 onPress={(text) => setDateTimeRow(text)}
                 maxDate={new Date(2050, 1, 1)}
-                style={styles.datepicker}
+                style={[styles.datepicker, {width: 150}]}
               />
             </View>
 
-            <View>
-              <PickThoiDiem 
-                day = {day}
-                setDay = {setDay}
-              />
+            <View style={styles.flex}>
+              <Icon name="today" size={26} style={styles.icon} />
+              <PickThoiDiem day={day} setDay={setDay} />
             </View>
           </View>
 
           <View style={styles.flex}>
-            <Icon name="ios-copy-outline" size={26} style={styles.icon} />
+            <Icon name="ios-copy" size={26} style={styles.icon} />
             <TextInput
               style={styles.input}
               onChangeText={setLydoNghi}
@@ -106,7 +148,7 @@ const ViewTaoDonNghiPhep = ({navigation}) => {
             />
           </View>
           <View style={styles.flex}>
-            <Icon name="ios-flame-outline" size={26} style={styles.icon} />
+            <Icon name="ios-navigate-circle" size={26} style={styles.icon} />
             <TextInput
               style={styles.input}
               placeholder="Nhập số ngày nghỉ"
@@ -117,42 +159,71 @@ const ViewTaoDonNghiPhep = ({navigation}) => {
               underlineColorAndroid="transparent"
             />
           </View>
-          <Button onPress={() => buttonCreate()}>
-            <Icon name="ios-add" size={26} />
-            <Text>Tạo</Text>
-          </Button>
-        </Card>
+        </View>
+        <Button
+          disabled={disable}
+          onPress={() => buttonCreate()}
+          style={disable ? (styles.buttonAddDisable) : (styles.buttonAddEnable)}>
+          <Icon name="ios-add" size={26} color={'#fff'} />
+          <Text style={{color: '#fff'}}>Tạo</Text>
+        </Button>
       </View>
     </View>
+    </ScrollView>
+
   );
 };
 export default ViewTaoDonNghiPhep;
-  
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+
   textHeader: {
-    color: '#000',
-    fontSize: 20,
+    color: '#444',
+    fontSize: 18,
     flexShrink: 1,
   },
   flex: {
     flexDirection: 'row',
+    marginBottom: 30,
   },
   flexTime: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
   },
   icon: {
     marginRight: 10,
+    fontSize: 20,
+    backgroundColor: '#eee',
+    borderRadius: 44 / 2,
+    height: 35,
+    width: 35,
     alignSelf: 'center',
+    textAlignVertical: 'center',
+    textAlign: 'center',
+    color: '#2179A9',
   },
-  iconPage: {
-    color: '#fff',
+  card: {
+    marginTop: 20,
+    margin: 15,
+    padding: 15,
+    borderRadius: 5,
+    backgroundColor: '#fff',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 5.25,
+    shadowRadius: 3.84,
+    elevation: 6,
   },
   colorHeader: {
-    backgroundColor: '#00B4FF',
+    shadowColor: '#000',
+    shadowOffset: {width: 1, height: 3},
+    shadowOpacity: 0.2,
+    backgroundColor: 'transparent',
+    elevation: 1,
   },
   input: {
     borderBottomColor: '#ccc',
@@ -169,11 +240,39 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   datepicker: {
-    color: '#000',
-    fontSize: 20,
+    color: '#2179A9',
+    fontSize: 18,
   },
   button: {
     flexDirection: 'row',
     color: '#fff',
+  },
+  buttonAddEnable: {
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    textAlign: 'center',
+    alignSelf: 'center',
+    borderRadius: 50,
+    marginTop: 20,
+    width: 350,
+    color: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor:'#2179A9'
+  },
+  buttonAddDisable: {
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    textAlign: 'center',
+    alignSelf: 'center',
+    borderRadius: 50,
+    marginTop: 20,
+    width: 350,
+    color: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  iconPage: {
+    marginRight: 5,
   },
 });

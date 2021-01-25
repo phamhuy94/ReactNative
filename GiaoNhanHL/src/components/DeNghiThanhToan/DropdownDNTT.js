@@ -28,6 +28,6 @@ const styles = StyleSheet.create({
   },
   picker: {
     color: '#000',
-    width: 150,
+    width: 200,
   },
 });

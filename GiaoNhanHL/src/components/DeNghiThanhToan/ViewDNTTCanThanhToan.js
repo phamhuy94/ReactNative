@@ -1,21 +1,30 @@
-import React, {useEffect,useCallback,useState} from 'react';
+import React, {useEffect, useCallback, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   GetDeNghiTTNVCanThanhToan,
   DemListDeNghiTTNVCanThanhToan,
 } from '../../redux/DNTT/action';
-import {View, Text, FlatList, ScrollView, StyleSheet,Button,RefreshControl} from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  ScrollView,
+  StyleSheet,
+  Button,
+  RefreshControl,
+} from 'react-native';
 import {Card} from 'react-native-elements';
 import {Appbar} from 'react-native-paper';
 import moment from 'moment';
 import AsyncStorage from '@react-native-community/async-storage';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const wait = (timeout) => {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     setTimeout(resolve, timeout);
   });
-}
+};
 const ViewDNTTCanThanhToan = ({
   isadmin,
   username,
@@ -29,7 +38,7 @@ const ViewDNTTCanThanhToan = ({
   tukhoa5,
   sotrang,
   sobanghi,
-  navigation
+  navigation,
 }) => {
   const dispatch = useDispatch();
 
@@ -98,77 +107,134 @@ const ViewDNTTCanThanhToan = ({
       ),
     );
   }, []);
-  const checkStatus = (TRUONG_PHONG_DA_DUYET, TRUONG_PHONG_HUY_DUYET, id) => {
-    if (TRUONG_PHONG_DA_DUYET === true && TRUONG_PHONG_HUY_DUYET === false) {
+  const checkStatus = (
+    DA_THANH_TOAN,
+    DA_DUYET,
+    DA_HUY,
+    TRUONG_PHONG_DA_DUYET,
+    TRUONG_PHONG_HUY_DUYET,
+    id,
+  ) => {
+    if (
+      DA_THANH_TOAN == true &&
+      ((TRUONG_PHONG_DA_DUYET === false && TRUONG_PHONG_HUY_DUYET === true) ||
+        (DA_DUYET === false && DA_HUY === true) ||
+        (TRUONG_PHONG_DA_DUYET == true && DA_HUY == true))
+    ) {
       return (
         <Icon
-          name="ios-checkmark-circle"
-          size={26}
+          name="ios-refresh-circle"
+          size={24}
           style={styles.iconStatusCheck}
         />
       );
     }
-    if (TRUONG_PHONG_DA_DUYET === false && TRUONG_PHONG_HUY_DUYET === false) {
+    if (DA_THANH_TOAN == true) {
       return (
         <View>
           <Icon
-            name="ios-refresh-circle"
-            size={26}
+           name="ios-refresh-circle"
+            size={24}
             style={styles.iconStatusWait}
           />
-          <Button onPress={() => deleteDNTTCanDuyet(id)} title="press">
-            <Icon name="trash" size={26} style={styles.iconStatusWait} />
-          </Button>
         </View>
       );
     }
-    if (TRUONG_PHONG_HUY_DUYET !== false) {
+    if (
+      DA_THANH_TOAN == false &&
+      ((TRUONG_PHONG_DA_DUYET === false && TRUONG_PHONG_HUY_DUYET === true) ||
+        (DA_DUYET === false && DA_HUY === true) ||
+        (TRUONG_PHONG_DA_DUYET == true && DA_HUY == true))
+    ) {
       return (
         <Icon
           name="ios-close-circle-sharp"
-          size={26}
+          size={24}
           style={styles.iconStatusCancel}
         />
       );
     }
   };
   return (
-    <View  style={styles.container}>
-      <Appbar.Header>
-        <Appbar.Content title="DNTT Cần thanh toán" color={'#fff'} />
-        <Button
+    <View style={styles.container}>
+      <Appbar.Header style={styles.colorHeader}>
+        <Appbar.Action
+          icon="card-account-mail-outline"
+          color={'#2179A9'}
+          size={30}
+        />
+        <Appbar.Content
+          title="DNTT Cần thanh toán"
+          color={'#2179A9'}
+          style={{marginLeft: -15}}
+        />
+        <TouchableOpacity
           title="Click"
-          onPress={() => navigation.navigate('Tạo đề nghị thanh toán')}
-        >
-
-        </Button>
+          onPress={() => navigation.navigate('Tạo đề nghị thanh toán')}>
+          <Icon
+            name="ios-add-circle-outline"
+            size={30}
+            style={styles.iconAdd}
+          />
+        </TouchableOpacity>
       </Appbar.Header>
       <ScrollView
         contentContainerStyle={styles.scrollView}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-      >
-      <FlatList
-        data={getDeNghiTTNVCanThanhToan}
-        renderItem={({item, index}) => (
-    
+        }>
+        <FlatList
+          data={getDeNghiTTNVCanThanhToan}
+          renderItem={({item, index}) => (
             <View>
               <Card>
-                <Card.Title>
-                  {checkStatus(
-                    item.TRUONG_PHONG_DA_DUYET,
-                    item.TRUONG_PHONG_HUY_DUYET,
-                    item.MA_SO_DN,
-                  )}
-                  <Text style={styles.textHeader}>
-                    {moment(item.NGAY_DN).format('DD/MM/YYYY')}
-                  </Text>
+                <Card.Title style={styles.flex}>
+                  <View
+                    style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                    <View style={styles.icon}>
+                      {checkStatus(
+                        item.TRUONG_PHONG_DA_DUYET,
+                        item.TRUONG_PHONG_HUY_DUYET,
+
+                        item.MA_SO_DN,
+                      )}
+                    </View>
+                    <Text style={styles.textHeader}>
+                      {moment(item.NGAY_DN).format('DD/MM/YYYY')}
+                    </Text>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'flex-end',
+                      }}>
+                     {/* {item.DA_THANH_TOAN == false ? (
+                        <View
+                          style={{
+                            position: 'absolute',
+                            right: -100,
+                            flexDirection: 'row',
+                            justifyContent: 'flex-end',
+                            alignContent: 'flex-end',
+                          }}>
+                          <TouchableOpacity
+                            onPress={() => deleteDNTTCanDuyet(id)}>
+                            <Icon
+                              name="trash"
+                              size={24}
+                              style={styles.iconTrash}
+                            />
+                          </TouchableOpacity>
+                        </View>
+                      ) : (
+                        <Text></Text>
+                      )} */}
+                    </View>
+                  </View>
                 </Card.Title>
                 <View style={styles.flex}>
                   <Icon
                     name="ios-person-circle-outline"
-                    size={26}
+                    size={24}
                     style={styles.icon}
                   />
                   <Text style={styles.textHeader}>{item.HO_VA_TEN}</Text>
@@ -176,19 +242,19 @@ const ViewDNTTCanThanhToan = ({
                 <View style={styles.flex}>
                   <Icon
                     name="ios-reader-outline"
-                    size={26}
+                    size={24}
                     style={styles.icon}
                   />
                   <Text style={styles.textHeader}>{item.NOI_DUNG_DNTT}</Text>
                 </View>
                 <View style={styles.flex}>
-                  <Icon name="ios-logo-usd" size={26} style={styles.icon} />
+                  <Icon name="ios-logo-usd" size={24} style={styles.icon} />
                   <Text style={styles.textHeader}>{item.TONG_TIEN}</Text>
                 </View>
                 <View style={styles.flex}>
                   <Icon
                     name="ios-person-circle-outline"
-                    size={26}
+                    size={24}
                     style={styles.icon}
                   />
                   <Text style={styles.textHeader}>
@@ -197,10 +263,9 @@ const ViewDNTTCanThanhToan = ({
                 </View>
               </Card>
             </View>
-      
-        )}
-      />
-          </ScrollView>
+          )}
+        />
+      </ScrollView>
     </View>
   );
 };
@@ -209,26 +274,38 @@ export default ViewDNTTCanThanhToan;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
- 
   },
   flex: {
-    flexDirection:'row'
+    flexDirection: 'row',
   },
   textHeader: {
-    color: '#000',
-    fontSize: 20,
+    color: '#444',
+    fontSize: 16,
     flexShrink: 1,
-    flexWrap: 'wrap',
+  },
+  colorHeader: {
+    shadowColor: '#000',
+    
+    shadowOffset: {width: 1, height: 3},
+    shadowOpacity: 0.2,
+    backgroundColor: 'transparent',
+    elevation: 1,
+  },
+  iconAdd: {
+    color: '#2179A9',
   },
   icon: {
     marginRight: 10,
-    color: '#000',
+    color: '#2179A9',
   },
   iconStatusCheck: {
     color: 'green',
   },
   iconStatusWait: {
-    color: 'deepskyblue',
+    color: '#2179A9',
+  },
+  iconTrash: {
+    color: '#2179A9',
   },
   iconStatusCancel: {
     color: 'red',

@@ -1,4 +1,4 @@
-import React, {useState, useEffect,useCallback } from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   GetDonXinNghiNV,
@@ -25,10 +25,10 @@ import moment from 'moment';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const wait = (timeout) => {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     setTimeout(resolve, timeout);
   });
-}
+};
 
 const ViewNghiPhep = ({navigation}) => {
   const dispatch = useDispatch();
@@ -92,7 +92,7 @@ const ViewNghiPhep = ({navigation}) => {
         sobanghi,
       ),
     );
-  }, [username,sotrang]);
+  }, [username, sotrang]);
 
   useEffect(() => {
     dispatch(
@@ -139,37 +139,59 @@ const ViewNghiPhep = ({navigation}) => {
   //       )
   //   }
 
-  const checkIcon = (TRUONG_PHONG_DA_DUYET, TRUONG_PHONG_HUY_DUYET, id) => {
+  const checkIcon = (
+    TRUONG_PHONG_DA_DUYET,
+    TRUONG_PHONG_HUY_DUYET,
+    id,
+    NGAY_LAM_DON,
+  ) => {
     if (TRUONG_PHONG_DA_DUYET === true && TRUONG_PHONG_HUY_DUYET === false) {
       return (
-        <Icon
-          name="ios-checkmark-circle"
-          size={26}
-          style={styles.iconStatusCheck}
-        />
+        <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+          <Icon
+            name="ios-checkmark-circle"
+            size={24}
+            style={styles.iconStatusCheck}
+          />
+          <Text style={styles.textHeader}>
+            {moment(NGAY_LAM_DON).format('DD/MM/YYYY')}
+          </Text>
+        </View>
       );
     }
     if (TRUONG_PHONG_DA_DUYET === false && TRUONG_PHONG_HUY_DUYET === false) {
       return (
-        <View>
-          <Icon
-            name="ios-refresh-circle"
-            size={26}
-            style={styles.iconStatusWait}
-          />
-          <Button onPress={() => deleteDNP(id)} title="press">
-            <Icon name="trash" size={26} style={styles.iconStatusWait} />
-          </Button>
+        <View style={{flexDirection: 'row', justifyContent: 'flex-end',marginLeft:100}}>
+          <View style={{flexDirection: 'row',flex:1,}}>
+            <Icon
+              name="ios-refresh-circle"
+              size={24}
+              style={styles.iconStatusWait}
+            />
+            <Text style={styles.textHeader}>
+              {moment(NGAY_LAM_DON).format('DD/MM/YYYY')}
+            </Text>
+          </View>
+          <View style={{marginLeft:100,}}>
+            <TouchableOpacity onPress={() => deleteDNP(id)} >
+              <Icon name="trash" size={24} style={styles.iconStatusWait} />
+            </TouchableOpacity>
+          </View>
         </View>
       );
     }
     if (TRUONG_PHONG_HUY_DUYET !== false) {
       return (
-        <Icon
-          name="ios-close-circle-sharp"
-          size={26}
-          style={styles.iconStatusCancel}
-        />
+        <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+          <Icon
+            name="ios-close-circle-sharp"
+            size={24}
+            style={styles.iconStatusCancel}
+          />
+          <Text style={styles.textHeader}>
+            {moment(NGAY_LAM_DON).format('DD/MM/YYYY')}
+          </Text>
+        </View>
       );
     }
   };
@@ -178,13 +200,25 @@ const ViewNghiPhep = ({navigation}) => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Appbar.Header style={styles.colorHeader}>
-          <Appbar.Content title="Đơn xin nghỉ phép" color={'#fff'} />
-          <Button
+          <Appbar.Action
+            icon="newspaper-variant-outline"
+            color={'#2179A9'}
+            size={30}
+          />
+          <Appbar.Content
+            title="Đơn xin nghỉ phép"
+            color={'#2179A9'}
+            style={{marginLeft: -15}}
+          />
+          <TouchableOpacity
             title="Click"
-            onPress={() => navigation.navigate('Tạo đơn nghỉ phép')}
-            >
-            {/* <Icon name="ios-add-circle-outline" size={26} style={styles.iconAdd} /> */}
-          </Button>
+            onPress={() => navigation.navigate('Tạo đơn nghỉ phép')}>
+            <Icon
+              name="ios-add-circle-outline"
+              size={30}
+              style={styles.iconAdd}
+            />
+          </TouchableOpacity>
         </Appbar.Header>
         <Card>
           <View style={styles.flex}>
@@ -199,93 +233,107 @@ const ViewNghiPhep = ({navigation}) => {
           </View>
         </Card>
       </View>
-      <ScrollView 
-          contentContainerStyle={styles.scrollView}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }
-          >
-      <FlatList
-        data={getListDonXinNghiNV}
-        renderItem={({item, index}) => (
-      
-            <View>
-              <Card>
-                <Card.Title style={styles.flex}>
-                  {checkIcon(
-                    item.TRUONG_PHONG_DA_DUYET,
-                    item.TRUONG_PHONG_HUY_DUYET,
-                    item.MA_SO_XIN_NGHI,
-                  )}
+      <ScrollView
+        contentContainerStyle={styles.scrollView}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
+        <FlatList
+          data={getListDonXinNghiNV}
+          renderItem={({item, index}) => (
+            <View style={styles.card}>
+              <Card.Title>
+              
+                  <View style={styles.icon}>
+                    {checkIcon(
+                      item.TRUONG_PHONG_DA_DUYET,
+                      item.TRUONG_PHONG_HUY_DUYET,
+                      item.MA_SO_XIN_NGHI,
+                      item.NGAY_LAM_DON,
+                    )}
+                  </View>
 
-                  <Text style={styles.textHeader}>
-                    {moment(item.NGAY_LAM_DON).format('DD/MM/YYYY')}
-                  </Text>
-                </Card.Title>
-
-                <View style={styles.flex}>
-                  <Icon
-                    name="ios-reader-outline"
-                    size={26}
-                    style={styles.icon}
-                  />
-                  <Text style={styles.textHeader}>{item.LOAI_NGHI_PHEP}</Text>
-                </View>
-                <View style={styles.flex}>
-                  <Icon name="ios-time-outline" size={26} style={styles.icon} />
-                  <Text style={styles.textHeader}>{item.THOI_GIAN_NGHI}</Text>
-                </View>
-
-                <View style={styles.flex}>
-                  <Icon name="ios-file-tray" size={26} style={styles.icon} />
-                  <Text style={styles.textHeader}>
-                    {item.TONG_SO_NGAY_NGHI}
-                  </Text>
-                </View>
-                <View style={styles.flex}>
-                  <Icon
-                    name="ios-chatbox-outline"
-                    size={26}
-                    style={styles.icon}
-                  />
-                  <Text style={styles.textHeader}>{item.LY_DO_XIN_NGHI}</Text>
-                </View>
-              </Card>
-            </View>
-     
-        )}
-      />
-      <View style={styles.flexCenter}>
+                  {/* <View
+                    style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                    {item.TRUONG_PHONG_DA_DUYET === false &&
+                    item.TRUONG_PHONG_HUY_DUYET === false ? (
+                      <View
+                        style={{
+                          position: 'absolute',
+                          right: -100,
+                          flexDirection: 'row',
+                          justifyContent: 'flex-end',
+                          alignContent: 'flex-end',
+                        }}>
+                        <TouchableOpacity onPress={() => deleteDNP(item.MA_SO_XIN_NGHI)}>
+                          <Icon
+                            name="trash"
+                            size={24}
+                            style={styles.iconStatusWait}
+                          />
+                        </TouchableOpacity>
+                      </View>
+                    ) : (
+                      <Text></Text>
+                    )}
+                  </View> */}
         
-        <TouchableOpacity
-          style={[
-            styles.button,
-            {backgroundColor: sotrang <= 1 ? '#aaa' : '#00B4FF'},
-          ]}
-          disabled={sotrang <= 1}
-          onPress={() => {
-            setSotrang(sotrang - 1);
-          }}>
-          <Icon name="ios-chevron-back" size={26} style={styles.iconPage} />
-        </TouchableOpacity>
-        <Text>&nbsp;&nbsp;</Text>
-        <TouchableOpacity
-          style={[
-            styles.button,
-            {
-              backgroundColor:
-                sotrang > parseFloat(getTongSoNgayNghiNV) / 15 ? '#aaa' : '#00B4FF',
-            },
-          ]}
-          onPress={() => {
-            setSotrang(sotrang + 1);
-          }}>
-          <Icon name="ios-chevron-forward" size={26} style={styles.iconPage} />
-        </TouchableOpacity>
-      </View>
+              </Card.Title>
+
+              <View style={styles.flex}>
+                <Icon name="ios-bookmark-sharp" size={24} style={styles.icon} />
+                <Text style={styles.textHeader}>{item.LOAI_NGHI_PHEP}</Text>
+              </View>
+              <View style={styles.flex}>
+                <Icon name="ios-time" size={24} style={styles.icon} />
+                <Text style={styles.textHeader}>{item.THOI_GIAN_NGHI}</Text>
+              </View>
+              <View style={styles.flex}>
+                <Icon name="md-alert-circle" size={24} style={styles.icon} />
+                <Text style={styles.textHeader}>{item.TONG_SO_NGAY_NGHI}</Text>
+              </View>
+              <View style={styles.flex}>
+                <Icon name="ios-reader" size={24} style={styles.icon} />
+                <Text style={styles.textHeader}>{item.LY_DO_XIN_NGHI}</Text>
+              </View>
+            </View>
+          )}
+        />
+        <View style={styles.flexCenter}>
+          <TouchableOpacity
+            style={[
+              styles.button,
+              {backgroundColor: sotrang <= 1 ? '#aaa' : '#2179A9'},
+            ]}
+            disabled={sotrang <= 1}
+            onPress={() => {
+              setSotrang(sotrang - 1);
+            }}>
+            <Icon name="ios-chevron-back" size={24} style={styles.iconPage} />
+          </TouchableOpacity>
+          <Text>&nbsp;&nbsp;</Text>
+          <TouchableOpacity
+            style={[
+              styles.button,
+              {
+                backgroundColor:
+                  sotrang > parseFloat(getTongSoNgayNghiNV) / 15
+                    ? '#aaa'
+                    : '#2179A9',
+              },
+            ]}
+            onPress={() => {
+              setSotrang(sotrang + 1);
+            }}>
+            <Icon
+              name="ios-chevron-forward"
+              size={24}
+              style={styles.iconPage}
+            />
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </View>
- 
   );
 };
 const width = Dimensions.get('window').width; //full width
@@ -294,43 +342,57 @@ const height = Dimensions.get('window').height; //full height
 export default ViewNghiPhep;
 
 const styles = StyleSheet.create({
-  // header: {
-  //     flex:1,
-  // },
+  position: {
+    zIndex: 1,
+    flex: 3,
+    left: 0,
+  },
+  header: {},
   container: {
-    flex:1,
-},
+    flex: 1,
+    backgroundColor: '#f0f2f2',
+  },
   flexCenter: {
     flexDirection: 'row',
     justifyContent: 'center',
   },
   textHeader: {
-    color: '#000',
-    fontSize: 20,
+    color: '#444',
+    fontSize: 16,
     flexShrink: 1,
   },
-  colorHeader: {
-    backgroundColor: '#00B4FF',
+  flex: {
+    flex: 1,
+    flexDirection: 'row',
   },
+  colorHeader: {
+    shadowColor: '#000',
+    shadowOffset: {width: 1, height: 3},
+    shadowOpacity: 0.2,
+    backgroundColor: 'transparent',
+    elevation: 1,
+  },
+
   icon: {
-    marginRight: 10,
-    color: '#000',
+    marginRight: 5,
+    color: '#2179A9',
+  },
+  iconAdd: {
+    color: '#2179A9',
   },
   iconStatusCheck: {
     color: 'green',
   },
   iconStatusWait: {
-    color: 'deepskyblue',
+    color: '#2179A9',
   },
   iconStatusCancel: {
     color: 'red',
   },
-  iconAdd: {
+
+  iconPage: {
     color: '#fff',
   },
-  iconPage: {
-    color:'#fff'
-},
   flex: {
     flexDirection: 'row',
   },
@@ -340,5 +402,19 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  card: {
+    marginTop: 20,
+    margin: 15,
+    padding: 15,
+    borderRadius: 5,
+    backgroundColor: '#fff',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 5.25,
+    shadowRadius: 3.84,
+    elevation: 6,
   },
 });

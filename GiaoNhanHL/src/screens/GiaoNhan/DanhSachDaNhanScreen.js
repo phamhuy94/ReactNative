@@ -1,4 +1,4 @@
-import React, {useEffect, useState,useCallback} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {
   View,
   Text,
@@ -23,10 +23,10 @@ import {Appbar} from 'react-native-paper';
 const listSuCo = ['Sai mã', 'Thiếu mã', 'Thừa mã'];
 
 const wait = (timeout) => {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     setTimeout(resolve, timeout);
   });
-}
+};
 
 function DanhSachDaNhanScreen({navigation}) {
   const dispatch = useDispatch();
@@ -101,7 +101,7 @@ function DanhSachDaNhanScreen({navigation}) {
     setRefreshing(true);
     wait(500).then(() => setRefreshing(false));
     dispatch(getListDaNhan());
-  },[]);
+  }, []);
 
   useEffect(() => {
     dispatch(getListDaNhan());
@@ -110,88 +110,110 @@ function DanhSachDaNhanScreen({navigation}) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Appbar.Header>
+      <Appbar.Header style={styles.colorHeader}>
         <Appbar.BackAction onPress={() => navigation.goBack()} />
-        <Appbar.Content title="Đang nhận" />
+        <Appbar.Content title="Đang nhận" color={'#2179A9'} />
       </Appbar.Header>
-      <ScrollView 
-          contentContainerStyle={styles.scrollView}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }
-          >
-   <FlatList
-        data={listDaNhan}
-        renderItem={({index, item}) => (
-          <View
-            style={[
-              styles.item,
-              {backgroundColor: index % 2 == 0 ? '#f2f2f2' : '#fff'},
-            ]}>
-            <View style={styles.flexCheck}>
-              <CheckBox
-                style={styles.checkbox}
-                onPress={() => press(item)}
-                checked={item.isSelected}
-              />
-              <Text style={styles.header}>{item.SO_CHUNG_TU}</Text>
-            </View>
-
-            <Text style={styles.company}>{item.TEN_CONG_TY}</Text>
-
-            {item.DIA_CHI_GIAO_HANG ? (
-              <View style={styles.flex}>
-                <Icon
-                  name="ios-location-outline"
-                  size={20}
-                  style={styles.icon}
+      <ScrollView
+        contentContainerStyle={styles.scrollView}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
+        <FlatList
+          data={listDaNhan}
+          renderItem={({index, item}) => (
+            <View
+              style={[
+                styles.item,
+                {backgroundColor: index % 2 == 0 ? '#f2f2f2' : '#fff'},
+              ]}>
+              <View style={styles.flexCheck}>
+                <CheckBox
+                  style={styles.checkbox}
+                  onPress={() => press(item)}
+                  checked={item.isSelected}
                 />
-                <Text style={styles.header}>{item.DIA_CHI_GIAO_HANG}</Text>
+                <Text style={styles.header}>{item.SO_CHUNG_TU}</Text>
               </View>
-            ) : null}
 
-            {item.LOAI === 'GIAO_HANG' ? (
-              <View style={styles.note}>
-                <Icon name="md-logo-euro" size={20} style={styles.icon} />
-                <Text style={styles.header}>{item.HINH_THUC_THANH_TOAN}</Text>
-                {item.HINH_THUC_THANH_TOAN === 'Tiền mặt' && (
-                  <ReactNativeNumberFormat
-                    string="Tổng tiền:"
-                    value={item.TONG_TIEN}
+              <Text style={styles.company}>{item.TEN_CONG_TY}</Text>
+
+              {item.DIA_CHI_GIAO_HANG ? (
+                <View style={styles.flex}>
+                  <Icon
+                    name="ios-location"
+                 
+                    style={styles.icon}
                   />
-                )}
+                  <Text style={styles.name}>{item.DIA_CHI_GIAO_HANG}</Text>
+                </View>
+              ) : null}
+
+              {item.LOAI === 'GIAO_HANG' ? (
+                <View style={styles.note}>
+                  <Icon name="md-logo-euro" size={20} style={styles.icon} />
+                  <Text style={styles.name}>{item.HINH_THUC_THANH_TOAN}</Text>
+                  {item.HINH_THUC_THANH_TOAN === 'Tiền mặt' && (
+                    <View style={{flexDirection: 'row'}}>
+                      <Icon
+                        name="ios-business-sharp"
+                        style={styles.icon}
+                      />
+                      <ReactNativeNumberFormat
+                        string="Tổng tiền:"
+                        value={item.TONG_TIEN}
+                      />
+                    </View>
+                  )}
+                </View>
+              ) : (
+                <View style={styles.note}>
+                  <View style={{flexDirection: 'row',alignItems:'center',alignSelf:'center'}}>
+                    <Icon
+                      name="ios-business-sharp"
+                      style={styles.icon}
+                    />
+                    <Text style={styles.name}>
+                      Đại diện: {item.NOI_LAY_HANG}
+                    </Text>
+                  </View>
+
+                  <View style={{flexDirection: 'row',alignItems:'center',alignSelf:'center'}}>
+                    <Icon
+                      name="ios-logo-html5"
+                      size={20}
+                      style={styles.icon}
+                    />
+                    <ReactNativeNumberFormat
+                      string="Tổng tiền:"
+                      value={item.TONG_TIEN}
+                    />
+                  </View>
+                </View>
+              )}
+              <View>
+                <Text style={styles.header}>{item.GHI_CHU}</Text>
               </View>
-            ) : (
-              <View style={styles.note}>
-                <Icon name="ios-business-sharp" size={20} style={styles.icon} />
-                <Text style={styles.header}>Đại diện: {item.NOI_LAY_HANG}</Text>
-                <ReactNativeNumberFormat
-                  string="Tổng tiền:"
-                  value={item.TONG_TIEN}
-                />
+              <View style={styles.buttonNote}>
+                <Icon.Button
+                  style={{backgroundColor: '#2179A9'}}
+                  name="ios-reader-outline"
+                  onPress={() => toggleModal(item)}>
+                  Note
+                </Icon.Button>
               </View>
-            )}
-            <View>
-              <Text style={styles.header}>{item.GHI_CHU}</Text>
             </View>
-            <View style={styles.buttonNote}>
-              <Icon.Button
-                name="ios-reader-outline"
-                onPress={() => toggleModal(item)}>
-                Note
-              </Icon.Button>
-            </View>
-          </View>
-        )}
-        keyExtractor={(item, index) => index.toString()}
-      />
-            </ScrollView>
-   
+          )}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      </ScrollView>
+
       <View style={styles.button}>
         <Icon.Button
           name="ios-add-circle"
+          style={{backgroundColor: '#2179A9'}}
           onPress={() =>
-            navigation.navigate('Đề nghị thanh toán', {
+            navigation.navigate('Tạo đề nghị thanh toán', {
               listSelectDaNhan: listSelectDaNhan,
             })
           }>
@@ -200,6 +222,7 @@ function DanhSachDaNhanScreen({navigation}) {
         <Text>&nbsp;&nbsp;&nbsp;</Text>
         <Icon.Button
           name="ios-checkbox"
+          style={{backgroundColor: '#2179A9'}}
           onPress={() =>
             navigation.navigate('Xác nhận giao hàng', {
               listSelectDaNhan: listSelectDaNhan,
@@ -227,10 +250,16 @@ function DanhSachDaNhanScreen({navigation}) {
             placeholderTextColor="black"
           />
           <View style={styles.flexCheck}>
-            <Icon.Button onPress={() => pressNoteNoiDung()} name="ios-save">
+            <Icon.Button
+              onPress={() => pressNoteNoiDung()}
+              name="ios-save-sharp"
+              style={{backgroundColor: '#2179A9'}}>
               Lưu
             </Icon.Button>
-            <Icon.Button name="ios-exit" onPress={toggleModal}>
+            <Icon.Button
+              name="ios-exit"
+              onPress={toggleModal}
+              style={{backgroundColor: '#2179A9'}}>
               Đóng
             </Icon.Button>
           </View>
@@ -245,12 +274,27 @@ const styles = StyleSheet.create({
   },
   flex: {
     flexDirection: 'row',
+    alignSelf:'center',
+    alignItems:'center',
+    alignContent:'center',
   },
 
   flexCheck: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     marginTop: 10,
+  },
+  textHeader: {
+    color: '#444',
+    fontSize: 16,
+    flexShrink: 1,
+  },
+  colorHeader: {
+    shadowColor: '#000',
+    shadowOffset: {width: 1, height: 3},
+    shadowOpacity: 0.2,
+    backgroundColor: 'transparent',
+    elevation: 1,
   },
   item: {
     flex: 1,
@@ -261,7 +305,7 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 18,
-    color: '#000',
+    color: '#2179A9',
     paddingHorizontal: 10,
     flex: 1,
   },
@@ -273,8 +317,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   name: {
-    color: '#aaa',
+    color: '#444',
     fontSize: 16,
+    flexShrink: 1,
   },
   phone: {
     color: '#aaa',
@@ -293,9 +338,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   note: {
-    flexDirection: 'row',
     alignSelf: 'flex-start',
-    fontSize: 18,
+    fontSize: 16,
   },
   button: {
     flexDirection: 'row',
@@ -305,6 +349,18 @@ const styles = StyleSheet.create({
   input: {
     borderBottomColor: '#ccc',
     borderBottomWidth: 1,
+  },
+  icon: {
+    marginRight: 10,
+    fontSize: 20,
+    backgroundColor: '#eee',
+    borderRadius: 44 / 2,
+    height: 35,
+    width: 35,
+    alignSelf: 'center',
+    textAlignVertical: 'center',
+    textAlign: 'center',
+    color: '#2179A9',
   },
 });
 export default DanhSachDaNhanScreen;

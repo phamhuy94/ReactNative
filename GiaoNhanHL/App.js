@@ -6,7 +6,7 @@ import Authentication from './src/screens/Authentication/AuthenticationScreen'
 
 export default function App() { 
   return (
-    <Provider store={store}>
+    <Provider store={store} >
       <Authentication></Authentication>
     </Provider>
   );

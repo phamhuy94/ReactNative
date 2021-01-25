@@ -43,11 +43,20 @@ export default function ViewKPI() {
   return (
     <View style={styles.container}>
       <Appbar.Header style={styles.colorHeader}>
-        <Appbar.Content title="KPI" color={'#fff'} />
+      <Appbar.Action
+        icon="link-box-outline"
+        color={'#2179A9'}
+        size={30}
+       
+      />
+        <Appbar.Content title="KPI" color={'#2179A9'} style={{marginLeft: -15}}/>
+
       </Appbar.Header>
+   
       <View style={styles.flex}>
-      <ScrollView>
-        <View style={styles.flex}>
+      <ScrollView style={{flex:2}}>
+  
+      <View style={styles.flexDate}>
           <DatePicker
             onPress={(text) => setStartDate(text)}
             maxDate={new Date()}
@@ -59,9 +68,9 @@ export default function ViewKPI() {
             maxDate={new Date()}
             style={styles.datepicker}
           />
-        </View>
-
+        </View> 
         <FlatList
+ 
           data={KPI}
           renderItem={({item, index}) => (
             <View style={styles.homeLayout}>
@@ -152,32 +161,53 @@ export default function ViewKPI() {
 const styles = StyleSheet.create({
   container: {
     flex:1,
+    backgroundColor:'#f0f2f2',
 },
   flex: {
+    flex:20,
     flexDirection: 'row',
     justifyContent: 'space-between',
     color: '#000',
   },
+  flexDate: {
+ 
+    flex:1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
   colorHeader: {
-    backgroundColor: '#00B4FF',
+    shadowColor: '#000',
+    
+    shadowOffset: {width: 1, height: 3},
+    shadowOpacity: 0.2,
+    backgroundColor: 'transparent',
+    elevation: 1,
   },
   textHeader: {
-    color: '#000',
+    color: '#2179A9',
     width: '100%',
     alignItems: 'center',
     textAlign: 'center',
-    fontSize: 24,
+    fontSize: 18,
   },
   homeLayout: {
     margin: 15,
+    flex:1,
     marginBottom: 15,
     borderRadius: 10,
     paddingLeft: 10,
     paddingRight: 10,
-    backgroundColor: 'rgba(0,0,0, 0.3)',
+    backgroundColor:'#f4f4f4',
+    shadowOffset: {width: 2, height: 5},
+    borderColor:'#eee',
+    shadowColor: '#ddd',
+    borderWidth:1,
+    shadowOpacity: 0.8,
+    elevation: 4,
   },
   datepicker: {
-    color: '#000',
+
+    color: '#444',
   },
   timesheet: {
     flexDirection: 'row',
@@ -188,22 +218,33 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'flex-end',
     textTransform: 'capitalize',
-    color: '#000',
-    fontSize: 20,
+    color: '#444',
+    fontSize: 16,
   },
   value: {
-    color: '#000',
-    fontSize: 20,
+    color: '#444',
+    fontSize: 16,
     flex: 3,
     flexWrap: 'wrap',
     textAlign: 'right',
   },
   valueGhichu: {
     color: '#000',
-    fontSize: 20,
+    fontSize: 16,
   },
   border: {
-    borderBottomColor: 'red',
+  
+    borderBottomColor:'#2179A9',
     borderBottomWidth: 1,
+    flex: 1,
+    width:200,
+    textAlign:'center',
+    alignItems:'center',
+    justifyContent:'center',
+    top:-10,
+    alignSelf: 'center',
+    flexDirection:'row',
+    marginHorizontal: 'auto',
+    marginVertical:0,
   },
 });

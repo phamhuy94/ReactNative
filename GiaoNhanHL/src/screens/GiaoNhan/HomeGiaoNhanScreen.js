@@ -33,8 +33,15 @@ function HomeGiaoNhanScreen({navigation}) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Appbar.Header>
-        <Appbar.Content title="Home" />
+      <Appbar.Header style={styles.colorHeader}>
+      <Appbar.Action
+        icon="home"
+        color={'#2179A9'}
+        size={30}
+       
+      />
+        <Appbar.Content title="Home" color={'#2179A9'} style={{marginLeft: -15,}}
+        />
       </Appbar.Header>
       <View style={styles.center}>
       <TouchableOpacity
@@ -61,6 +68,23 @@ export default HomeGiaoNhanScreen;
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
+    flex: 1,
+    backgroundColor:'#f0f2f2',
+  },
+  textHeader: {
+    color: '#2179A9',
+    width: '100%',
+    alignItems: 'center',
+    textAlign: 'center',
+    fontSize: 18,
+  },
+  colorHeader: {
+    shadowColor: '#000',
+    
+    shadowOffset: {width: 1, height: 3},
+    shadowOpacity: 0.2,
+    backgroundColor: 'transparent',
+    elevation: 1,
   },
   button: {
     borderRadius: 10,

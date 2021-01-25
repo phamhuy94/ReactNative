@@ -66,7 +66,13 @@ function NotificationsScreen({navigation}) {
   return (
     <SafeAreaView style={styles.container}>
       <Appbar.Header style={styles.colorHeader}>
-        <Appbar.Content title="Detail" color={'#fff'} />
+      <Appbar.Action
+        icon="file-document-outline"
+        color={'#2179A9'}
+        size={30}
+       
+      />
+        <Appbar.Content title="Notifications" color={'#2179A9'} style={{marginLeft: -15}} />
         
       </Appbar.Header>
       <ScrollView>
@@ -106,7 +112,7 @@ function NotificationsScreen({navigation}) {
           <TouchableOpacity
             style={[
               styles.button,
-              {backgroundColor: page <= 1 ? '#aaa' : '#00B4FF'},
+              {backgroundColor: page <= 1 ? '#aaa' : '#2179A9'},
             ]}
             disabled={page <= 1}
             onPress={() => {
@@ -119,7 +125,7 @@ function NotificationsScreen({navigation}) {
           <TouchableOpacity
             style={[
               styles.button,
-              {backgroundColor: page > parseFloat(soBaiViet) / 15 ? '#aaa' : '#00B4FF'},
+              {backgroundColor: page > parseFloat(soBaiViet) / 15 ? '#aaa' : '#2179A9'},
             ]}
             onPress={() => {
               setPage(page + 1);
@@ -140,12 +146,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   colorHeader: {
-    backgroundColor: '#00B4FF',
+    shadowColor: '#000',
+    
+    shadowOffset: {width: 1, height: 3},
+    shadowOpacity: 0.2,
+    backgroundColor: 'transparent',
+    elevation: 1,
   },
   label: {
     marginVertical: 5,
     flexDirection: 'row',
-
+    marginHorizontal:5,
     // height:100
   },
   bottom: {
@@ -184,7 +195,7 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   title: {
-    fontSize: 18,
+    fontSize: 16,
   },
   subtitle: {
     fontSize: 15,
