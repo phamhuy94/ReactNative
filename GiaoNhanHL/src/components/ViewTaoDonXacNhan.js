@@ -21,13 +21,6 @@ import {PostDonXacNhanNV} from '../redux/xacNhan/action';
 const ViewTaoDonXacNhan = ({navigation}) => {
   const dispatch = useDispatch();
   const [username, setUsername] = useState();
-  const getToken = async () => {
-    const username = await AsyncStorage.getItem('userToken');
-    setUsername(username);
-  };
-  useEffect(() => {
-    getToken();
-  }, []);
 
   //useState
   const [dateTime, setDateTime] = useState(
@@ -35,8 +28,18 @@ const ViewTaoDonXacNhan = ({navigation}) => {
   );
   const [noiDungCanXacNhan, setNoiDungCanXacNhan] = useState('');
   const [ngayCanXacNhan, setNgayCanXacNhan] = useState(new Date());
-  const [trucThuoc, setTrucThuoc] = useState('HOPLONG');
+  const [trucThuoc, setTrucThuoc] = useState();
   const [disable, setDisable] = useState(true);
+
+  const getToken = async () => {
+    const username = await AsyncStorage.getItem('userToken');
+    const trucThuoc = await AsyncStorage.getItem('maCongTy');
+    setUsername(username);
+    setTrucThuoc(trucThuoc);
+  };
+  useEffect(() => {
+    getToken();
+  }, []);
 
   const buttonCreate = () => {
     dispatch(
@@ -104,7 +107,7 @@ const ViewTaoDonXacNhan = ({navigation}) => {
           <Button
             disabled={disable}
             onPress={() => buttonCreate()}
-            style={styles.buttonAdd}>
+            style={disable ? (styles.buttonAddDisable) : (styles.buttonAddEnable)}>
             <Icon name="ios-add" size={26} color={'#fff'} />
             <Text style={{color: '#fff'}}>Tạo</Text>
           </Button>
@@ -191,7 +194,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     color: '#fff',
   },
-  buttonAdd: {
+  buttonAddEnable: {
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    textAlign: 'center',
+    alignSelf: 'center',
+    borderRadius: 50,
+    marginTop: 20,
+    width: 350,
+    color: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor:'#2179A9'
+  },
+  buttonAddDisable: {
     paddingVertical: 10,
     paddingHorizontal: 10,
     textAlign: 'center',

@@ -21,18 +21,9 @@ import moment from 'moment';
 import AsyncStorage from '@react-native-community/async-storage';
 const {width, height} = Dimensions.get('window');
 
-const ViewTaoDonNghiPhep = ({navigation}) => {
+const ViewTaoDonNghiPhep = ({navigation, route}) => {
+  const {data} = route.params;
   const dispatch = useDispatch();
-  //lay username
-  const [username, setUsername] = useState();
-  const getToken = async () => {
-    const username = await AsyncStorage.getItem('userToken');
-    setUsername(username);
-  };
-  useEffect(() => {
-    getToken();
-  }, []);
-
 
   //useState
   const [lyDoNghi, setLydoNghi] = useState('');
@@ -41,7 +32,6 @@ const ViewTaoDonNghiPhep = ({navigation}) => {
     moment(new Date()).format('DD/MM/YYYY'),
   );
   const [tongSoNgay, setTongSoNgay] = useState('');
-  const [trucThuoc, setTrucThuoc] = useState('HOPLONG');
   const [dateTimeRow, setDateTimeRow] = useState(new Date());
   const [day, setDay] = useState('Cả ngày');
   const [disable, setDisable] = useState(true);
@@ -49,12 +39,12 @@ const ViewTaoDonNghiPhep = ({navigation}) => {
   const buttonCreate = () => {
     dispatch(
       PostDonXinNghiNV(
-        username,
+        data.username,
         lyDoNghi,
         loaiNghiPhep,
         dateTime,
         tongSoNgay,
-        trucThuoc,
+        data.macongty,
         dateTimeRow,
         day,
       ),

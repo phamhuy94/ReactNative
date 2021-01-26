@@ -172,7 +172,7 @@ const ViewDNTTCanThanhToan = ({
           title="Click"
           onPress={() => navigation.navigate('Tạo đề nghị thanh toán')}>
           <Icon
-            name="ios-add-circle-outline"
+            name="ios-add-circle"
             size={30}
             style={styles.iconAdd}
           />
@@ -186,11 +186,10 @@ const ViewDNTTCanThanhToan = ({
         <FlatList
           data={getDeNghiTTNVCanThanhToan}
           renderItem={({item, index}) => (
-            <View>
-              <Card>
+            <View style={styles.card}>
                 <Card.Title style={styles.flex}>
                   <View
-                    style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                    style={{flexDirection: 'row'}}>
                     <View style={styles.icon}>
                       {checkStatus(
                         item.TRUONG_PHONG_DA_DUYET,
@@ -234,15 +233,15 @@ const ViewDNTTCanThanhToan = ({
                 <View style={styles.flex}>
                   <Icon
                     name="ios-person-circle-outline"
-                    size={24}
+                    size={26}
                     style={styles.icon}
                   />
                   <Text style={styles.textHeader}>{item.HO_VA_TEN}</Text>
                 </View>
                 <View style={styles.flex}>
                   <Icon
-                    name="ios-reader-outline"
-                    size={24}
+                    name="ios-reader"
+                    size={26}
                     style={styles.icon}
                   />
                   <Text style={styles.textHeader}>{item.NOI_DUNG_DNTT}</Text>
@@ -253,15 +252,15 @@ const ViewDNTTCanThanhToan = ({
                 </View>
                 <View style={styles.flex}>
                   <Icon
-                    name="ios-person-circle-outline"
-                    size={24}
+                    name="ios-person-circle"
+                    size={26}
                     style={styles.icon}
                   />
                   <Text style={styles.textHeader}>
                     {item.HO_VA_TEN_NGUOI_DN}
                   </Text>
                 </View>
-              </Card>
+     
             </View>
           )}
         />
@@ -277,6 +276,7 @@ const styles = StyleSheet.create({
   },
   flex: {
     flexDirection: 'row',
+    marginBottom:10,
   },
   textHeader: {
     color: '#444',
@@ -295,7 +295,7 @@ const styles = StyleSheet.create({
     color: '#2179A9',
   },
   icon: {
-    marginRight: 10,
+    marginRight: 5,
     color: '#2179A9',
   },
   iconStatusCheck: {
@@ -309,5 +309,19 @@ const styles = StyleSheet.create({
   },
   iconStatusCancel: {
     color: 'red',
+  },
+  card: {
+    marginTop: 0,
+    margin: 15,
+    padding: 15,
+    borderRadius: 5,
+    backgroundColor: '#fff',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 5.25,
+    shadowRadius: 3.84,
+    elevation: 6,
   },
 });

@@ -25,7 +25,6 @@ export const _postDonXacNhanNV = async(nguoiDeNghi,noiDungCanXacNhan,ngayCanXacN
         NGAY_CAN_XAC_NHAN:dateTimeXN,
         TRUC_THUOC:trucThuoc,
     }
-    console.log(dataXN)
     const response = await axiosInstance.post('/api/Api_DonXacNhan/PostDonXacNhan', dataXN)
     return response.data
 }

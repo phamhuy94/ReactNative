@@ -6,7 +6,7 @@ import { Alert, Button, Text, TextInput, View, Dimensions, SafeAreaView, Touchab
     StatusBar,
     FlatList,
     Image } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5'
+import Icon from 'react-native-vector-icons/Ionicons'
 
 import DataScreen from './DataScreen'
 import ProfileScreen from './ProfileScreen'
@@ -25,9 +25,9 @@ const HomeScreen = ({ navigation }) => {
               if (route.name === 'Home') {
                 iconName = 'home'
               } else if (route.name === 'Profile') {
-                iconName = 'user'
+                iconName = 'person'
               } else if (route.name === 'Notifications') {
-                iconName = 'bell'
+                iconName = 'notifications'
               }
     
               const myIcon = <Icon name={iconName} size={size} color={color} />;

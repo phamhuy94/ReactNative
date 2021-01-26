@@ -43,13 +43,9 @@ const ViewNghiPhep = ({navigation}) => {
 
   //lay username
   const [username, setUsername] = useState();
-  const getToken = async () => {
-    const username = await AsyncStorage.getItem('userToken');
-    setUsername(username);
-  };
 
   //useState
-  const [macongty, setMacongty] = useState('HOPLONG');
+  const [macongty, setMacongty] = useState();
   const [isadmin, setIsadmin] = useState(false);
   const [tukhoa, setTukhoa] = useState('');
   const [tukhoa2, setTukhoa2] = useState('');
@@ -58,8 +54,8 @@ const ViewNghiPhep = ({navigation}) => {
   const [maphongban, setMaphongban] = useState('');
   const [thang, setThang] = useState('');
   const [nam, setNam] = useState(new Date().getFullYear());
-
   const [refreshing, setRefreshing] = useState(false);
+
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     wait(500).then(() => setRefreshing(false));
@@ -74,11 +70,23 @@ const ViewNghiPhep = ({navigation}) => {
         sobanghi,
       ),
     );
-  }, [username, sotrang]);
+  }, []);
+
+  const getToken = async () => {
+    const username = await AsyncStorage.getItem('userToken');
+    const macongty = await AsyncStorage.getItem('maCongTy');
+    setUsername(username);
+    setMacongty(macongty);
+  };
 
   useEffect(() => {
     getToken();
   }, []);
+
+  const data = {
+    username: username,
+    macongty: macongty
+  };
 
   useEffect(() => {
     dispatch(
@@ -121,23 +129,6 @@ const ViewNghiPhep = ({navigation}) => {
       ),
     );
   };
-
-  //   const buttonAlert = (id) => {
-  //       Alert.alert(
-  //           'Bạn đã nghĩ kỹ chưa?',
-  //           [
-  //               {
-  //                   text: 'Cancel',
-  //                   onPress: () => console.log('Cancel'),
-  //                   style: 'cancel'
-  //               },
-  //               {
-  //                   text: 'OK', onPress: () => deleteDNP(id)
-  //               }
-  //           ],
-  //           { cancelable: false }
-  //       )
-  //   }
 
   const checkIcon = (
     TRUONG_PHONG_DA_DUYET,
@@ -212,26 +203,26 @@ const ViewNghiPhep = ({navigation}) => {
           />
           <TouchableOpacity
             title="Click"
-            onPress={() => navigation.navigate('Tạo đơn nghỉ phép')}>
+            onPress={() => navigation.navigate('Tạo đơn nghỉ phép', {data})}>
             <Icon
-              name="ios-add-circle-outline"
+              name="ios-add-circle"
               size={30}
               style={styles.iconAdd}
             />
           </TouchableOpacity>
         </Appbar.Header>
-        <Card>
-          <View style={styles.flex}>
-            <Text style={styles.textHeader}>Tổng số ngày nghỉ trong năm:</Text>
+      
+          <View style={styles.flexTitle}>
+            <Text style={[styles.textHeader,{color:'#2179A9'}]}>Tổng số ngày nghỉ trong năm:</Text>
             <Text>&nbsp;&nbsp;</Text>
-            <Text style={styles.textHeader}>
+            <Text style={[styles.textHeader,{color:'#2179A9'}]}>
               {getTongSoNgayNghiNV.length == 0
                 ? '0'
                 : getTongSoNgayNghiNV[0].TONG_SO_NGAY_NGHI}
             </Text>
             {/* <Text style={styles.textHeader}>{item.TONG_SO_NGAY_NGHI_TRONG_NAM}</Text> */}
           </View>
-        </Card>
+   
       </View>
       <ScrollView
         contentContainerStyle={styles.scrollView}
@@ -252,31 +243,6 @@ const ViewNghiPhep = ({navigation}) => {
                       item.NGAY_LAM_DON,
                     )}
                   </View>
-
-                  {/* <View
-                    style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
-                    {item.TRUONG_PHONG_DA_DUYET === false &&
-                    item.TRUONG_PHONG_HUY_DUYET === false ? (
-                      <View
-                        style={{
-                          position: 'absolute',
-                          right: -100,
-                          flexDirection: 'row',
-                          justifyContent: 'flex-end',
-                          alignContent: 'flex-end',
-                        }}>
-                        <TouchableOpacity onPress={() => deleteDNP(item.MA_SO_XIN_NGHI)}>
-                          <Icon
-                            name="trash"
-                            size={24}
-                            style={styles.iconStatusWait}
-                          />
-                        </TouchableOpacity>
-                      </View>
-                    ) : (
-                      <Text></Text>
-                    )}
-                  </View> */}
         
               </Card.Title>
 
@@ -299,6 +265,8 @@ const ViewNghiPhep = ({navigation}) => {
             </View>
           )}
         />
+
+        {/* Phan trang */}
         <View style={styles.flexCenter}>
           <TouchableOpacity
             style={[
@@ -361,9 +329,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     flexShrink: 1,
   },
+  flexTitle: {
+    flexDirection: 'row',
+    margin:20,
+    marginTop:10,
+    color: '#2179A9',
+  },
   flex: {
     flex: 1,
     flexDirection: 'row',
+    marginBottom:5,
   },
   colorHeader: {
     shadowColor: '#000',
@@ -393,9 +368,7 @@ const styles = StyleSheet.create({
   iconPage: {
     color: '#fff',
   },
-  flex: {
-    flexDirection: 'row',
-  },
+
   button: {
     width: 40,
     height: 40,
@@ -404,7 +377,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   card: {
-    marginTop: 20,
+    marginTop: 0,
     margin: 15,
     padding: 15,
     borderRadius: 5,

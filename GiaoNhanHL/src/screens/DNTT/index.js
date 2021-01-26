@@ -12,16 +12,12 @@ const DNTT = ({navigation}) => {
 
   //lay username
   const [username, setUsername] = useState();
-  const getToken = async () => {
-    const username = await AsyncStorage.getItem('userToken');
-    setUsername(username);
-  };
 
   //useState
   const [isadmin, setIsadmin] = useState(false);
   const [maphongban, setMaphongban] = useState('');
   const [chucvu, setChucvu] = useState('');
-  const [macongty, setMacongty] = useState('HOPLONG');
+  const [macongty, setMacongty] = useState();
   const [tukhoa, setTukhoa] = useState('');
   const [tukhoa2, setTukhoa2] = useState('');
   const [tukhoa3, setTukhoa3] = useState('');
@@ -29,6 +25,14 @@ const DNTT = ({navigation}) => {
   const [tukhoa5, setTukhoa5] = useState('');
   const [sotrang, setSotrang] = useState(1);
   const [sobanghi, setSobanghi] = useState(15);
+
+  const getToken = async () => {
+    const username = await AsyncStorage.getItem('userToken');
+    const macongty = await AsyncStorage.getItem('maCongTy');
+    setUsername(username);
+    setMacongty(macongty);
+  };
+
   useEffect(() => {
     getToken();
   }, []);

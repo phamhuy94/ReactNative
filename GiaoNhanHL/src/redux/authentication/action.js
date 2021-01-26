@@ -2,8 +2,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {login} from '../../api/authentication/authentication'
 
 const token_key = 'userToken';
-const ho_ten = 'hoTen';
-const truc_thuoc = 'trucThuoc';
+const ma_cong_ty = 'maCongTy';
 
 export const RESTORE_TOKEN = 'RESTORE_TOKEN';
 export const BEFORE_SIGN_IN = 'BEFORE_SIGN_IN';
@@ -18,9 +17,10 @@ export const getToken = () => async dispatch => {
 }
 
 export const _login = (data) => {  
-  const saveToken = async () => {
+  const saveToken = async (response) => {
     try {
-      await AsyncStorage.setItem(token_key, data.username);
+      await AsyncStorage.setItem(token_key, response.user.USERNAME);
+      await AsyncStorage.setItem(ma_cong_ty, response.user.MA_CONG_TY);
     } catch (error) {
       
     }
@@ -30,8 +30,8 @@ export const _login = (data) => {
     try {
       const response = await login(data);
       if(response.notification.indexOf('thành công') >= 0){
-        saveToken(data)
-        dispatch({ type: SIGN_IN, token: data.username });
+        saveToken(response)
+        dispatch({ type: SIGN_IN, token: response.user.USERNAME });
       }else{
         dispatch({ type: SIGN_IN_FAILED,alertText:response.notification});
       }     
@@ -43,5 +43,6 @@ export const _login = (data) => {
 
 export const logout = () => async dispatch => {
   await AsyncStorage.removeItem(token_key);
+  await AsyncStorage.removeItem(ma_cong_ty);
   dispatch({ type: SIGN_OUT });
 }

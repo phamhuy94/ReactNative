@@ -19,13 +19,6 @@ import {PostDeNghiTT} from '../../redux/DNTT/action';
 const ViewTaoDNTT = ({navigation}) => {
   const dispatch = useDispatch();
   const [username, setUsername] = useState();
-  const getToken = async () => {
-    const username = await AsyncStorage.getItem('userToken');
-    setUsername(username);
-  };
-  useEffect(() => {
-    getToken();
-  }, []);
 
   const DropDownTienMat = ({hinhThucThanhToan, setHinhThucThanhToan}) => {
     return (
@@ -51,7 +44,7 @@ const ViewTaoDNTT = ({navigation}) => {
   const [thanhTien, setThanhTien] = useState('');
   const [ghiChu, setGhiChu] = useState('');
   // const [nguoiLapPhieu, setNguoiLapPhieu] = useState('');
-  const [trucThuoc, setTrucThuoc] = useState('HOPLONG');
+  const [trucThuoc, setTrucThuoc] = useState();
   const [hinhThucThanhToan, setHinhThucThanhToan] = useState('Tiền mặt');
   const [thanhToanTheoCongTy, setThanhToanTheoCongTy] = useState('');
   const [soTK, setSoTK] = useState('');
@@ -61,6 +54,16 @@ const ViewTaoDNTT = ({navigation}) => {
   const [loaiTaiKhoan, setLoaiTaiKhoan] = useState('');
 
   const [disable, setDisable] = useState(true);
+
+  const getToken = async () => {
+    const username = await AsyncStorage.getItem('userToken');
+    const trucThuoc = await AsyncStorage.getItem('maCongTy');
+    setUsername(username);
+    setTrucThuoc(trucThuoc);
+  };
+  useEffect(() => {
+    getToken();
+  }, []);
 
   const buttonCreate = () => {
     dispatch(

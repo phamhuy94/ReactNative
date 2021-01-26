@@ -37,14 +37,9 @@ const ViewXacNhan = ({navigation}) => {
   const demDonXacNhanNV = useSelector((store) => store.xacNhan.demDonXacNhanNV);
   //lay username
   const [username, setUsername] = useState();
-  const getToken = async () => {
-    const username = await AsyncStorage.getItem('userToken');
-    setUsername(username);
-  };
-  const hieunm = 'hieunm';
-  console.log(demDonXacNhanNV);
+
   //useState
-  const [macongty, setMacongty] = useState('HOPLONG');
+  const [macongty, setMacongty] = useState();
   const [isadmin, setIsadmin] = useState(false);
   const [maphongban, setMaphongban] = useState('');
   const [chucvu, setChucvu] = useState('');
@@ -69,6 +64,13 @@ const ViewXacNhan = ({navigation}) => {
       ),
     );
   }, [username, sotrang]);
+
+  const getToken = async () => {
+    const username = await AsyncStorage.getItem('userToken');
+    const macongty = await AsyncStorage.getItem('maCongTy');
+    setUsername(username);
+    setMacongty(macongty);
+  };
 
   useEffect(() => {
     getToken();
@@ -191,6 +193,7 @@ const ViewXacNhan = ({navigation}) => {
       );
     }
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -215,18 +218,18 @@ const ViewXacNhan = ({navigation}) => {
             />
           </TouchableOpacity>
         </Appbar.Header>
-        <Card style={styles.card}>
-          <View style={styles.flex}>
-            <Text style={styles.textHeader}>
+     
+        <View style={styles.flexTitle}>
+          <Text style={[styles.textHeader,{color:'#2179A9'}]}>
               Tổng số đơn xác nhận trong năm:
             </Text>
             <Text>&nbsp;&nbsp;</Text>
-            <Text style={styles.textHeader}>
+            <Text style={[styles.textHeader,{color:'#2179A9'}]}>
               {demDonXacNhanNV.length == 0 ? '0' : demDonXacNhanNV}
             </Text>
             {/* <Text style={styles.textHeader}>{item.TONG_SO_NGAY_NGHI_TRONG_NAM}</Text> */}
           </View>
-        </Card>
+   
       </View>
       <ScrollView
         contentContainerStyle={styles.scrollView}
@@ -236,8 +239,8 @@ const ViewXacNhan = ({navigation}) => {
         <FlatList
           data={getDonXacNhanNV}
           renderItem={({item, index}) => (
-            <View>
-              <Card>
+            <View style={styles.card}>
+           
                 <Card.Title style={styles.flex}>
                   <View
                     style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
@@ -312,7 +315,7 @@ const ViewXacNhan = ({navigation}) => {
                     {item.NGAY_CAN_XAC_NHAN}
                   </Text>
                 </View>
-              </Card>
+          
             </View>
           )}
         />
@@ -371,6 +374,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     elevation: 1,
   },
+  flexTitle: {
+    flexDirection: 'row',
+    margin:20,
+    marginTop:10,
+    color: '#2179A9',
+  },
   iconAdd: {
     color: '#2179A9',
   },
@@ -391,6 +400,7 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },
   iconStatusCheck: {
+    marginRight:5,
     color: 'green',
   },
   iconStatusWait: {
@@ -405,5 +415,19 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  card: {
+    marginTop: 0,
+    margin: 15,
+    padding: 15,
+    borderRadius: 5,
+    backgroundColor: '#fff',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 5.25,
+    shadowRadius: 3.84,
+    elevation: 6,
   },
 });

@@ -57,8 +57,6 @@ export const _postDonXinNghiNV = async (username, lyDoNghi, loaiNghiPhep, dateTi
             }
         ]
     }
-    console.log(dateTimeCvt)
-    console.log(data)
     const response = await axiosInstance.post('/api/Api_DonXinNghiPhep/PostDonXinNghiPhep_01', data);
     return response.data
 }

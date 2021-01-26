@@ -37,6 +37,27 @@ function DanhSachDaNhanScreen({navigation}) {
   const [suCo, setSuCo] = useState('Sai mã');
   const [noiDungSuCo, setNoiDungSuCo] = useState();
 
+  const [macongty, setMaCongTy] = useState();
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [maphongban, setMaphongban] = useState('');
+
+  const getToken = async () => {
+    const username = await AsyncStorage.getItem('userToken');
+    const macongty = await AsyncStorage.getItem('maCongTy');
+    setUsername(username);
+    setMaCongTy(macongty)
+  };
+  useEffect(() => {
+    getToken();
+  }, []);
+
+  const data = {
+    macongty: macongty,
+    username: username,
+    isadmin : isAdmin,
+    maphongban: maphongban
+  };
+
   const listDaNhan = useSelector((store) => store.giaoNhan.listDaNhan);
   const listSelectDaNhan = useSelector(
     (store) => store.giaoNhan.listSelectDaNhan,
@@ -91,23 +112,12 @@ function DanhSachDaNhanScreen({navigation}) {
     }
   };
 
-  const getToken = async () => {
-    const username = await AsyncStorage.getItem('userToken');
-    setUsername(username);
-  };
-
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     wait(500).then(() => setRefreshing(false));
-    dispatch(getListDaNhan());
+    dispatch(getListDaNhan(data));
   }, []);
-
-  useEffect(() => {
-    dispatch(getListDaNhan());
-    getToken();
-  }, []);
-
   return (
     <SafeAreaView style={styles.container}>
       <Appbar.Header style={styles.colorHeader}>
