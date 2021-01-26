@@ -8,58 +8,58 @@ import {
     _updateGiaoHang
 } from '../../api/GiaoNhan/giaoNhan'
 
-export const getCanNhan = () => {
+export const getCanNhan = (data) => {
     return async (dispatch) => {
         try {
-            const response = await _getCanNhan();
+            const response = await _getCanNhan(data);
             dispatch({
                 type: 'GET_CAN_NHAN_SUCCESS',
                 data: response
             });
         } catch (e) {
-            return dispatch({ type: 'GET_DATA_ERROR', err });
+            return dispatch({ type: 'GET_DATA_ERROR', e });
         }
     }
 }
 
-export const getDaNhan = () => {
+export const getDaNhan = (data) => {
     return async (dispatch) => {
         try {
-            const response = await _getDaNhan();
+            const response = await _getDaNhan(data);
             dispatch({
                 type: 'GET_DA_NHAN_SUCCESS',
                 data: response
             });
         } catch (e) {
-            return dispatch({ type: 'GET_DATA_ERROR', err });
+            return dispatch({ type: 'GET_DATA_ERROR', e });
         }
     }
 }
 
-export const getListCanNhan = () => {    
+export const getListCanNhan = (data) => {    
     return async (dispatch) => {
         try {
-            const response = await _getListCanNhan();
+            const response = await _getListCanNhan(data);
             dispatch({
                 type: 'GET_LIST_CAN_NHAN_SUCCESS',
                 data: response
             });
         } catch (e) {
-            return dispatch({ type: 'GET_DATA_ERROR', err });
+            return dispatch({ type: 'GET_DATA_ERROR', e });
         }
     }
 }
 
-export const getListDaNhan = () => {    
+export const getListDaNhan = (data) => {    
     return async (dispatch) => {
         try {
-            const response = await _getListDaNhan();
+            const response = await _getListDaNhan(data);
             dispatch({
                 type: 'GET_LIST_DA_NHAN_SUCCESS',
                 data: response
             });
         } catch (e) {
-            return dispatch({ type: 'GET_DATA_ERROR', err });
+            return dispatch({ type: 'GET_DATA_ERROR', e });
         }
     }
 }
@@ -76,7 +76,7 @@ export const xacNhanGiaoHang = (loaiGiaoHang,listSelect) => {
                 
             }           
         } catch (e) {
-            return dispatch({ type: 'GET_DATA_ERROR', err });
+            return dispatch({ type: 'GET_DATA_ERROR', e });
         }
     }
 }
@@ -87,7 +87,7 @@ export const noteNoiDung = (data) => {
             const response = await _noteNoiDung(data);
             return response       
         } catch (e) {
-            return dispatch({ type: 'GET_DATA_ERROR', err });
+            return dispatch({ type: 'GET_DATA_ERROR', e });
         }
     }
 }
@@ -98,7 +98,7 @@ export const saveUpdateGiaoHang = (data) => {
             const response = await _updateGiaoHang(data);
             return response       
         } catch (e) {
-            return dispatch({ type: 'GET_DATA_ERROR', err });
+            return dispatch({ type: 'GET_DATA_ERROR', e });
         }
     }
 }

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Button,
   SafeAreaView,
@@ -7,30 +7,51 @@ import {
   TouchableOpacity,
   Text,
 } from 'react-native';
-
 import {useDispatch, useSelector} from 'react-redux';
 import {getCanNhan, getDaNhan} from '../../redux/GiaoNhan/action';
 import {Appbar} from 'react-native-paper';
+import AsyncStorage from '@react-native-community/async-storage';
+
 function HomeGiaoNhanScreen({navigation}) {
   const dispatch = useDispatch();
 
   const slCanNhan = useSelector((store) => store.giaoNhan.slCanNhan);
   const slDaNhan = useSelector((store) => store.giaoNhan.slDaNhan);
 
-//   const titleCanNhan = 'Cần nhận ' + slCanNhan + '';
-//   const titleDaNhan = 'Đang nhận ' + slDaNhan + '';
+  const [username, setUsername] = useState();
+  const [macongty, setMaCongTy] = useState();
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [maphongban, setMaphongban] = useState('');
+
+  const getToken = async () => {
+    const username = await AsyncStorage.getItem('userToken');
+    const macongty = await AsyncStorage.getItem('maCongTy');
+    setUsername(username);
+    setMaCongTy(macongty);
+  };
+  useEffect(() => {
+    getToken();
+  }, []);
+
+  const data = {
+    macongty: macongty,
+    username: username,
+    isadmin : isAdmin,
+    maphongban: maphongban
+  };
 
   const titleCanNhan = 'Cần nhận ';
   const titleDaNhan = 'Đang nhận ';
 
   useEffect(() => {
     const interval = setInterval(() => {
-      dispatch(getCanNhan());
-      dispatch(getDaNhan());
+      dispatch(getCanNhan(data));
+      dispatch(getDaNhan(data));
     }, 1000);
     return () => clearInterval(interval);
   }, []);
 
+  console.log(slCanNhan);
   return (
     <SafeAreaView style={styles.container}>
       <Appbar.Header style={styles.colorHeader}>
@@ -38,7 +59,6 @@ function HomeGiaoNhanScreen({navigation}) {
         icon="home"
         color={'#2179A9'}
         size={30}
-       
       />
         <Appbar.Content title="Home" color={'#2179A9'} style={{marginLeft: -15,}}
         />
@@ -80,7 +100,6 @@ const styles = StyleSheet.create({
   },
   colorHeader: {
     shadowColor: '#000',
-    
     shadowOffset: {width: 1, height: 3},
     shadowOpacity: 0.2,
     backgroundColor: 'transparent',

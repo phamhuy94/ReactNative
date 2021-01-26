@@ -1,4 +1,4 @@
-import React, {useEffect,useState,useCallback} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   GetDeNghiTTNVDaThanhToan,
@@ -20,10 +20,10 @@ import moment from 'moment';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const wait = (timeout) => {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     setTimeout(resolve, timeout);
   });
-}
+};
 
 const ViewDNTTDaThanhToan = ({
   isadmin,
@@ -38,7 +38,7 @@ const ViewDNTTDaThanhToan = ({
   tukhoa5,
   sotrang,
   sobanghi,
-  navigation
+  navigation,
 }) => {
   const dispatch = useDispatch();
   const getDeNghiTTNVDaThanhToan = useSelector(
@@ -107,83 +107,74 @@ const ViewDNTTDaThanhToan = ({
     );
   }, []);
 
-  console.log(demListDeNghiTTNVDaThanhToan);
-
   return (
     <View style={styles.container}>
       <Appbar.Header style={styles.colorHeader}>
-      <Appbar.Action
-        icon="checkbox-marked-outline"
-        color={'#2179A9'}
-        size={30}
-       
-      />
-        <Appbar.Content title="DNTT Đã thanh toán" color={'#2179A9'} style={{marginLeft: -15}}/>
+        <Appbar.Action
+          icon="checkbox-marked-outline"
+          color={'#2179A9'}
+          size={30}
+        />
+        <Appbar.Content
+          title="DNTT Đã thanh toán"
+          color={'#2179A9'}
+          style={{marginLeft: -15}}
+        />
         <TouchableOpacity
           title="Click"
-          onPress={() => navigation.navigate('Tạo đề nghị thanh toán')}
-        >
-<Icon name="ios-add-circle-outline" size={30} style={styles.iconAdd} /> 
+          onPress={() => navigation.navigate('Tạo đề nghị thanh toán')}>
+          <Icon name="ios-add-circle" size={30} style={styles.iconAdd} />
         </TouchableOpacity>
       </Appbar.Header>
-      <ScrollView 
-          contentContainerStyle={styles.scrollView}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }
-          >
-      <FlatList
-        data={getDeNghiTTNVDaThanhToan}
-        renderItem={({item, index}) => (
-       
-            <View>
-              <Card>
-                <Card.Title>
+      <ScrollView
+        contentContainerStyle={styles.scrollView}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
+        <FlatList
+          data={getDeNghiTTNVDaThanhToan}
+          renderItem={({item, index}) => (
+            <View style={styles.card}>
+              <Card.Title
+                style={[
+                  styles.flex,
+               
+                ]}>
+                <View style={{flexDirection: 'row'}}>
                   <Icon
                     name="ios-checkmark-circle"
-                    size={26}
+                    size={24}
                     style={styles.iconStatusCheck}
                   />
                   <Text style={styles.textHeader}>
                     {moment(item.NGAY_DN).format('DD/MM/YYYY')}
                   </Text>
-                </Card.Title>
-                <View style={styles.flex}>
-                  <Icon
-                    name="ios-person-circle-outline"
-                    size={26}
-                    style={styles.icon}
-                  />
-                  <Text style={styles.textHeader}>{item.HO_VA_TEN}</Text>
                 </View>
-                <View style={styles.flex}>
-                  <Icon
-                    name="ios-reader-outline"
-                    size={26}
-                    style={styles.icon}
-                  />
-                  <Text style={styles.textHeader}>{item.NOI_DUNG_DNTT}</Text>
-                </View>
-                <View style={styles.flex}>
-                  <Icon name="ios-logo-usd" size={26} style={styles.icon} />
-                  <Text style={styles.textHeader}>{item.TONG_TIEN}</Text>
-                </View>
-                <View style={styles.flex}>
-                  <Icon
-                    name="ios-person-circle-outline"
-                    size={26}
-                    style={styles.icon}
-                  />
-                  <Text style={styles.textHeader}>
-                    {item.HO_VA_TEN_NGUOI_DN}
-                  </Text>
-                </View>
-              </Card>
+              </Card.Title>
+              <View style={styles.flex}>
+                <Icon
+                  name="ios-person-circle-outline"
+                  size={26}
+                  style={styles.icon}
+                />
+                <Text style={styles.textHeader}>{item.HO_VA_TEN}</Text>
+              </View>
+              <View style={styles.flex}>
+                <Icon name="ios-reader" size={26} style={styles.icon} />
+                <Text style={styles.textHeader}>{item.NOI_DUNG_DNTT}</Text>
+              </View>
+              <View style={styles.flex}>
+                <Icon name="ios-logo-usd" size={26} style={styles.icon} />
+                <Text style={styles.textHeader}>{item.TONG_TIEN}</Text>
+              </View>
+              <View style={styles.flex}>
+                <Icon name="ios-person-circle" size={26} style={styles.icon} />
+                <Text style={styles.textHeader}>{item.HO_VA_TEN_NGUOI_DN}</Text>
+              </View>
             </View>
-     
-        )}
-      />
-           </ScrollView>
+          )}
+        />
+      </ScrollView>
     </View>
   );
 };
@@ -195,6 +186,7 @@ const styles = StyleSheet.create({
   },
   flex: {
     flexDirection: 'row',
+    marginBottom: 10,
   },
   textHeader: {
     color: '#444',
@@ -203,7 +195,7 @@ const styles = StyleSheet.create({
   },
   colorHeader: {
     shadowColor: '#000',
-    
+
     shadowOffset: {width: 1, height: 3},
     shadowOpacity: 0.2,
     backgroundColor: 'transparent',
@@ -214,15 +206,30 @@ const styles = StyleSheet.create({
     color: '#2179A9',
   },
   iconAdd: {
-    color:'#2179A9',
+    color: '#2179A9',
   },
   iconStatusCheck: {
     color: 'green',
+    marginRight:5,
   },
   iconStatusWait: {
     color: 'deepskyblue',
   },
   iconStatusCancel: {
     color: 'red',
+  },
+  card: {
+    marginTop: 0,
+    margin: 15,
+    padding: 15,
+    borderRadius: 5,
+    backgroundColor: '#fff',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 5.25,
+    shadowRadius: 3.84,
+    elevation: 6,
   },
 });

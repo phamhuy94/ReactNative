@@ -1,9 +1,5 @@
 import React, {useEffect, useState, useContext, useCallback} from 'react';
-import {
-  Button,
-  View,
-  StyleSheet,
-} from 'react-native';
+import {Button, View, StyleSheet, Text,TouchableOpacity} from 'react-native';
 
 import AsyncStorage from '@react-native-community/async-storage';
 import ViewDetail from '../components/ViewDetail';
@@ -51,7 +47,10 @@ const ProfileScreen = ({navigation}) => {
     return (
       <View style={{}}>
         <ViewDetail data={state}></ViewDetail>
-        <Button title="Sign out" onPress={signOut} />
+
+        <TouchableOpacity onPress={signOut} style={styles.button}>
+          <Text style={{color: '#fff'}}>Sign out</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -77,7 +76,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  sidebar: {},
+  button: {
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    textAlign: 'center',
+    alignSelf: 'center',
+    borderRadius: 50,
+    marginTop: 20,
+    width: 350,
+    color: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#2179A9',
+  },
 });
 
 export default ProfileScreen;

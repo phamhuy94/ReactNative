@@ -27,7 +27,7 @@ export default function ViewPayRoll() {
   }, []);
 
   useEffect(() => {
-    dispatch(getPayRoll('thangth'));
+    dispatch(getPayRoll(username));
   }, [username]);
 
 

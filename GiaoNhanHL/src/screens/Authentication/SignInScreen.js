@@ -62,7 +62,7 @@ const SignInScreen = ({navigation}) => {
             <Text style={styles.h4}>Welcome to HopLong</Text>
             <View style={styles.inputWrap}>
               <View style={styles.iconWrap}>
-                <Icon name="user" size={20} color="#00B4FF" />
+                <Icon name="user" size={20} color="#2179A9" />
               </View>
               <TextInput
                 placeholder="Username"
@@ -75,7 +75,7 @@ const SignInScreen = ({navigation}) => {
             </View>
             <View style={styles.inputWrap}>
               <View style={styles.iconWrap}>
-                <Icon name="key" size={20} color="#00B4FF" />
+                <Icon name="key" size={20} color="#2179A9" />
               </View>
               <TextInput
                 placeholderTextColor="#ccc"
@@ -93,7 +93,7 @@ const SignInScreen = ({navigation}) => {
                 <Icon
                   name={'eye'}
                   size={20}
-                  color={'#00B4FF'}
+                  color={'#2179A9'}
                 />
               </TouchableOpacity>
             </View>
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   h4: {
     fontSize: 30,
     textAlign: 'center',
-    color: '#00B4FF',
+    color: '#2179A9',
     marginTop: 30,
   },
   markWrap: {
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   button: {
-    backgroundColor: '#00B4FF',
+    backgroundColor: '#2179A9',
     paddingVertical: 10,
     paddingHorizontal: 10,
 

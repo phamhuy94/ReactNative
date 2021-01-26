@@ -1,28 +1,28 @@
 import giaonhan from '../baseUrl2';
 
-const data = {
-    macongty: 'HOPLONG',
-    username: 'WALO040_HL',
-    isadmin: false,
-    maphongban: 'INTE_HL',       
-}
+// const data = {
+//     macongty: 'HOPLONG',
+//     username: 'WALO032_HL',
+//     isadmin: false,
+//     maphongban: '',       
+// }
 
-export const _getCanNhan = async () => {    
+export const _getCanNhan = async (data) => {    
     const response = await giaonhan.post('/api/Api_GiaoHang/TongSoDonHangCuaToi',data);
     return response.data;
 };
 
-export const _getDaNhan = async () => {
+export const _getDaNhan = async (data) => {
     const response = await giaonhan.post('/api/Api_GiaoHang/TongSoDonHangDangGiaoCuaToi',data);
     return response.data
 }
 
-export const _getListCanNhan = async () => {    
-    const response = await giaonhan.post('/api/Api_GiaoHang/DonHangCuaToi',data);
+export const _getListCanNhan = async (data) => {   
+    const response = await giaonhan.post('/api/Api_GiaoHang/DonHangCuaToi', data);
     return response.data;
 };
 
-export const _getListDaNhan = async () => {    
+export const _getListDaNhan = async (data) => {    
     const response = await giaonhan.post('/api/Api_GiaoHang/DonHangDangGiaoCuaToi',data);
     return response.data;
 };

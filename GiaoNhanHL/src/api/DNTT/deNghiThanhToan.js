@@ -307,7 +307,7 @@ export const _postDeNghiTT = async (
     NGUOI_THU_HUONG: nguoiThuHuong,
     LOAI_TAI_KHOAN: loaiTaiKhoan,
   };
-  console.log(data)
+
   const response = await axiosInstance.post(
     '/api/Api_DeNghiThanhToan/PostDeNghiTT',
 

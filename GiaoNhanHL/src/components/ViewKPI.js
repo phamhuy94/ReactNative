@@ -10,23 +10,25 @@ import AsyncStorage from '@react-native-community/async-storage';
 export default function ViewKPI() {
   const dispatch = useDispatch();
   const KPI = useSelector((store) => store.user.KPI);
-  const [macongty, setMaCongTy] = useState('HOPLONG');
+  const [macongty, setMaCongTy] = useState();
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
 
   //lay username
-  const [username, setUsername] = useState('WALO040_HL');
-  //   const getToken = async () => {
-  //     const username = await AsyncStorage.getItem('userToken');
-  //     setUsername(username);
-  //   };
-  //   useEffect(() => {
-  //     getToken();
-  //   }, []);
+  const [username, setUsername] = useState();
+    const getToken = async () => {
+      const username = await AsyncStorage.getItem('userToken');
+      const macongty = await AsyncStorage.getItem('maCongTy');
+      setUsername(username);
+      setMaCongTy(macongty)
+    };
+    useEffect(() => {
+      getToken();
+    }, []);
 
   useEffect(() => {
     dispatch(getKPI(macongty, username, startDate, endDate));
-  }, [username, startDate, endDate]);
+  }, [username, macongty, startDate, endDate]);
 
   //   useEffect(() => {
   //     dispatch(getKPI(dateTime))
@@ -39,7 +41,6 @@ export default function ViewKPI() {
   //       return timeSheet
   //   }, [timeSheet]);
   //   if(data === null) return null
-
   return (
     <View style={styles.container}>
       <Appbar.Header style={styles.colorHeader}>

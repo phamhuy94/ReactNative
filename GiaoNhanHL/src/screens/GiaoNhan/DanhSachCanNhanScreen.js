@@ -15,6 +15,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {getListCanNhan, xacNhanGiaoHang} from '../../redux/GiaoNhan/action';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {Appbar} from 'react-native-paper';
+import AsyncStorage from '@react-native-community/async-storage';
 
 
 const wait = (timeout) => {
@@ -30,6 +31,28 @@ function DanhSachCanNhanScreen({navigation}) {
   const listSelect = useSelector((store) => store.giaoNhan.listSelect);
   const slDaNhan = useSelector((store) => store.giaoNhan.slDaNhan);
   const loaiGiaoHang = useSelector((store) => store.giaoNhan.loaiGiaoHang);
+
+  const [username, setUsername] = useState();
+  const [macongty, setMaCongTy] = useState();
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [maphongban, setMaphongban] = useState('');
+
+  const getToken = async () => {
+    const username = await AsyncStorage.getItem('userToken');
+    const macongty = await AsyncStorage.getItem('maCongTy');
+    setUsername(username);
+    setMaCongTy(macongty)
+  };
+  useEffect(() => {
+    getToken();
+  }, []);
+
+  const data = {
+    macongty: macongty,
+    username: username,
+    isadmin : isAdmin,
+    maphongban: maphongban
+  };
 
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = useCallback(() => {
@@ -52,8 +75,8 @@ function DanhSachCanNhanScreen({navigation}) {
   };
 
   useEffect(() => {
-    dispatch(getListCanNhan());
-  }, []);
+    dispatch(getListCanNhan(data));
+  }, [username, macongty]);
 
   return (
     <SafeAreaView style={styles.container}>

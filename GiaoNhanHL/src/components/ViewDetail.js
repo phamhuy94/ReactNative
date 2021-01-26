@@ -248,7 +248,7 @@ const style3 = StyleSheet.create({
     marginBottom: 5,
   },
   emailIcon: {
-    color: 'gray',
+    color: '#2179A9',
     fontSize: 30,
   },
   emailNameColumn: {
@@ -256,7 +256,7 @@ const style3 = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   emailNameText: {
-    color: 'gray',
+    color: '#2179A9',
     fontSize: 14,
     fontWeight: '200',
   },
@@ -285,7 +285,7 @@ const style2 = StyleSheet.create({
     justifyContent: 'center',
   },
   smsIcon: {
-    color: 'darkgray',
+    color: '#2179A9',
     fontSize: 30,
   },
   smsRow: {
@@ -293,7 +293,7 @@ const style2 = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   telIcon: {
-    color: 'grey',
+    color: '#2179A9',
     fontSize: 30,
   },
   telNameColumn: {
@@ -301,7 +301,7 @@ const style2 = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   telNameText: {
-    color: 'gray',
+    color: '#2179A9',
     fontSize: 14,
     fontWeight: '200',
   },

@@ -136,7 +136,7 @@ const ViewDNTTCanDuyet = ({
         <View style={{flexDirection: 'row', justifyContent: 'center'}}>
           <Icon
             name="ios-hourglass-outline"
-            size={26}
+            size={24}
             style={styles.iconTrash}
           />
           <Text style={styles.textHeader}>
@@ -156,7 +156,7 @@ const ViewDNTTCanDuyet = ({
           <View style={{flexDirection: 'row', flex: 1}}>
             <Icon
               name="ios-hourglass-outline"
-              size={26}
+              size={24}
               style={styles.iconStatusWait}
             />
             <Text style={styles.textHeader}>
@@ -190,7 +190,7 @@ const ViewDNTTCanDuyet = ({
   return (
     <View style={styles.container}>
       <Appbar.Header style={styles.colorHeader}>
-        <Appbar.Action icon="power-standby" color={'#2179A9'} size={30} />
+        <Appbar.Action icon="powershell" color={'#2179A9'} size={30} />
         <Appbar.Content
           title="DNTT Cần duyệt"
           color={'#2179A9'}
@@ -200,7 +200,7 @@ const ViewDNTTCanDuyet = ({
           title="Click"
           onPress={() => navigation.navigate('Tạo đề nghị thanh toán')}>
           <Icon
-            name="ios-add-circle-outline"
+            name="ios-add-circle"
             size={30}
             style={styles.iconAdd}
           />
@@ -214,8 +214,7 @@ const ViewDNTTCanDuyet = ({
         <FlatList
           data={getDeNghiTTNVCanDuyet}
           renderItem={({item, index}) => (
-            <View>
-              <Card>
+            <View style={styles.card}>
                 <Card.Title style={styles.flex}>
                   <View
                     style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
@@ -290,7 +289,6 @@ const ViewDNTTCanDuyet = ({
                     {item.HO_VA_TEN_NGUOI_DN}
                   </Text>
                 </View>
-              </Card>
             </View>
           )}
         />
@@ -307,6 +305,7 @@ const styles = StyleSheet.create({
   },
   flex: {
     flexDirection: 'row',
+    marginBottom:10,
   },
   textHeader: {
     color: '#444',
@@ -339,5 +338,19 @@ const styles = StyleSheet.create({
   },
   iconStatusCancel: {
     color: 'red',
+  },
+  card: {
+    marginTop: 0,
+    margin: 15,
+    padding: 15,
+    borderRadius: 5,
+    backgroundColor: '#fff',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 5.25,
+    shadowRadius: 3.84,
+    elevation: 6,
   },
 });
