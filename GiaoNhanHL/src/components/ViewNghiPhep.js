@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   GetDonXinNghiNV,
   GetTongSoNgayNghiNV,
+  DemDonXinNghiPhepNV,
   DeleteDonNghiPhep,
 } from '../redux/nghiPhep/action';
 
@@ -39,6 +40,10 @@ const ViewNghiPhep = ({navigation}) => {
 
   const getTongSoNgayNghiNV = useSelector(
     (store) => store.nghiPhep.getTongSoNgayNghiNV,
+  );
+
+  const demDonXinNghiPhepNV = useSelector(
+    (store) => store.nghiPhep.demDonXinNghiPhepNV,
   );
 
   //lay username
@@ -115,6 +120,19 @@ const ViewNghiPhep = ({navigation}) => {
       ),
     );
   }, [username, macongty]);
+
+  useEffect(() => {
+    dispatch(
+      DemDonXinNghiPhepNV(
+        macongty,
+        username,
+        isadmin,
+        tukhoa,
+        tukhoa2
+      ),
+    );
+  }, [username, macongty]);
+
   const deleteDNP = async (id) => {
     await dispatch(DeleteDonNghiPhep(id));
     await dispatch(
@@ -129,7 +147,7 @@ const ViewNghiPhep = ({navigation}) => {
       ),
     );
   };
- console.log(getTongSoNgayNghiNV.length);
+ console.log(demDonXinNghiPhepNV);
   const checkIcon = (
     TRUONG_PHONG_DA_DUYET,
     TRUONG_PHONG_HUY_DUYET,
@@ -288,12 +306,12 @@ const ViewNghiPhep = ({navigation}) => {
               styles.button,
               {
                 backgroundColor:
-                  sotrang > parseFloat(getListDonXinNghiNV.length) / 15
+                  sotrang > parseFloat(demDonXinNghiPhepNV) / 15
                     ? '#aaa'
                     : '#2179A9',
               },
             ]}
-            disabled={sotrang > parseFloat(getListDonXinNghiNV.length) / 15}
+            disabled={sotrang > parseFloat(demDonXinNghiPhepNV) / 15}
             onPress={() => {
               setSotrang(sotrang + 1);
             }}>

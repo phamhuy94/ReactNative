@@ -14,7 +14,7 @@ import {
   Keyboard,
   Alert,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/Ionicons';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
 import {_login} from '../../redux/authentication/action';
@@ -61,7 +61,7 @@ const SignInScreen = ({navigation}) => {
             <Text style={styles.h4}>Welcome to HopLong</Text>
             <View style={styles.inputWrap}>
               <View style={styles.iconWrap}>
-                <Icon name="user" size={20} color="#2179A9" />
+                <Icon name="ios-person" size={26} color="#2179A9" />
               </View>
               <TextInput
                 placeholder="Username"
@@ -74,7 +74,7 @@ const SignInScreen = ({navigation}) => {
             </View>
             <View style={styles.inputWrap}>
               <View style={styles.iconWrap}>
-                <Icon name="key" size={20} color="#2179A9" />
+                <Icon name="ios-lock-closed" size={26} color="#2179A9" />
               </View>
               <TextInput
                 placeholderTextColor="#ccc"

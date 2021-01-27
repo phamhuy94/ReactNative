@@ -29,6 +29,7 @@ export default function ViewTimeSheet() {
     const username = await AsyncStorage.getItem('userToken');
     setUsername(username);
   };
+  
   useEffect(() => {
     getToken();
   }, []);
@@ -166,7 +167,7 @@ export default function ViewTimeSheet() {
             </View>
           </View>
         )}
-        keyExtractor={(item2, index) => index.toString()}
+        keyExtractor={(item2, index) => index}
       />
     </View>
   );
