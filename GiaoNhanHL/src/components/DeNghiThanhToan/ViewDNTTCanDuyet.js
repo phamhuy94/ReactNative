@@ -71,7 +71,7 @@ const ViewDNTTCanDuyet = ({
         sobanghi,
       ),
     );
-  }, []);
+  }, [username, macongty]);
 
   useEffect(() => {
     dispatch(
@@ -90,7 +90,7 @@ const ViewDNTTCanDuyet = ({
         sobanghi,
       ),
     );
-  }, [username, sotrang]);
+  }, [username, macongty]);
 
   useEffect(() => {
     dispatch(
@@ -109,7 +109,7 @@ const ViewDNTTCanDuyet = ({
         sobanghi,
       ),
     );
-  }, []);
+  }, [username, macongty]);
 
   const deleteDNTTCanDuyet = async (id) => {
     await dispatch(DeleteDeNghiTT(id));

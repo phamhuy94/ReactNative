@@ -68,7 +68,7 @@ const ViewDNTTCanThanhToan = ({
         sobanghi,
       ),
     );
-  }, []);
+  }, [username, macongty]);
 
   useEffect(() => {
     dispatch(
@@ -87,7 +87,7 @@ const ViewDNTTCanThanhToan = ({
         sobanghi,
       ),
     );
-  }, [username, sotrang]);
+  }, [username, macongty]);
 
   useEffect(() => {
     dispatch(
@@ -106,7 +106,7 @@ const ViewDNTTCanThanhToan = ({
         sobanghi,
       ),
     );
-  }, []);
+  }, [username, macongty]);
   const checkStatus = (
     DA_THANH_TOAN,
     DA_DUYET,

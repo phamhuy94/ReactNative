@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import {CheckBox} from 'native-base';
 import {useDispatch, useSelector} from 'react-redux';
-import {getListCanNhan, xacNhanGiaoHang} from '../../redux/GiaoNhan/action';
+import {getListCanNhan, xacNhanGiaoHang, getDaNhan} from '../../redux/GiaoNhan/action';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {Appbar} from 'react-native-paper';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -58,9 +58,10 @@ function DanhSachCanNhanScreen({navigation}) {
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     wait(500).then(() => setRefreshing(false));
-    dispatch(getListCanNhan());
-  },[]);
+    dispatch(getListCanNhan(data));
+  },[username, macongty]);
 
+  console.log(slDaNhan)
   const press = (state, index) => {
     dispatch({
       type: 'SELECT_CAN_NHAN',
@@ -70,8 +71,8 @@ function DanhSachCanNhanScreen({navigation}) {
     });
   };
 
-  const xacNhan = () => {
-    dispatch(xacNhanGiaoHang(loaiGiaoHang, listSelect));
+  const xacNhan = async () => {
+    await dispatch(xacNhanGiaoHang(loaiGiaoHang, listSelect, data));
   };
 
   useEffect(() => {
@@ -93,9 +94,11 @@ function DanhSachCanNhanScreen({navigation}) {
       <FlatList
         data={listCanNhan}
         renderItem={({index, item}) => (
+          
           <View
             style={[
               styles.item,
+              styles.card,
               {backgroundColor: index % 2 == 0 ? '#f2f2f2' : '#fff'},
             ]}>
             <View style={styles.flexCheck}>
@@ -182,6 +185,20 @@ const styles = StyleSheet.create({
     color: '#444',
     fontSize: 16,
     flexShrink: 1,
+  },
+  card: {
+    marginTop: 20,
+    margin: 15,
+    padding: 15,
+    borderRadius: 5,
+    backgroundColor: '#fff',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 5.25,
+    shadowRadius: 3.84,
+    elevation: 6,
   },
   colorHeader: {
     shadowColor: '#000',

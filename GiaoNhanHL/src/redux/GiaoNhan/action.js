@@ -5,7 +5,8 @@ import {
     _getListDaNhan, 
     _xacNhanGiaoHang,
     _noteNoiDung,
-    _updateGiaoHang
+    _updateGiaoHang,
+    _huyDonHang
 } from '../../api/GiaoNhan/giaoNhan'
 
 export const getCanNhan = (data) => {
@@ -64,17 +65,15 @@ export const getListDaNhan = (data) => {
     }
 }
 
-export const xacNhanGiaoHang = (loaiGiaoHang,listSelect) => {
+export const xacNhanGiaoHang = (loaiGiaoHang,listSelect, data) => {
     return async (dispatch) => {
         try {
             const response = await _xacNhanGiaoHang(loaiGiaoHang,listSelect);
             if(response.indexOf("thành công")>0){
-                dispatch(getListCanNhan())
-                dispatch(getCanNhan())
-                dispatch(getDaNhan())
-            }else{
-                
-            }           
+                dispatch(getListCanNhan(data))
+                dispatch(getCanNhan(data))
+                dispatch(getDaNhan(data))
+            }          
         } catch (e) {
             return dispatch({ type: 'GET_DATA_ERROR', e });
         }
@@ -96,9 +95,26 @@ export const saveUpdateGiaoHang = (data) => {
     return async (dispatch) => {
         try {
             const response = await _updateGiaoHang(data);
+            dispatch(getListDaNhan(data))
+            dispatch(getCanNhan(data))
+            dispatch(getDaNhan(data))
             return response       
         } catch (e) {
             return dispatch({ type: 'GET_DATA_ERROR', e });
+        }
+    }
+}
+
+export const huyDonHang = (arrayListDaNhan, data) => {
+    return async (dispatch) => {
+        try {
+            const response = await _huyDonHang(arrayListDaNhan);
+                dispatch(getListDaNhan(data))
+                dispatch(getListCanNhan(data))
+                dispatch(getCanNhan(data))
+                dispatch(getDaNhan(data))
+        } catch (error) {
+            console.log(error);
         }
     }
 }

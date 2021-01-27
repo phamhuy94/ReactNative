@@ -51,7 +51,6 @@ export default function ViewPayRoll() {
         <Appbar.Content title="Bảng Lương" color={'#2179A9'} style={{marginLeft: -15}}/>
       </Appbar.Header>
       <FlatList
-        inverted
         data={payRoll}
         renderItem={({item, index}) => (
           <View style={styles.homeLayout}>
