@@ -63,7 +63,7 @@ const ViewXacNhan = ({navigation}) => {
         sobanghi,
       ),
     );
-  }, [username, macongty]);
+  }, [macongty, username,sotrang]);
 
   const getToken = async () => {
     const username = await AsyncStorage.getItem('userToken');
@@ -89,7 +89,7 @@ const ViewXacNhan = ({navigation}) => {
         sobanghi,
       ),
     );
-  }, [username, macongty]);
+  }, [macongty, username,sotrang]);
   useEffect(() => {
     dispatch(
       DemDonXacNhanNV(
@@ -103,7 +103,7 @@ const ViewXacNhan = ({navigation}) => {
         sobanghi,
       ),
     );
-  }, [username, macongty]);
+  }, [macongty, username,sotrang]);
 
   const deleteDXN = async (id) => {
     await dispatch(DeleteDonXacNhan(id));
@@ -277,6 +277,7 @@ const ViewXacNhan = ({navigation}) => {
                     : '#2179A9',
               },
             ]}
+            disabled={sotrang > parseFloat(demDonXacNhanNV) / 15}
             onPress={() => {
               setSotrang(sotrang + 1);
             }}>

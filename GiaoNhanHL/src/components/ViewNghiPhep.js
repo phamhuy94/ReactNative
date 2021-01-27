@@ -129,7 +129,7 @@ const ViewNghiPhep = ({navigation}) => {
       ),
     );
   };
-
+ console.log(getTongSoNgayNghiNV.length);
   const checkIcon = (
     TRUONG_PHONG_DA_DUYET,
     TRUONG_PHONG_HUY_DUYET,
@@ -288,11 +288,12 @@ const ViewNghiPhep = ({navigation}) => {
               styles.button,
               {
                 backgroundColor:
-                  sotrang > parseFloat(getTongSoNgayNghiNV) / 15
+                  sotrang > parseFloat(getListDonXinNghiNV.length) / 15
                     ? '#aaa'
                     : '#2179A9',
               },
             ]}
+            disabled={sotrang > parseFloat(getListDonXinNghiNV.length) / 15}
             onPress={() => {
               setSotrang(sotrang + 1);
             }}>

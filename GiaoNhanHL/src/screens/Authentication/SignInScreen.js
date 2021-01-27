@@ -26,7 +26,6 @@ const driver = require('../../images/driver-01.png');
 const lockIcon = require('../../images/login1_lock.png');
 const personIcon = require('../../images/login1_person.png');
 
-
 const SignInScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const isSignInFailed = useSelector(
@@ -36,7 +35,7 @@ const SignInScreen = ({navigation}) => {
 
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const [showPass ,setShowPass] = useState(true);
+  const [showPass, setShowPass] = useState(true);
 
   const signIn = useCallback((username, password) => {
     dispatch(_login(username, password));
@@ -53,10 +52,10 @@ const SignInScreen = ({navigation}) => {
       <View style={styles.container}>
         <ImageBackground style={styles.background}>
           <View style={styles.markWrap}>
-            <Image source={mark} style={styles.mark} resizeMode="contain" />
+            <Image source={mark} style={styles.mark} resizeMode="center" />
           </View>
           <View style={styles.markWrap}>
-            <Image source={driver} resizeMode="center" />
+            <Image source={driver} resizeMode="contain" style={styles.driver} />
           </View>
           <View style={styles.wrapper}>
             <Text style={styles.h4}>Welcome to HopLong</Text>
@@ -90,11 +89,7 @@ const SignInScreen = ({navigation}) => {
               <TouchableOpacity
                 style={styles.btnEye}
                 onPress={() => setShowPass(!showPass)}>
-                <Icon
-                  name={'eye'}
-                  size={20}
-                  color={'#2179A9'}
-                />
+                <Icon name={'eye'} size={20} color={'#2179A9'} />
               </TouchableOpacity>
             </View>
             {/* <TouchableOpacity activeOpacity={.5}>
@@ -153,7 +148,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 10,
     right: 10,
-    color:'#000'
+    color: '#000',
   },
   inputWrap: {
     marginHorizontal: 20,
@@ -179,6 +174,10 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     paddingHorizontal: 10,
+  },
+  driver: {
+    width,
+    height,
   },
   button: {
     backgroundColor: '#2179A9',
