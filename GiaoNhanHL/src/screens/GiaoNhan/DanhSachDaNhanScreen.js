@@ -17,7 +17,11 @@ import {useDispatch, useSelector} from 'react-redux';
 import {ReactNativeNumberFormat} from '../../components/FormatNumber';
 import {Picker} from '@react-native-community/picker';
 import AsyncStorage from '@react-native-community/async-storage';
-import {getListDaNhan, noteNoiDung} from '../../redux/GiaoNhan/action';
+import {
+  getListDaNhan,
+  noteNoiDung,
+  huyDonHang,
+} from '../../redux/GiaoNhan/action';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Appbar} from 'react-native-paper';
 const listSuCo = ['Sai mã', 'Thiếu mã', 'Thừa mã'];
@@ -40,12 +44,13 @@ function DanhSachDaNhanScreen({navigation}) {
   const [macongty, setMaCongTy] = useState();
   const [isAdmin, setIsAdmin] = useState(false);
   const [maphongban, setMaphongban] = useState('');
+  const [disabled, setDisabled] = useState(false);
 
   const getToken = async () => {
     const username = await AsyncStorage.getItem('userToken');
     const macongty = await AsyncStorage.getItem('maCongTy');
     setUsername(username);
-    setMaCongTy(macongty)
+    setMaCongTy(macongty);
   };
   useEffect(() => {
     getToken();
@@ -54,8 +59,8 @@ function DanhSachDaNhanScreen({navigation}) {
   const data = {
     macongty: macongty,
     username: username,
-    isadmin : isAdmin,
-    maphongban: maphongban
+    isadmin: isAdmin,
+    maphongban: maphongban,
   };
 
   const listDaNhan = useSelector((store) => store.giaoNhan.listDaNhan);
@@ -112,12 +117,29 @@ function DanhSachDaNhanScreen({navigation}) {
     }
   };
 
+  let arrayListDaNhan = [];
+  for (let item = 0; item < listSelectDaNhan.length; item++) {
+    let dataList = {
+      SO_CHUNG_TU: listSelectDaNhan[item].SO_CHUNG_TU,
+      LOAI: listSelectDaNhan[item].LOAI,
+    };
+    arrayListDaNhan.push(dataList);
+  }
+
+  useEffect(() => {
+    dispatch(getListDaNhan(data));
+  }, [username, macongty]);
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     wait(500).then(() => setRefreshing(false));
     dispatch(getListDaNhan(data));
-  }, []);
+  }, [username, macongty]);
+
+  const functionHuyDonHang = () => {
+    dispatch(huyDonHang(arrayListDaNhan, data));
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Appbar.Header style={styles.colorHeader}>
@@ -135,6 +157,7 @@ function DanhSachDaNhanScreen({navigation}) {
             <View
               style={[
                 styles.item,
+                styles.card,
                 {backgroundColor: index % 2 == 0 ? '#f2f2f2' : '#fff'},
               ]}>
               <View style={styles.flexCheck}>
@@ -150,50 +173,55 @@ function DanhSachDaNhanScreen({navigation}) {
 
               {item.DIA_CHI_GIAO_HANG ? (
                 <View style={styles.flex}>
-                  <Icon
-                    name="ios-location"
-                 
-                    style={styles.icon}
-                  />
+                  <Icon name="ios-location" style={styles.icon} />
                   <Text style={styles.name}>{item.DIA_CHI_GIAO_HANG}</Text>
                 </View>
               ) : null}
 
               {item.LOAI === 'GIAO_HANG' ? (
                 <View style={styles.note}>
-                  <Icon name="md-logo-euro" size={20} style={styles.icon} />
-                  <Text style={styles.name}>{item.HINH_THUC_THANH_TOAN}</Text>
-                  {item.HINH_THUC_THANH_TOAN === 'Tiền mặt' && (
-                    <View style={{flexDirection: 'row'}}>
-                      <Icon
-                        name="ios-business-sharp"
-                        style={styles.icon}
-                      />
-                      <ReactNativeNumberFormat
-                        string="Tổng tiền:"
-                        value={item.TONG_TIEN}
-                      />
-                    </View>
-                  )}
+                  <View style={styles.flex}>
+                    <Icon name="ios-logo-yen" size={20} style={styles.icon} />
+                    <Text style={styles.name}>{item.HINH_THUC_THANH_TOAN}</Text>
+                  </View>
+                  <View>
+                    {item.HINH_THUC_THANH_TOAN === 'Tiền mặt' && (
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          alignContent: 'center',
+                        }}>
+                        <Icon name="md-logo-euro" style={styles.icon} />
+                        <ReactNativeNumberFormat
+                          string="Tổng tiền:"
+                          value={item.TONG_TIEN}
+                        />
+                      </View>
+                    )}
+                  </View>
                 </View>
               ) : (
                 <View style={styles.note}>
-                  <View style={{flexDirection: 'row',alignItems:'center',alignSelf:'center'}}>
-                    <Icon
-                      name="ios-business-sharp"
-                      style={styles.icon}
-                    />
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      alignSelf: 'center',
+                    }}>
+                    <Icon name="ios-business-sharp" style={styles.icon} />
                     <Text style={styles.name}>
                       Đại diện: {item.NOI_LAY_HANG}
                     </Text>
                   </View>
 
-                  <View style={{flexDirection: 'row',alignItems:'center',alignSelf:'center'}}>
-                    <Icon
-                      name="ios-logo-html5"
-                      size={20}
-                      style={styles.icon}
-                    />
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      alignSelf: 'center',
+                    }}>
+                    <Icon name="ios-logo-html5" size={20} style={styles.icon} />
                     <ReactNativeNumberFormat
                       string="Tổng tiền:"
                       value={item.TONG_TIEN}
@@ -231,8 +259,13 @@ function DanhSachDaNhanScreen({navigation}) {
         </Icon.Button>
         <Text>&nbsp;&nbsp;&nbsp;</Text>
         <Icon.Button
-          name="ios-checkbox"
-          style={{backgroundColor: '#2179A9'}}
+          name="ios-checkmark-circle"
+          style={
+            listSelectDaNhan.length == 0
+              ? {backgroundColor: '#bbb'}
+              : {backgroundColor: '#2179A9'}
+          }
+          disabled={listSelectDaNhan.length == 0 ? true : false}
           onPress={() =>
             navigation.navigate('Xác nhận giao hàng', {
               listSelectDaNhan: listSelectDaNhan,
@@ -240,8 +273,17 @@ function DanhSachDaNhanScreen({navigation}) {
           }>
           Xác nhận
         </Icon.Button>
-
-        {/* <Button title="Quay lại" onPress={() => navigation.goBack()} /> */}
+        <Text>&nbsp;&nbsp;&nbsp;</Text>
+        <Icon.Button
+          name="ios-close-circle-sharp"
+          style={
+            listSelectDaNhan.length == 0
+              ? {backgroundColor: '#bbb'}
+              : {backgroundColor: '#2179A9'}
+          }
+          onPress={() => functionHuyDonHang()}>
+          Hủy nhận
+        </Icon.Button>
       </View>
       <Modal isVisible={isModalVisible}>
         <View style={{backgroundColor: 'white', padding: 15}}>
@@ -257,7 +299,7 @@ function DanhSachDaNhanScreen({navigation}) {
             onChangeText={setNoiDungSuCo}
             value={noiDungSuCo}
             placeholder="Nhập nội dung sự cố"
-            placeholderTextColor="black"
+            placeholderTextColor="#ccc"
           />
           <View style={styles.flexCheck}>
             <Icon.Button
@@ -284,11 +326,24 @@ const styles = StyleSheet.create({
   },
   flex: {
     flexDirection: 'row',
-    alignSelf:'center',
-    alignItems:'center',
-    alignContent:'center',
-  },
 
+    alignItems: 'center',
+    marginBottom:10,
+  },
+  card: {
+    marginTop: 20,
+    margin: 15,
+    padding: 15,
+    borderRadius: 5,
+    backgroundColor: '#fff',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 5.25,
+    shadowRadius: 3.84,
+    elevation: 6,
+  },
   flexCheck: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
@@ -348,7 +403,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   note: {
-    alignSelf: 'flex-start',
     fontSize: 16,
   },
   button: {
@@ -359,6 +413,9 @@ const styles = StyleSheet.create({
   input: {
     borderBottomColor: '#ccc',
     borderBottomWidth: 1,
+
+    flexShrink: 1,
+    width: '100%',
   },
   icon: {
     marginRight: 10,

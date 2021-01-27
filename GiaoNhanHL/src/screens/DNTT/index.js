@@ -8,7 +8,7 @@ import DropDownDNTT from '../../components/DeNghiThanhToan/DropdownDNTT';
 import AsyncStorage from '@react-native-community/async-storage';
 
 const DNTT = ({navigation}) => {
-  const [page, setPage] = useState('canDuyet');
+  const [page, setPage] = useState('daThanhToan');
 
   //lay username
   const [username, setUsername] = useState();

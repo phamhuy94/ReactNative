@@ -48,6 +48,7 @@ const ViewTaoDonXacNhan = ({navigation}) => {
     navigation.navigate('Xin xác nhận');
   };
 
+  
   useEffect(() => {
     if (noiDungCanXacNhan != '' && ngayCanXacNhan != '') {
       setDisable(false);
@@ -58,7 +59,7 @@ const ViewTaoDonXacNhan = ({navigation}) => {
   }, [noiDungCanXacNhan, ngayCanXacNhan]);
 
   return (
-    <ScrollView>
+   
       <View style={styles.container}>
         <View style={styles.header}>
           <Appbar.Header style={styles.colorHeader}>
@@ -113,7 +114,7 @@ const ViewTaoDonXacNhan = ({navigation}) => {
           </Button>
         </View>
       </View>
-    </ScrollView>
+  
   );
 };
 

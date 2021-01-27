@@ -17,7 +17,6 @@ const clock = require('../images/clock.png');
 // import Icon from 'react-native-vector-icons/FontAwesome5'
 
 import {Appbar} from 'react-native-paper';
-import {Tile, List, ListItem, Card, Icon} from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 export default function ViewTimeSheet() {
   const dispatch = useDispatch();
@@ -52,7 +51,6 @@ export default function ViewTimeSheet() {
         <Appbar.Content title="Bảng Chấm Công" color={'#2179A9'} />
       </Appbar.Header>
       <FlatList
-        inverted
         data={timeSheet}
         renderItem={({item, index}) => (
           <View style={styles.homeLayout}>

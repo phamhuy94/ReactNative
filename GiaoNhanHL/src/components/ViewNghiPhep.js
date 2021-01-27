@@ -85,7 +85,7 @@ const ViewNghiPhep = ({navigation}) => {
 
   const data = {
     username: username,
-    macongty: macongty
+    macongty: macongty,
   };
 
   useEffect(() => {
@@ -100,7 +100,7 @@ const ViewNghiPhep = ({navigation}) => {
         sobanghi,
       ),
     );
-  }, [username, sotrang]);
+  }, [username, macongty]);
 
   useEffect(() => {
     dispatch(
@@ -114,7 +114,7 @@ const ViewNghiPhep = ({navigation}) => {
         tukhoa,
       ),
     );
-  }, [username]);
+  }, [username, macongty]);
   const deleteDNP = async (id) => {
     await dispatch(DeleteDonNghiPhep(id));
     await dispatch(
@@ -138,7 +138,7 @@ const ViewNghiPhep = ({navigation}) => {
   ) => {
     if (TRUONG_PHONG_DA_DUYET === true && TRUONG_PHONG_HUY_DUYET === false) {
       return (
-        <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+        <View style={{flexDirection: 'row'}}>
           <Icon
             name="ios-checkmark-circle"
             size={24}
@@ -152,19 +152,24 @@ const ViewNghiPhep = ({navigation}) => {
     }
     if (TRUONG_PHONG_DA_DUYET === false && TRUONG_PHONG_HUY_DUYET === false) {
       return (
-        <View style={{flexDirection: 'row', justifyContent: 'flex-end',marginLeft:100}}>
-          <View style={{flexDirection: 'row',flex:1,}}>
+        <View
+          style={{
+
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}>
+                  <View style={{left: 50}}>
             <Icon
               name="ios-refresh-circle"
               size={24}
               style={styles.iconStatusWait}
             />
-            <Text style={styles.textHeader}>
-              {moment(NGAY_LAM_DON).format('DD/MM/YYYY')}
-            </Text>
           </View>
-          <View style={{marginLeft:100,}}>
-            <TouchableOpacity onPress={() => deleteDNP(id)} >
+          <Text style={[styles.textHeader, {left: 50,}]}>
+            {moment(NGAY_LAM_DON).format('DD/MM/YYYY')}
+          </Text>
+          <View style={{marginLeft:150}}>
+            <TouchableOpacity onPress={() => deleteDNP(id)}>
               <Icon name="trash" size={24} style={styles.iconStatusWait} />
             </TouchableOpacity>
           </View>
@@ -173,12 +178,15 @@ const ViewNghiPhep = ({navigation}) => {
     }
     if (TRUONG_PHONG_HUY_DUYET !== false) {
       return (
-        <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+        <View style={{flexDirection:'row'}}>
+          <Text>
           <Icon
             name="ios-close-circle-sharp"
             size={24}
             style={styles.iconStatusCancel}
           />
+          </Text>
+      
           <Text style={styles.textHeader}>
             {moment(NGAY_LAM_DON).format('DD/MM/YYYY')}
           </Text>
@@ -204,25 +212,22 @@ const ViewNghiPhep = ({navigation}) => {
           <TouchableOpacity
             title="Click"
             onPress={() => navigation.navigate('Tạo đơn nghỉ phép', {data})}>
-            <Icon
-              name="ios-add-circle"
-              size={30}
-              style={styles.iconAdd}
-            />
+            <Icon name="ios-add-circle" size={30} style={styles.iconAdd} />
           </TouchableOpacity>
         </Appbar.Header>
-      
-          <View style={styles.flexTitle}>
-            <Text style={[styles.textHeader,{color:'#2179A9'}]}>Tổng số ngày nghỉ trong năm:</Text>
-            <Text>&nbsp;&nbsp;</Text>
-            <Text style={[styles.textHeader,{color:'#2179A9'}]}>
-              {getTongSoNgayNghiNV.length == 0
-                ? '0'
-                : getTongSoNgayNghiNV[0].TONG_SO_NGAY_NGHI}
-            </Text>
-            {/* <Text style={styles.textHeader}>{item.TONG_SO_NGAY_NGHI_TRONG_NAM}</Text> */}
-          </View>
-   
+
+        <View style={styles.flexTitle}>
+          <Text style={[styles.textHeader, {color: '#2179A9'}]}>
+            Tổng số ngày nghỉ trong năm:
+          </Text>
+          <Text>&nbsp;&nbsp;</Text>
+          <Text style={[styles.textHeader, {color: '#2179A9'}]}>
+            {getTongSoNgayNghiNV.length == 0
+              ? '0'
+              : getTongSoNgayNghiNV[0].TONG_SO_NGAY_NGHI}
+          </Text>
+          {/* <Text style={styles.textHeader}>{item.TONG_SO_NGAY_NGHI_TRONG_NAM}</Text> */}
+        </View>
       </View>
       <ScrollView
         contentContainerStyle={styles.scrollView}
@@ -234,16 +239,14 @@ const ViewNghiPhep = ({navigation}) => {
           renderItem={({item, index}) => (
             <View style={styles.card}>
               <Card.Title>
-              
-                  <View style={styles.icon}>
-                    {checkIcon(
-                      item.TRUONG_PHONG_DA_DUYET,
-                      item.TRUONG_PHONG_HUY_DUYET,
-                      item.MA_SO_XIN_NGHI,
-                      item.NGAY_LAM_DON,
-                    )}
-                  </View>
-        
+                <View style={styles.icon}>
+                  {checkIcon(
+                    item.TRUONG_PHONG_DA_DUYET,
+                    item.TRUONG_PHONG_HUY_DUYET,
+                    item.MA_SO_XIN_NGHI,
+                    item.NGAY_LAM_DON,
+                  )}
+                </View>
               </Card.Title>
 
               <View style={styles.flex}>
@@ -323,6 +326,7 @@ const styles = StyleSheet.create({
   flexCenter: {
     flexDirection: 'row',
     justifyContent: 'center',
+    alignContent: 'space-between',
   },
   textHeader: {
     color: '#444',
@@ -331,14 +335,14 @@ const styles = StyleSheet.create({
   },
   flexTitle: {
     flexDirection: 'row',
-    margin:20,
-    marginTop:10,
+    margin: 20,
+    marginTop: 10,
     color: '#2179A9',
   },
   flex: {
     flex: 1,
     flexDirection: 'row',
-    marginBottom:5,
+    marginBottom: 5,
   },
   colorHeader: {
     shadowColor: '#000',
@@ -351,6 +355,8 @@ const styles = StyleSheet.create({
   icon: {
     marginRight: 5,
     color: '#2179A9',
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   iconAdd: {
     color: '#2179A9',

@@ -7,7 +7,7 @@ import {
   ScrollView,
   TextInput,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
 } from 'react-native';
 import {PostDonXinNghiNV, GetDonXinNghiNV} from '../redux/nghiPhep/action';
 import {Card} from 'react-native-elements';
@@ -63,104 +63,103 @@ const ViewTaoDonNghiPhep = ({navigation, route}) => {
 
   return (
     <ScrollView>
-          <View style={styles.container}>
-      <View style={styles.header}>
-        <Appbar.Header style={styles.colorHeader}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.goBack()}>
-            <Icon
-              name="ios-chevron-back-outline"
-              size={30}
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Appbar.Header style={styles.colorHeader}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => navigation.goBack()}>
+              <Icon
+                name="ios-chevron-back-outline"
+                size={30}
+                color={'#2179A9'}
+                style={styles.iconPage}
+              />
+            </TouchableOpacity>
+            {/* <Appbar.BackAction underlayColor='#fff' onPress={() => navigation.goBack()} style={styles.iconBack}/> */}
+            <Appbar.Content
+              title="Tạo đơn nghỉ phép"
               color={'#2179A9'}
-              style={styles.iconPage}
+              style={{marginLeft: -15}}
             />
-          </TouchableOpacity>
-          {/* <Appbar.BackAction underlayColor='#fff' onPress={() => navigation.goBack()} style={styles.iconBack}/> */}
-          <Appbar.Content
-            title="Tạo đơn nghỉ phép"
-            color={'#2179A9'}
-            style={{marginLeft: -15}}
-          />
-        </Appbar.Header>
-      </View>
-      <View>
-        <View style={styles.card}>
-          <View style={styles.flex}>
-            <Icon name="ios-calendar" size={26} style={styles.icon} />
-            <Text
-              style={[
-                styles.textHeader,
-                {
-                  color: '#000',
-                  marginLeft: 8,
-                  alignItems: 'center',
-                  alignSelf: 'center',
-                  alignContent: 'center',
-                },
-              ]}>
-              {dateTime}
-            </Text>
-          </View>
-          <View style={styles.flex}>
-            <Icon name="ios-chatbox-ellipses" size={26} style={styles.icon} />
-            <View style={styles.dropdown}>
-              <PickNghiPhep
-                loaiNghiPhep={loaiNghiPhep}
-                setLoaiNghiPhep={setLoaiNghiPhep}
-              />
+          </Appbar.Header>
+        </View>
+        <View>
+          <View style={styles.card}>
+            <View style={styles.flex}>
+              <Icon name="ios-calendar" size={26} style={styles.icon} />
+              <Text
+                style={[
+                  styles.textHeader,
+                  {
+                    color: '#000',
+                    marginLeft: 8,
+                    alignItems: 'center',
+                    alignSelf: 'center',
+                    alignContent: 'center',
+                  },
+                ]}>
+                {dateTime}
+              </Text>
             </View>
-          </View>
-          <View style={styles.flexTime}>
-            <View style={[styles.flex, {marginRight: 15}]}>
-              <Icon name="today" size={26} style={styles.icon} />
-              <DatePicker
-                onPress={(text) => setDateTimeRow(text)}
-                maxDate={new Date(2050, 1, 1)}
-                style={[styles.datepicker, {width: 150}]}
-              />
+            <View style={styles.flex}>
+              <Icon name="ios-chatbox-ellipses" size={26} style={styles.icon} />
+              <View style={styles.dropdown}>
+                <PickNghiPhep
+                  loaiNghiPhep={loaiNghiPhep}
+                  setLoaiNghiPhep={setLoaiNghiPhep}
+                />
+              </View>
+            </View>
+            <View style={styles.flexTime}>
+              <View style={[styles.flex, {marginRight: 15}]}>
+                <Icon name="today" size={26} style={styles.icon} />
+                <DatePicker
+                  onPress={(text) => setDateTimeRow(text)}
+                  maxDate={new Date(2050, 1, 1)}
+                  style={[styles.datepicker, {width: 150}]}
+                />
+              </View>
+
+              <View style={styles.flex}>
+                <Icon name="today" size={26} style={styles.icon} />
+                <PickThoiDiem day={day} setDay={setDay} />
+              </View>
             </View>
 
             <View style={styles.flex}>
-              <Icon name="today" size={26} style={styles.icon} />
-              <PickThoiDiem day={day} setDay={setDay} />
+              <Icon name="ios-copy" size={26} style={styles.icon} />
+              <TextInput
+                style={styles.input}
+                onChangeText={setLydoNghi}
+                placeholder="Nhập lý do nghỉ.."
+                multiline={true}
+                underlineColorAndroid="transparent"
+              />
+            </View>
+            <View style={styles.flex}>
+              <Icon name="ios-navigate-circle" size={26} style={styles.icon} />
+              <TextInput
+                style={styles.input}
+                placeholder="Nhập số ngày nghỉ"
+                numeric
+                keyboardType={'numeric'}
+                maxLength={99}
+                onChangeText={setTongSoNgay}
+                underlineColorAndroid="transparent"
+              />
             </View>
           </View>
-
-          <View style={styles.flex}>
-            <Icon name="ios-copy" size={26} style={styles.icon} />
-            <TextInput
-              style={styles.input}
-              onChangeText={setLydoNghi}
-              placeholder="Nhập lý do nghỉ.."
-              multiline={true}
-              underlineColorAndroid="transparent"
-            />
-          </View>
-          <View style={styles.flex}>
-            <Icon name="ios-navigate-circle" size={26} style={styles.icon} />
-            <TextInput
-              style={styles.input}
-              placeholder="Nhập số ngày nghỉ"
-              numeric
-              keyboardType={'numeric'}
-              maxLength={99}
-              onChangeText={setTongSoNgay}
-              underlineColorAndroid="transparent"
-            />
-          </View>
+          <Button
+            disabled={disable}
+            onPress={() => buttonCreate()}
+            style={disable ? styles.buttonAddDisable : styles.buttonAddEnable}>
+            <Icon name="ios-add" size={26} color={'#fff'} />
+            <Text style={{color: '#fff'}}>Tạo</Text>
+          </Button>
         </View>
-        <Button
-          disabled={disable}
-          onPress={() => buttonCreate()}
-          style={disable ? (styles.buttonAddDisable) : (styles.buttonAddEnable)}>
-          <Icon name="ios-add" size={26} color={'#fff'} />
-          <Text style={{color: '#fff'}}>Tạo</Text>
-        </Button>
       </View>
-    </View>
     </ScrollView>
-
   );
 };
 export default ViewTaoDonNghiPhep;
@@ -248,7 +247,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor:'#2179A9'
+    backgroundColor: '#2179A9',
   },
   buttonAddDisable: {
     paddingVertical: 10,

@@ -17,7 +17,7 @@ export const _getDaNhan = async (data) => {
     return response.data
 }
 
-export const _getListCanNhan = async (data) => {   
+export const _getListCanNhan = async (data) => {  
     const response = await giaonhan.post('/api/Api_GiaoHang/DonHangCuaToi', data);
     return response.data;
 };
@@ -44,5 +44,13 @@ export const _noteNoiDung = async (data) => {
 
 export const _updateGiaoHang = async (data) => {
     const response = await giaonhan.post('/api/Api_GiaoHang/UpdateTrangThaiDon',data);
+    return response.data;
+}
+
+export const _huyDonHang = async (data) => {
+    const data1 = {
+        ChiTiet: data   
+    }
+    const response = await giaonhan.post('/api/Api_GiaoHang/HuyTrangThaiDon', data1);
     return response.data;
 }

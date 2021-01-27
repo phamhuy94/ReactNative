@@ -67,7 +67,7 @@ const ViewDNTTDaThanhToan = ({
         sobanghi,
       ),
     );
-  }, []);
+  }, [username, macongty]);
 
   useEffect(() => {
     dispatch(
@@ -86,7 +86,7 @@ const ViewDNTTDaThanhToan = ({
         sobanghi,
       ),
     );
-  }, [username, sotrang]);
+  }, [username, macongty]);
 
   useEffect(() => {
     dispatch(
@@ -105,7 +105,7 @@ const ViewDNTTDaThanhToan = ({
         sobanghi,
       ),
     );
-  }, []);
+  }, [username, macongty]);
 
   return (
     <View style={styles.container}>
