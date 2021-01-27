@@ -30,7 +30,17 @@ function XacNhanScreen({route, navigation}) {
   const [chuyenLoaiThanhToan, setChuyenLoaiThanhToan] = useState();
   const [daGiaoHang, setDaGiaoHang] = useState();
   const [daLayHang, setDaLayHang] = useState();
+  const [disabled, setDisabled] = useState(true);
 
+  useEffect(() => {
+    if(nguoiNhanHang != '' && sdtNguoiNhanHang != '') {
+      setDisabled(false);
+    }
+    if(nguoiNhanHang == '' || sdtNguoiNhanHang == '') {
+      setDisabled(true);
+    }
+  }, [nguoiNhanHang, sdtNguoiNhanHang]);
+  
   const updateGiaoHang = async () => {
     let data = {
       ChiTiet: listSelectDaNhan,
@@ -154,7 +164,10 @@ function XacNhanScreen({route, navigation}) {
 
           {/* <Button title="Lưu" onPress={() => updateGiaoHang()} /> */}
         </View>
-        <Button onPress={() => updateGiaoHang()} style={styles.buttonSave}>
+        <Button 
+          disabled={disabled} 
+          onPress={() => updateGiaoHang()}
+          style={disabled ? styles.buttonNotSave : styles.buttonSave}>
           <Icon name="ios-add" size={26} color={'#fff'} />
           <Text style={{color: '#fff'}}>Lưu</Text>
         </Button>
@@ -212,6 +225,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#2179A9',
+  },
+  buttonNotSave: {
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    textAlign: 'center',
+    alignSelf: 'center',
+    borderRadius: 50,
+    marginTop: 20,
+    width: 350,
+    color: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   input: {
     borderBottomColor: '#ccc',
