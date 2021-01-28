@@ -52,7 +52,6 @@ const ViewTaoDNTT = ({navigation}) => {
   const [chiNhanhNganHang, setChiNhanhNganHang] = useState('');
   const [nguoiThuHuong, setNguoiThuHuong] = useState('');
   const [loaiTaiKhoan, setLoaiTaiKhoan] = useState('');
-
   const [disable, setDisable] = useState(true);
 
   const getToken = async () => {
@@ -224,6 +223,7 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 5,
     backgroundColor: '#fff',
+    shadowColor: Platform.OS === 'ios' ? ('#ccc') : ('transparent'),
     shadowOffset: {
       width: 0,
       height: 2,

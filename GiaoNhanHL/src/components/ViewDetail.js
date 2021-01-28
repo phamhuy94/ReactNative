@@ -42,10 +42,6 @@ export default function ViewDetail({data}) {
 
   return (
     <View>
-      {/* <Appbar.Header style={styles.colorHeader}>
-        
-        <Appbar.Content title="Detail" />
-      </Appbar.Header> */}
       <ScrollView style={styles.scroll}>
         <View style={styles.container}>
           <Card containerStyle={styles.cardContainer}>

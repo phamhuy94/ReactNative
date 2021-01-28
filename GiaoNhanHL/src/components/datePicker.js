@@ -12,7 +12,7 @@ const datePicker = ({onPress, maxDate}) => {
             maximumDate={maxDate}
             locale={"en"}
             timeZoneOffsetInMinutes={undefined}
-            modalTransparent={false}
+            modalTransparent={true}
             animationType={"fade"}
             androidMode={"default"}
             placeHolderText={date}

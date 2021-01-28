@@ -10,6 +10,7 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
+  Platform
 } from 'react-native';
 import {Button} from 'native-base';
 import {Appbar} from 'react-native-paper';
@@ -24,13 +25,14 @@ function XacNhanScreen({route, navigation}) {
   const dispatch = useDispatch();
 
   const [username, setUsername] = useState();
-  const [nguoiNhanHang, setNguoiNhanHang] = useState();
-  const [sdtNguoiNhanHang, setSdtNguoiNhanHang] = useState();
+  const [nguoiNhanHang, setNguoiNhanHang] = useState('');
+  const [sdtNguoiNhanHang, setSdtNguoiNhanHang] = useState('');
   const [ghiChu, setGhiChu] = useState();
   const [chuyenLoaiThanhToan, setChuyenLoaiThanhToan] = useState();
   const [daGiaoHang, setDaGiaoHang] = useState();
   const [daLayHang, setDaLayHang] = useState();
   const [disabled, setDisabled] = useState(true);
+  console.log(disabled)
 
   useEffect(() => {
     if(nguoiNhanHang != '' && sdtNguoiNhanHang != '') {
@@ -189,7 +191,8 @@ const styles = StyleSheet.create({
   colorHeader: {
     shadowColor: '#000',
     shadowOffset: {width: 1, height: 3},
-    shadowOpacity: 0.2,
+    // shadowOpacity: 0.2,
+    shadowOpacity: Platform.OS === 'ios' ? 0 : 0.2,
     backgroundColor: 'transparent',
     elevation: 1,
   },
@@ -200,7 +203,7 @@ const styles = StyleSheet.create({
     paddingLeft:30,
   },
   card: {
-    marginTop: 20,
+    marginVertical:10,
     margin: 15,
     padding: 15,
     borderRadius: 5,
@@ -211,6 +214,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 5.25,
     shadowRadius: 3.84,
+    shadowColor: Platform.OS === 'ios' ? ('#ccc') : ('transparent'),
     elevation: 6,
   },
   buttonSave: {

@@ -30,15 +30,6 @@ export default function ViewPayRoll() {
     dispatch(getPayRoll(username));
   }, [username]);
 
-
-  //   const data = useMemo(() => {
-  //       if(timeSheet.length == 0) {
-  //           return null;
-  //       }
-  //       return timeSheet
-  //   }, [timeSheet]);
-  //   if(data === null) return null
-
   return (
     <View style={styles.container}>
          <Appbar.Header style={styles.colorHeader}>

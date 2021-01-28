@@ -16,6 +16,7 @@ import {
   ScrollView,
   Button,
   TouchableOpacity,
+  Platform
 } from 'react-native';
 import moment from 'moment';
 
@@ -362,6 +363,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
+    shadowColor: Platform.OS === 'ios' ? ('#ccc') : ('transparent'),
     shadowOpacity: 5.25,
     shadowRadius: 3.84,
     elevation: 6,
