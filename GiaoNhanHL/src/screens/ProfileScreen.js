@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useContext, useCallback} from 'react';
-import {Button, View, StyleSheet, Text,TouchableOpacity} from 'react-native';
+import {Button, View, StyleSheet, Text,TouchableOpacity,ScrollView} from 'react-native';
 
 import AsyncStorage from '@react-native-community/async-storage';
 import ViewDetail from '../components/ViewDetail';
@@ -12,6 +12,7 @@ import DNTT from '../screens/DNTT/index';
 import {useDispatch, useSelector} from 'react-redux';
 import {logout} from '../redux/authentication/action';
 import {createDrawerNavigator} from '@react-navigation/drawer';
+
 
 const ProfileScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -45,13 +46,13 @@ const ProfileScreen = ({navigation}) => {
 
   function Details({navigation}) {
     return (
-      <View style={{}}>
+      <ScrollView style={{flex:1,}}>
         <ViewDetail data={state}></ViewDetail>
 
         <TouchableOpacity onPress={signOut} style={styles.button}>
           <Text style={{color: '#fff'}}>Sign out</Text>
         </TouchableOpacity>
-      </View>
+      </ScrollView>
     );
   }
 
