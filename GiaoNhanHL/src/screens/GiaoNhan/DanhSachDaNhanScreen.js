@@ -10,6 +10,7 @@ import {
   TextInput,
   ScrollView,
   Alert,
+  Platform,
 } from 'react-native';
 import Modal from 'react-native-modal';
 import {CheckBox} from 'native-base';
@@ -173,7 +174,10 @@ function DanhSachDaNhanScreen({navigation}) {
 
               {item.DIA_CHI_GIAO_HANG ? (
                 <View style={styles.flex}>
-                  <Icon name="ios-location" style={styles.icon} />
+                  <View style={styles.icon}>
+                  <Icon name="ios-location"  size={20} style={styles.iconImg}/>
+                  </View>
+                  
                   <Text style={styles.name}>{item.DIA_CHI_GIAO_HANG}</Text>
                 </View>
               ) : null}
@@ -181,7 +185,10 @@ function DanhSachDaNhanScreen({navigation}) {
               {item.LOAI === 'GIAO_HANG' ? (
                 <View style={styles.note}>
                   <View style={styles.flex}>
-                    <Icon name="ios-logo-yen" size={20} style={styles.icon} />
+                    <View style={styles.icon} > 
+                    <Icon style={styles.iconImg} name="ios-logo-yen" size={20} />
+                    </View>
+                   
                     <Text style={styles.name}>{item.HINH_THUC_THANH_TOAN}</Text>
                   </View>
                   <View>
@@ -192,7 +199,10 @@ function DanhSachDaNhanScreen({navigation}) {
                           alignItems: 'center',
                           alignContent: 'center',
                         }}>
-                        <Icon name="md-logo-euro" style={styles.icon} />
+                          <View style={styles.icon}> 
+                          <Icon name="md-logo-euro" style={styles.iconImg} size={20} />
+                          </View>
+                       
                         <ReactNativeNumberFormat
                           string="Tổng tiền:"
                           value={item.TONG_TIEN}
@@ -331,7 +341,7 @@ const styles = StyleSheet.create({
     marginBottom:10,
   },
   card: {
-    marginTop: 20,
+    marginVertical:10,
     margin: 15,
     padding: 15,
     borderRadius: 5,
@@ -342,6 +352,8 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 5.25,
     shadowRadius: 3.84,
+    shadowOffset: {width: 1, height: 3},
+    shadowColor: Platform.OS === 'ios' ? ('#ccc') : ('transparent'),
     elevation: 6,
   },
   flexCheck: {
@@ -356,8 +368,7 @@ const styles = StyleSheet.create({
   },
   colorHeader: {
     shadowColor: '#000',
-    shadowOffset: {width: 1, height: 3},
-    shadowOpacity: 0.2,
+    shadowOpacity: Platform.OS === 'ios' ? 0 : 0.2 ,
     backgroundColor: 'transparent',
     elevation: 1,
   },
@@ -413,7 +424,6 @@ const styles = StyleSheet.create({
   input: {
     borderBottomColor: '#ccc',
     borderBottomWidth: 1,
-
     flexShrink: 1,
     width: '100%',
   },
@@ -421,13 +431,16 @@ const styles = StyleSheet.create({
     marginRight: 10,
     fontSize: 20,
     backgroundColor: '#eee',
-    borderRadius: 44 / 2,
+    borderRadius: 35 / 2,
     height: 35,
     width: 35,
-    alignSelf: 'center',
-    textAlignVertical: 'center',
-    textAlign: 'center',
-    color: '#2179A9',
+    alignItems:'center',
+    alignContent:'center',
+    textAlignVertical:'center',
   },
+  iconImg: {
+    color: '#2179A9',
+    lineHeight:35,
+  }
 });
 export default DanhSachDaNhanScreen;

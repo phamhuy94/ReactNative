@@ -8,7 +8,8 @@ import {
   Dimensions,
   StyleSheet,
   FlatList,
-  ScrollView
+  ScrollView,
+  Platform
 } from 'react-native';
 import {CheckBox} from 'native-base';
 import {useDispatch, useSelector} from 'react-redux';
@@ -147,7 +148,7 @@ function DanhSachCanNhanScreen({navigation}) {
       </ScrollView>
       <View style={styles.center}>
         <Icon.Button name="check" onPress={() => xacNhan()} style={styles.button}>
-          Xác nhận giao hàng
+          Bắt đầu đi giao
         </Icon.Button>
       </View>
     </SafeAreaView>
@@ -187,7 +188,7 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },
   card: {
-    marginTop: 20,
+    marginVertical:10,
     margin: 15,
     padding: 15,
     borderRadius: 5,
@@ -196,14 +197,16 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
+    shadowColor: Platform.OS === 'ios' ? ('#ccc') : ('transparent'),
     shadowOpacity: 5.25,
     shadowRadius: 3.84,
+
     elevation: 6,
   },
   colorHeader: {
     shadowColor: '#000',
     shadowOffset: {width: 1, height: 3},
-    shadowOpacity: 0.2,
+    shadowOpacity: Platform.OS === 'ios' ? 0 : 0.2,
     backgroundColor: 'transparent',
     elevation: 1,
   },

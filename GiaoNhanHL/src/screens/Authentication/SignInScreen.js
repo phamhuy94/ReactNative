@@ -1,18 +1,15 @@
 import React, {useEffect, useState, useCallback} from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   View,
   Image,
   Dimensions,
   TextInput,
-  Button,
   TouchableOpacity,
   ImageBackground,
-  TouchableWithoutFeedback,
-  Keyboard,
   Alert,
+  Platform
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -158,8 +155,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#CCC',
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.8,
+    shadowOpacity: Platform.OS === 'ios' ? 0 : 0.8,
     shadowRadius: 2,
   },
   iconWrap: {

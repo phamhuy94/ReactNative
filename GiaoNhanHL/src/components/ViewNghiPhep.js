@@ -18,6 +18,7 @@ import {
   Button,
   TouchableOpacity,
   Alert,
+  Platform
 } from 'react-native';
 import {Card} from 'react-native-elements';
 import {Appbar} from 'react-native-paper';
@@ -407,6 +408,7 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 5,
     backgroundColor: '#fff',
+    shadowColor: Platform.OS === 'ios' ? ('#ccc') : ('transparent'),
     shadowOffset: {
       width: 0,
       height: 2,

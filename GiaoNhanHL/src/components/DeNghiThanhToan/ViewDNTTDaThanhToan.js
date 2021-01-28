@@ -229,6 +229,7 @@ const styles = StyleSheet.create({
       height: 2,
     },
     shadowOpacity: 5.25,
+    shadowColor: Platform.OS === 'ios' ? ('#ccc') : ('transparent'),
     shadowRadius: 3.84,
     elevation: 6,
   },
