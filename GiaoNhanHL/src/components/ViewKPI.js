@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {getKPI} from '../redux/user/action';
 import DatePicker from '../components/datePicker';
 import moment from 'moment';
-import {Text, View, StyleSheet, FlatList, ScrollView} from 'react-native';
+import {Text, View, StyleSheet, FlatList, ScrollView, Platform} from 'react-native';
 import {Appbar} from 'react-native-paper';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -178,9 +178,8 @@ const styles = StyleSheet.create({
   },
   colorHeader: {
     shadowColor: '#000',
-    
     shadowOffset: {width: 1, height: 3},
-    shadowOpacity: 0.2,
+    shadowOpacity: Platform.OS === 'ios' ? 0 : 0.2,
     backgroundColor: 'transparent',
     elevation: 1,
   },

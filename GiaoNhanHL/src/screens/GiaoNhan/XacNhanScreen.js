@@ -18,10 +18,11 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-community/async-storage';
 import {Card} from 'react-native-elements';
 import {useDispatch, useSelector} from 'react-redux';
-import {getListDaNhan, saveUpdateGiaoHang} from '../../redux/GiaoNhan/action';
+import {getListDaNhan, saveUpdateGiaoHang, getCanNhan, getDaNhan} from '../../redux/GiaoNhan/action';
 
 function XacNhanScreen({route, navigation}) {
   const {listSelectDaNhan} = route.params;
+  const {dataUser} = route.params;
   const dispatch = useDispatch();
 
   const [username, setUsername] = useState();
@@ -32,7 +33,6 @@ function XacNhanScreen({route, navigation}) {
   const [daGiaoHang, setDaGiaoHang] = useState();
   const [daLayHang, setDaLayHang] = useState();
   const [disabled, setDisabled] = useState(true);
-  console.log(disabled)
 
   useEffect(() => {
     if(nguoiNhanHang != '' && sdtNguoiNhanHang != '') {
@@ -55,10 +55,10 @@ function XacNhanScreen({route, navigation}) {
       GHI_CHU: ghiChu,
       username: username,
     };
-    const response = await dispatch(saveUpdateGiaoHang(data));
+    const response = await dispatch(saveUpdateGiaoHang(data, dataUser));
     if (response.indexOf('Thành công') >= 0) {
       Alert.alert(response);
-      dispatch(getListDaNhan());
+      // dispatch(getListDaNhan());
       navigation.navigate('Danh sách đã nhận');
     } else {
       Alert.alert('Thất bại');
@@ -99,11 +99,15 @@ function XacNhanScreen({route, navigation}) {
         </View>
         <View style={styles.card}>
           <View style={styles.flex}>
-            <Icon name="ios-business" size={26} style={styles.icon} />
+            <View style={styles.icon}>
+              <Icon name="ios-business" size={20} style={styles.iconImg} />
+            </View>
             <Text style={styles.text}>{listSelectDaNhan[0].TEN_CONG_TY}</Text>
           </View>
           <View style={styles.flex}>
-            <Icon name="ios-person" size={26} style={styles.icon} />
+          <View style={styles.icon}>
+              <Icon name="ios-person" size={22} style={styles.iconImg} />
+            </View>
             <TextInput
               onChangeText={setNguoiNhanHang}
               value={nguoiNhanHang}
@@ -113,7 +117,9 @@ function XacNhanScreen({route, navigation}) {
             />
           </View>
           <View style={styles.flex}>
-            <Icon name="ios-call" size={26} style={styles.icon} />
+            <View style={styles.icon}>
+              <Icon name="ios-call" size={22} style={styles.iconImg} />
+            </View>
             <TextInput
               onChangeText={setSdtNguoiNhanHang}
               value={sdtNguoiNhanHang}
@@ -123,7 +129,9 @@ function XacNhanScreen({route, navigation}) {
             />
           </View>
           <View style={styles.flex}>
-            <Icon name="ios-bookmark-sharp" size={26} style={styles.icon} />
+          <View style={styles.icon}>
+              <Icon name="ios-bookmark-sharp" size={22} style={styles.iconImg} />
+            </View>
             <TextInput
               onChangeText={setGhiChu}
               value={ghiChu}
@@ -132,34 +140,43 @@ function XacNhanScreen({route, navigation}) {
               placeholderTextColor="#ccc"
             />
           </View>
-          <View style={{flexDirection: 'row'}}></View>
+          
           <View style={{flexDirection: 'row',alignItems:'center',marginBottom:15,}}>
+            <View style={{position:'absolute',zIndex:9,marginRight:29,paddingRight:29}}>
             <CheckBox
               onPress={() => setChuyenLoaiThanhToan(!chuyenLoaiThanhToan)}
               checked={chuyenLoaiThanhToan}
               style={{marginLeft:5}}
             />
-            <Text style={styles.left}>Chuyển loại thanh toán</Text>
+            </View>
+            
+            <Text style={[styles.left,{marginLeft:10}]}>Chuyển loại thanh toán</Text>
           </View>
           <View>
             {listSelectDaNhan[0].LOAI === 'GIAO_HANG' && (
               <View style={{flexDirection: 'row',alignItems:'center'}}>
+                <View style={{position:'absolute',zIndex:9}}>
                 <CheckBox
                   onPress={() => setDaGiaoHang(!daGiaoHang)}
                   checked={daGiaoHang}
                   style={{marginLeft:5}}
                 />
-                <Text style={styles.left}>Xác nhận giao hàng</Text>
+                </View>
+                
+                <Text style={[styles.left,{marginLeft:10}]}>Xác nhận giao hàng</Text>
               </View>
             )}
             {listSelectDaNhan[0].LOAI != 'GIAO_HANG' && (
               <View style={{flexDirection: 'row',alignItems:'center'}}>
+                 <View style={{position:'absolute',zIndex:9}}>
                 <CheckBox
                   onPress={() => setDaLayHang(!daLayHang)}
                   checked={daLayHang}
                   style={{marginLeft:5}}
                 />
-                <Text style={styles.left}>Xác nhận lấy hàng</Text>
+                </View>
+                
+                <Text style={[styles.left,{marginLeft:10}]}>Xác nhận lấy hàng</Text>
               </View>
             )}
           </View>
@@ -201,6 +218,7 @@ const styles = StyleSheet.create({
   },
   left: {
     paddingLeft:30,
+    paddingRight:15,
   },
   card: {
     marginVertical:10,
@@ -252,13 +270,16 @@ const styles = StyleSheet.create({
   icon: {
     marginRight: 10,
     fontSize: 20,
-    backgroundColor: '#eee',
-    borderRadius: 44 / 2,
+    backgroundColor: '#ddd',
+    borderRadius: 35 / 2,
     height: 35,
     width: 35,
-    alignSelf: 'center',
-    textAlignVertical: 'center',
-    textAlign: 'center',
-    color: '#2179A9',
+    alignItems:'center',
+    alignContent:'center',
+    textAlignVertical:'center',
   },
+  iconImg: {
+    color: '#2179A9',
+    lineHeight:35,
+  }
 });

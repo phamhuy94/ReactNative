@@ -1,4 +1,4 @@
-const initialState = {
+ const initialState = {
     slCanNhan: 0,
     slDaNhan: 0,
     listCanNhan: [],
@@ -33,6 +33,7 @@ const giaoNhan = (state = initialState, action) => {
                 listSelectDaNhan: []
             };
         case 'SELECT_CAN_NHAN':
+            // console.log(state.listCanNhan)
             return {
                 ...state,
                 loaiGiaoHang: action.loaiGiaoHang,

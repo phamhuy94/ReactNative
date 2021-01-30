@@ -135,12 +135,9 @@ const ViewDNTTDaThanhToan = ({
           data={getDeNghiTTNVDaThanhToan}
           renderItem={({item, index}) => (
             <View style={styles.card}>
-              <Card.Title
-                style={[
-                  styles.flex,
-               
-                ]}>
-                <View style={{flexDirection: 'row'}}>
+              
+                
+                <View style={{alignContent:'center',alignSelf:'center',alignItems:'center',flexDirection:'row'}}>
                   <Icon
                     name="ios-checkmark-circle"
                     size={24}
@@ -149,8 +146,11 @@ const ViewDNTTDaThanhToan = ({
                   <Text style={styles.textHeader}>
                     {moment(item.NGAY_DN).format('DD/MM/YYYY')}
                   </Text>
-                </View>
-              </Card.Title>
+                  </View>
+                  
+                  
+                
+              
               <View style={styles.flex}>
                 <Icon
                   name="ios-person-circle-outline"
@@ -187,6 +187,13 @@ const styles = StyleSheet.create({
   flex: {
     flexDirection: 'row',
     marginBottom: 10,
+    
+  },
+  flexCard: {
+    flexDirection:'row',
+    justifyContent:'center',
+    alignContent:'center',
+    alignItems:'center',
   },
   textHeader: {
     color: '#444',
@@ -195,9 +202,8 @@ const styles = StyleSheet.create({
   },
   colorHeader: {
     shadowColor: '#000',
-
     shadowOffset: {width: 1, height: 3},
-    shadowOpacity: 0.2,
+    shadowOpacity: Platform.OS === 'ios' ? 0 : 0.2,
     backgroundColor: 'transparent',
     elevation: 1,
   },

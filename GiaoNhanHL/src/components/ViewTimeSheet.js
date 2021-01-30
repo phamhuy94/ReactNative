@@ -5,11 +5,9 @@ import {
   Text,
   View,
   Image,
-  ImageBackground,
-  TouchableOpacity,
   StyleSheet,
-  ScrollView,
   FlatList,
+  Platform
 } from 'react-native';
 
 const setting = require('../images/setting.png');
@@ -242,9 +240,8 @@ const styles = StyleSheet.create({
   },
   colorHeader: {
     shadowColor: '#000',
-    
     shadowOffset: {width: 1, height: 3},
-    shadowOpacity: 0.2,
+    shadowOpacity: Platform.OS === 'ios' ? 0 : 0.2,
     backgroundColor: 'transparent',
     elevation: 1,
   },

@@ -25,8 +25,9 @@ const ViewTaoDNTT = ({navigation}) => {
       <Form style={styles.container}>
         <Picker
           mode="dropdown"
-          iosHeader=""
+          iosHeader="Tiền mặt"
           iosIcon={<Icon name="arrow-down" />}
+          placeholder="Hình thức thanh toán"
           style={styles.picker}
           selectedValue={hinhThucThanhToan}
           onValueChange={setHinhThucThanhToan}>
@@ -122,7 +123,9 @@ const ViewTaoDNTT = ({navigation}) => {
       <View style={styles.card}>
 
           <View style={styles.flex}>
-            <Icon name="ios-reader-sharp" size={26} style={styles.icon} />
+          <View style={styles.icon}>
+                <Icon name="ios-reader-sharp" size={22} style={styles.iconImg} />
+              </View>
             <TextInput
               style={styles.input}
               onChangeText={setNoiDungDNTT}
@@ -132,14 +135,18 @@ const ViewTaoDNTT = ({navigation}) => {
             />
           </View>
           <View style={styles.flex}>
-            <Icon name="ios-cash" size={26} style={styles.icon} />
+          <View style={styles.icon}>
+                <Icon name="ios-cash" size={22} style={styles.iconImg} />
+              </View>
             <DropDownTienMat
               hinhThucThanhToan={hinhThucThanhToan}
               setHinhThucThanhToan={setHinhThucThanhToan}
             />
           </View>
           <View style={styles.flex}>
-            <Icon name="ios-chatbox-sharp" size={26} style={styles.icon} />
+          <View style={styles.icon}>
+                <Icon name="ios-chatbox-sharp" size={22} style={styles.iconImg} />
+            </View>
             <TextInput
               style={styles.input}
               onChangeText={setDienGiai}
@@ -149,7 +156,9 @@ const ViewTaoDNTT = ({navigation}) => {
             />
           </View>
           <View style={styles.flex}>
-            <Icon name="ios-logo-html5" size={26} style={styles.icon} />
+          <View style={styles.icon}>
+                <Icon name="ios-logo-html5" size={22} style={styles.iconImg} />
+            </View>
             <TextInput
               style={styles.input}
               onChangeText={setThanhTien}
@@ -159,7 +168,9 @@ const ViewTaoDNTT = ({navigation}) => {
             />
           </View>
           <View style={styles.flex}>
-            <Icon name="ios-newspaper" size={26} style={styles.icon} />
+          <View style={styles.icon}>
+                <Icon name="ios-newspaper" size={22} style={styles.iconImg} />
+              </View>
             <TextInput
               style={styles.input}
               onChangeText={setGhiChu}
@@ -205,14 +216,17 @@ const styles = StyleSheet.create({
   icon: {
     marginRight: 10,
     fontSize: 20,
-    backgroundColor: '#eee',
-    borderRadius: 44 / 2,
+    backgroundColor: '#ddd',
+    borderRadius: 35 / 2,
     height: 35,
     width: 35,
-    alignSelf: 'center',
-    textAlignVertical: 'center',
-    textAlign: 'center',
+    alignItems:'center',
+    alignContent:'center',
+    textAlignVertical:'center',
+  },
+  iconImg: {
     color: '#2179A9',
+    lineHeight:35,
   },
   iconPage: {
     marginRight: 5,
@@ -235,7 +249,7 @@ const styles = StyleSheet.create({
   colorHeader: {
     shadowColor: '#000',
     shadowOffset: {width: 1, height: 3},
-    shadowOpacity: 0.2,
+    shadowOpacity: Platform.OS === 'ios' ? 0 : 0.2,
     backgroundColor: 'transparent',
     elevation: 1,
   },

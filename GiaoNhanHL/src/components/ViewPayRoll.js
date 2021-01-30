@@ -6,6 +6,7 @@ import {
   View,
   StyleSheet,
   FlatList,
+  Platform
 } from 'react-native';
 
 import {Appbar} from 'react-native-paper';
@@ -240,7 +241,7 @@ const styles = StyleSheet.create({
   colorHeader: {
     shadowColor: '#000',
     shadowOffset: {width: 1, height: 3},
-    shadowOpacity: 0.2,
+    shadowOpacity: Platform.OS === 'ios' ? 0 : 0.2,
     backgroundColor: 'transparent',
     elevation: 1,
   },

@@ -99,7 +99,7 @@ function DanhSachDaNhanScreen({navigation}) {
       Alert.alert('Note thất bại');
     }
   };
-
+console.log(listSelectDaNhan)
   const press = (state) => {
     if (listSelectDaNhan.length === 0) {
       dispatch({
@@ -175,7 +175,7 @@ function DanhSachDaNhanScreen({navigation}) {
               {item.DIA_CHI_GIAO_HANG ? (
                 <View style={styles.flex}>
                   <View style={styles.icon}>
-                  <Icon name="ios-location"  size={20} style={styles.iconImg}/>
+                  <Icon name="ios-location"  size={24} style={styles.iconImg}/>
                   </View>
                   
                   <Text style={styles.name}>{item.DIA_CHI_GIAO_HANG}</Text>
@@ -217,9 +217,11 @@ function DanhSachDaNhanScreen({navigation}) {
                     style={{
                       flexDirection: 'row',
                       alignItems: 'center',
-                      alignSelf: 'center',
+                      marginTop: 10
                     }}>
-                    <Icon name="ios-business-sharp" style={styles.icon} />
+                      <View style={styles.icon}>
+                        <Icon name="ios-business-sharp" size={20} style={styles.iconImg} />
+                      </View>
                     <Text style={styles.name}>
                       Đại diện: {item.NOI_LAY_HANG}
                     </Text>
@@ -229,9 +231,11 @@ function DanhSachDaNhanScreen({navigation}) {
                     style={{
                       flexDirection: 'row',
                       alignItems: 'center',
-                      alignSelf: 'center',
+                      marginTop: 15
                     }}>
-                    <Icon name="ios-logo-html5" size={20} style={styles.icon} />
+                      <View style={styles.icon}>
+                        <Icon name="ios-logo-html5" size={22} style={styles.iconImg} />
+                      </View>
                     <ReactNativeNumberFormat
                       string="Tổng tiền:"
                       value={item.TONG_TIEN}
@@ -262,7 +266,7 @@ function DanhSachDaNhanScreen({navigation}) {
           style={{backgroundColor: '#2179A9'}}
           onPress={() =>
             navigation.navigate('Tạo đề nghị thanh toán', {
-              listSelectDaNhan: listSelectDaNhan,
+              listSelectDaNhan: listSelectDaNhan
             })
           }>
           Tạo ĐNTT
@@ -279,6 +283,7 @@ function DanhSachDaNhanScreen({navigation}) {
           onPress={() =>
             navigation.navigate('Xác nhận giao hàng', {
               listSelectDaNhan: listSelectDaNhan,
+              dataUser: data
             })
           }>
           Xác nhận
@@ -430,7 +435,7 @@ const styles = StyleSheet.create({
   icon: {
     marginRight: 10,
     fontSize: 20,
-    backgroundColor: '#eee',
+    backgroundColor: '#ddd',
     borderRadius: 35 / 2,
     height: 35,
     width: 35,

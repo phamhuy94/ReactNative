@@ -187,9 +187,8 @@ const ViewDNTTCanThanhToan = ({
           data={getDeNghiTTNVCanThanhToan}
           renderItem={({item, index}) => (
             <View style={styles.card}>
-                <Card.Title style={styles.flex}>
-                  <View
-                    style={{flexDirection: 'row'}}>
+               
+                <View style={{alignContent:'center',alignSelf:'center',alignItems:'center',flexDirection:'row'}}>
                     <View style={styles.icon}>
                       {checkStatus(
                         item.TRUONG_PHONG_DA_DUYET,
@@ -229,7 +228,7 @@ const ViewDNTTCanThanhToan = ({
                       )} */}
                     </View>
                   </View>
-                </Card.Title>
+                
                 <View style={styles.flex}>
                   <Icon
                     name="ios-person-circle-outline"
@@ -285,9 +284,8 @@ const styles = StyleSheet.create({
   },
   colorHeader: {
     shadowColor: '#000',
-    
     shadowOffset: {width: 1, height: 3},
-    shadowOpacity: 0.2,
+    shadowOpacity: Platform.OS === 'ios' ? 0 : 0.2,
     backgroundColor: 'transparent',
     elevation: 1,
   },
