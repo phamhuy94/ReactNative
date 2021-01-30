@@ -136,8 +136,8 @@ const ViewDNTTDaHuy = ({
           data={getDeNghiTTNVDaHuy}
           renderItem={({item, index}) => (
             <View style={styles.card}>
-              <Card.Title style={styles.flex}>
-                <View style={{flexDirection: 'row'}}>
+              
+              <View style={{alignContent:'center',alignSelf:'center',alignItems:'center',flexDirection:'row'}}>
                   <Icon
                     name="ios-close-circle-sharp"
                     size={24}
@@ -147,7 +147,7 @@ const ViewDNTTDaHuy = ({
                     {moment(item.NGAY_DN).format('DD/MM/YYYY')}
                   </Text>
                 </View>
-              </Card.Title>
+              
               <View style={styles.flex}>
                 <Icon
                   name="ios-person-circle-outline"
@@ -196,9 +196,8 @@ const styles = StyleSheet.create({
   },
   colorHeader: {
     shadowColor: '#000',
-
     shadowOffset: {width: 1, height: 3},
-    shadowOpacity: 0.2,
+    shadowOpacity: Platform.OS === 'ios' ? 0 : 0.2,
     backgroundColor: 'transparent',
     elevation: 1,
   },

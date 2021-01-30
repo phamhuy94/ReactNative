@@ -13,6 +13,7 @@ import {
   Button,
   FlatList,
   ScrollView,
+  Platform,
 } from 'react-native';
 import {Card} from 'react-native-elements';
 import {Appbar} from 'react-native-paper';
@@ -133,12 +134,15 @@ const ViewDNTTCanDuyet = ({
   const checkStatus = (TRUONG_PHONG_DA_DUYET, TRUONG_PHONG_HUY_DUYET, id,NGAY_DN) => {
     if (TRUONG_PHONG_DA_DUYET === true && TRUONG_PHONG_HUY_DUYET === false) {
       return (
-        <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+        <View style={{width:'100%',flexDirection: 'row',justifyContent:'center', alignItems: 'center'}}>
+          <View style={{alignContent:'center',alignSelf:'center',alignItems:'center',width:30}}>
           <Icon
             name="ios-hourglass-outline"
             size={24}
             style={styles.iconTrash}
           />
+          </View>
+          
           <Text style={styles.textHeader}>
             {moment(NGAY_DN).format('DD/MM/YYYY')}
           </Text>
@@ -150,20 +154,23 @@ const ViewDNTTCanDuyet = ({
         <View
           style={{
             flexDirection: 'row',
-            justifyContent: 'flex-end',
-            marginLeft: 100,
+            justifyContent: 'space-between',
+            alignItems: 'center'
           }}>
-          <View style={{flexDirection: 'row', flex: 1}}>
+        
+          <View style={{left: 105}}>
             <Icon
               name="ios-hourglass-outline"
               size={24}
               style={styles.iconStatusWait}
             />
-            <Text style={styles.textHeader}>
+            </View>
+            
+            <Text style={[styles.textHeader, {left: 105,}]}>
               {moment(NGAY_DN).format('DD/MM/YYYY')}
             </Text>
-          </View>
-          <View style={{marginLeft: 100}}>
+        
+          <View style={{marginLeft: 200}}>
             <TouchableOpacity onPress={() => deleteDNTTCanDuyet(id)}>
               <Icon name="trash" size={24} style={styles.iconTrash} />
             </TouchableOpacity>
@@ -317,9 +324,8 @@ const styles = StyleSheet.create({
   },
   colorHeader: {
     shadowColor: '#000',
-
     shadowOffset: {width: 1, height: 3},
-    shadowOpacity: 0.2,
+    shadowOpacity: Platform.OS === 'ios' ? 0 : 0.2,
     backgroundColor: 'transparent',
     elevation: 1,
   },

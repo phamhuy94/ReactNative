@@ -53,7 +53,8 @@ function HomeGiaoNhanScreen({navigation}) {
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     wait(500).then(() => setRefreshing(false));
-    dispatch(getCanNhan(data), getDaNhan(data));
+    dispatch(getCanNhan(data));
+    dispatch(getDaNhan(data));
   }, [username, macongty, data]);
 
   const titleCanNhan = 'Cần nhận ';

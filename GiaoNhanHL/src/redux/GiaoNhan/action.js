@@ -70,6 +70,7 @@ export const xacNhanGiaoHang = (loaiGiaoHang,listSelect, data) => {
         try {
             const response = await _xacNhanGiaoHang(loaiGiaoHang,listSelect);
             if(response.indexOf("thành công")>0){
+                dispatch(getListDaNhan(data))
                 dispatch(getListCanNhan(data))
                 dispatch(getCanNhan(data))
                 dispatch(getDaNhan(data))
@@ -91,13 +92,14 @@ export const noteNoiDung = (data) => {
     }
 }
 
-export const saveUpdateGiaoHang = (data) => {
+export const saveUpdateGiaoHang = (data, dataUser) => {
     return async (dispatch) => {
         try {
             const response = await _updateGiaoHang(data);
-            dispatch(getListDaNhan(data))
-            dispatch(getCanNhan(data))
-            dispatch(getDaNhan(data))
+                dispatch(getListDaNhan(dataUser))
+                dispatch(getListCanNhan(dataUser))
+                dispatch(getCanNhan(dataUser))
+                dispatch(getDaNhan(dataUser))
             return response       
         } catch (e) {
             return dispatch({ type: 'GET_DATA_ERROR', e });

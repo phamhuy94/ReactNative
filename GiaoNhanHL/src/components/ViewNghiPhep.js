@@ -157,7 +157,7 @@ const ViewNghiPhep = ({navigation}) => {
   ) => {
     if (TRUONG_PHONG_DA_DUYET === true && TRUONG_PHONG_HUY_DUYET === false) {
       return (
-        <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row',width:'100%',justifyContent:'center', alignItems: 'center'}}>
           <Icon
             name="ios-checkmark-circle"
             size={24}
@@ -173,21 +173,21 @@ const ViewNghiPhep = ({navigation}) => {
       return (
         <View
           style={{
-
             flexDirection: 'row',
             justifyContent: 'space-between',
+            alignItems: 'center'
           }}>
-                  <View style={{left: 50}}>
+                  <View style={{left: 105}}>
             <Icon
               name="ios-refresh-circle"
               size={24}
               style={styles.iconStatusWait}
             />
           </View>
-          <Text style={[styles.textHeader, {left: 50,}]}>
+          <Text style={[styles.textHeader, {left: 105,}]}>
             {moment(NGAY_LAM_DON).format('DD/MM/YYYY')}
           </Text>
-          <View style={{marginLeft:150}}>
+          <View style={{marginLeft:200}}>
             <TouchableOpacity onPress={() => deleteDNP(id)}>
               <Icon name="trash" size={24} style={styles.iconStatusWait} />
             </TouchableOpacity>
@@ -197,7 +197,7 @@ const ViewNghiPhep = ({navigation}) => {
     }
     if (TRUONG_PHONG_HUY_DUYET !== false) {
       return (
-        <View style={{flexDirection:'row'}}>
+        <View style={{flexDirection:'row',width:'100%',justifyContent:'center',alignItems:'center'}}>
           <Text>
           <Icon
             name="ios-close-circle-sharp"
@@ -257,7 +257,7 @@ const ViewNghiPhep = ({navigation}) => {
           data={getListDonXinNghiNV}
           renderItem={({item, index}) => (
             <View style={styles.card}>
-              <Card.Title>
+              <Card.Title style={styles.flex}>
                 <View style={styles.icon}>
                   {checkIcon(
                     item.TRUONG_PHONG_DA_DUYET,
@@ -333,11 +333,7 @@ const height = Dimensions.get('window').height; //full height
 export default ViewNghiPhep;
 
 const styles = StyleSheet.create({
-  position: {
-    zIndex: 1,
-    flex: 3,
-    left: 0,
-  },
+  
   header: {},
   container: {
     flex: 1,
@@ -360,14 +356,14 @@ const styles = StyleSheet.create({
     color: '#2179A9',
   },
   flex: {
-    flex: 1,
+    
     flexDirection: 'row',
-    marginBottom: 5,
+    
   },
   colorHeader: {
     shadowColor: '#000',
     shadowOffset: {width: 1, height: 3},
-    shadowOpacity: 0.2,
+    shadowOpacity: Platform.OS === 'ios' ? 0 : 0.2,
     backgroundColor: 'transparent',
     elevation: 1,
   },

@@ -129,12 +129,15 @@ const ViewXacNhan = ({navigation}) => {
   ) => {
     if (TRUONG_PHONG_DA_DUYET === true && TRUONG_PHONG_HUY_DUYET === false) {
       return (
-        <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+        <View style={{width:'100%',flexDirection: 'row',justifyContent:'center', alignItems: 'center'}}>
+          <View style={{alignContent:'center',alignSelf:'center',alignItems:'center',width:30}}>
           <Icon
             name="ios-checkmark-circle"
             size={24}
             style={styles.iconStatusCheck}
           />
+          </View>
+          
           <Text style={styles.textHeader}>
             {moment(NGAY_LAM_DON).format('DD/MM/YYYY')}
           </Text>
@@ -145,21 +148,21 @@ const ViewXacNhan = ({navigation}) => {
       return (
         <View
           style={{
-            flex: 1,
             flexDirection: 'row',
             justifyContent: 'space-between',
+            alignItems: 'center'
           }}>
-          <View style={{left: 50}}>
+          <View style={{left: 105}}>
             <Icon
               name="ios-refresh-circle"
               size={24}
               style={styles.iconStatusWait}
             />
           </View>
-          <Text style={[styles.textHeader, {left: 50,}]}>
+          <Text style={[styles.textHeader, {left: 105,}]}>
             {moment(NGAY_LAM_DON).format('DD/MM/YYYY')}
           </Text>
-          <View style={{marginLeft: 150}}>
+          <View style={{marginLeft: 200}}>
             <TouchableOpacity onPress={() => deleteDXN(id)}>
               <Icon name="ios-trash" size={24} style={styles.iconStatusWait} />
             </TouchableOpacity>
@@ -169,7 +172,7 @@ const ViewXacNhan = ({navigation}) => {
     }
     if (TRUONG_PHONG_HUY_DUYET !== false) {
       return (
-        <View style={{flexDirection: 'row'}}>
+        <View style={{left: 40, flexDirection: 'row', width: '100%', justifyContent: 'center', alignItems: 'center'}}>
           <Text>
             <Icon
               name="ios-close-circle-sharp"
@@ -305,9 +308,8 @@ const styles = StyleSheet.create({
   },
   colorHeader: {
     shadowColor: '#000',
-
     shadowOffset: {width: 1, height: 3},
-    shadowOpacity: 0.2,
+    shadowOpacity: Platform.OS === 'ios' ? 0 : 0.2,
     backgroundColor: 'transparent',
     elevation: 1,
   },

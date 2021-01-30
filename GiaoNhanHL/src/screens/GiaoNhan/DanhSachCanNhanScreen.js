@@ -9,7 +9,8 @@ import {
   StyleSheet,
   FlatList,
   ScrollView,
-  Platform
+  Platform,
+  Alert
 } from 'react-native';
 import {CheckBox} from 'native-base';
 import {useDispatch, useSelector} from 'react-redux';
@@ -62,16 +63,34 @@ function DanhSachCanNhanScreen({navigation}) {
     dispatch(getListCanNhan(data));
   },[username, macongty]);
 
-  console.log(slDaNhan)
   const press = (state, index) => {
-    dispatch({
-      type: 'SELECT_CAN_NHAN',
-      MA_VACH: state.MA_VACH,
-      isSelected: state.isSelected,
-      loaiGiaoHang: state.LOAI,
-    });
+    console.log(listSelect)
+    // dispatch({
+    //   type: 'SELECT_CAN_NHAN',
+    //   MA_VACH: state.MA_VACH,
+    //   isSelected: state.isSelected,
+    //   loaiGiaoHang: state.LOAI,
+    // });
+    if(listSelect.length === 0){
+        dispatch({
+          type: 'SELECT_CAN_NHAN',
+          MA_VACH: state.MA_VACH,
+          isSelected: state.isSelected,
+          loaiGiaoHang: state.LOAI,
+    });  
+    } else {
+      if(listSelect[0].MA_VACH === state.MA_VACH){
+        dispatch({
+          type: 'SELECT_CAN_NHAN',
+          MA_VACH: state.MA_VACH,
+          isSelected: state.isSelected,
+          loaiGiaoHang: state.LOAI,
+        });  
+      } else {
+        Alert.alert('Bạn không thể chọn 2 khách hàng khác nhau');
+      }
+    }
   };
-
   const xacNhan = async () => {
     await dispatch(xacNhanGiaoHang(loaiGiaoHang, listSelect, data));
   };
@@ -111,12 +130,14 @@ function DanhSachCanNhanScreen({navigation}) {
                   onPress={() => press(item, index)}
                   checked={item.isSelected}
                 />
+
               )}
               <Text style={styles.header}>{item.MA_VACH}</Text>
             </View>
 
             <View>
               <Text style={styles.company}>{item.TEN_CONG_TY}</Text>
+              <Text>{item.DIA_CHI_GIAO_HANG}</Text>
               <View style={styles.flex}>
                 <View style={styles.flex1}>
                   <Icon name="user" size={16} style={styles.icon} />
