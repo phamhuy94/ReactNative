@@ -176,7 +176,7 @@ function XacNhanScreen({route, navigation}) {
                 />
                 </View>
                 
-                <Text style={[styles.left,{marginLeft:10}]}>Xác nhận lấy hàng</Text>
+                <Text style={[styles.left,{marginLeft :10}]}>Xác nhận lấy hàng</Text>
               </View>
             )}
           </View>
