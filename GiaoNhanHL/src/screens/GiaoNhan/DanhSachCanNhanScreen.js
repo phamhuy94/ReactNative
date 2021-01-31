@@ -16,6 +16,7 @@ import {CheckBox} from 'native-base';
 import {useDispatch, useSelector} from 'react-redux';
 import {getListCanNhan, xacNhanGiaoHang, getDaNhan} from '../../redux/GiaoNhan/action';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import IconIon from 'react-native-vector-icons/Ionicons';
 import {Appbar} from 'react-native-paper';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -64,13 +65,6 @@ function DanhSachCanNhanScreen({navigation}) {
   },[username, macongty]);
 
   const press = (state, index) => {
-    console.log(listSelect)
-    // dispatch({
-    //   type: 'SELECT_CAN_NHAN',
-    //   MA_VACH: state.MA_VACH,
-    //   isSelected: state.isSelected,
-    //   loaiGiaoHang: state.LOAI,
-    // });
     if(listSelect.length === 0){
         dispatch({
           type: 'SELECT_CAN_NHAN',
@@ -137,7 +131,13 @@ function DanhSachCanNhanScreen({navigation}) {
 
             <View>
               <Text style={styles.company}>{item.TEN_CONG_TY}</Text>
-              <Text>{item.DIA_CHI_GIAO_HANG}</Text>
+              {/* <Text>{item.DIA_CHI_GIAO_HANG}</Text> */}
+              <View style={styles.flex}>
+                <View style={styles.flex1}>
+                  <IconIon name="ios-location" size={18} style={styles.icon} />
+              <Text style={styles.name}>{item.DIA_CHI_GIAO_HANG}</Text>
+                </View>
+              </View>
               <View style={styles.flex}>
                 <View style={styles.flex1}>
                   <Icon name="user" size={16} style={styles.icon} />
@@ -149,12 +149,6 @@ function DanhSachCanNhanScreen({navigation}) {
                 </View>
               </View>
             </View>
-
-            {/* <CheckBox
-                            style={styles.checkbox}
-                            onPress={() => press(item, index)}
-                            checked={item.isSelected}
-                        /> */}
             <FlatList
               data={item.data}
               renderItem={({item}) => (
@@ -184,6 +178,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginHorizontal: 10,
+    marginBottom: 5
   },
   flexCheck: {
     flexDirection: 'row',
@@ -247,6 +242,7 @@ const styles = StyleSheet.create({
   name: {
     color: '#aaa',
     fontSize: 16,
+    flexShrink:1,
   },
   phone: {
     color: '#aaa',
