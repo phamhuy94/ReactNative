@@ -102,16 +102,7 @@ const ViewTaoDNTT = ({navigation}) => {
   <View style={styles.container}>
       <View style={styles.header}>
       <Appbar.Header style={styles.colorHeader}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.goBack()}>
-            <Icon
-              name="ios-chevron-back-outline"
-              size={30}
-              color={'#2179A9'}
-              style={styles.iconPage}
-            />
-          </TouchableOpacity>
+        <Appbar.BackAction onPress={() => navigation.goBack()} />
           <Appbar.Content
             title="Tạo đề nghị thanh toán"
             color={'#2179A9'}
