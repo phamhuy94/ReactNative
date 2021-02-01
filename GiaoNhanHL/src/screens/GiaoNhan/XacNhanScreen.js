@@ -164,7 +164,6 @@ function XacNhanScreen({route, navigation}) {
                   style={styles.checkBox}
                 />
                 </View>
-                
                 <Text style={[styles.left,{marginLeft:20}]}>Xác nhận lấy hàng</Text>
               </View>
             )}
