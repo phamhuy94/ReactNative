@@ -89,7 +89,7 @@ function DanhSachDaNhanScreen({navigation}) {
       SU_CO: suCo,
       NGUOI_GHI_CHU: username,
     };
-    const response = await dispatch(noteNoiDung(dataSuCo));
+    const response = await dispatch(noteNoiDung(dataSuCo, data));
     if (response.indexOf('Thành công') >= 0) {
       Alert.alert(response);
       setModalVisible(false);
@@ -99,7 +99,6 @@ function DanhSachDaNhanScreen({navigation}) {
       Alert.alert('Note thất bại');
     }
   };
-console.log(listSelectDaNhan)
   const press = (state) => {
     if (listSelectDaNhan.length === 0) {
       dispatch({
@@ -341,7 +340,6 @@ const styles = StyleSheet.create({
   },
   flex: {
     flexDirection: 'row',
-
     alignItems: 'center',
     marginBottom:10,
   },

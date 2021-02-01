@@ -1,4 +1,3 @@
-import {CheckBox} from 'native-base';
 import React, {useEffect, useState} from 'react';
 import {
   View,
@@ -12,7 +11,7 @@ import {
   Alert,
   Platform
 } from 'react-native';
-import {Button} from 'native-base';
+import {Button, CheckBox} from 'native-base';
 import {Appbar} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -79,17 +78,7 @@ function XacNhanScreen({route, navigation}) {
       <View style={styles.container}>
         <View style={styles.header}>
           <Appbar.Header style={styles.colorHeader}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => navigation.goBack()}>
-              <Icon
-                name="ios-chevron-back-outline"
-                size={30}
-                color={'#2179A9'}
-                style={styles.iconPage}
-              />
-            </TouchableOpacity>
-            {/* <Appbar.BackAction underlayColor='#fff' onPress={() => navigation.goBack()} style={styles.iconBack}/> */}
+          <Appbar.BackAction onPress={() => navigation.goBack()} />
             <Appbar.Content
               title="Xác nhận giao/lấy hàng"
               color={'#2179A9'}
@@ -141,16 +130,16 @@ function XacNhanScreen({route, navigation}) {
             />
           </View>
           
-          <View style={{flexDirection: 'row',alignItems:'center',marginBottom:15,}}>
+          <View style={{flexDirection: 'row',alignItems:'center',marginBottom:20}}>
             <View style={{position:'absolute',zIndex:9,marginRight:29,paddingRight:29}}>
             <CheckBox
               onPress={() => setChuyenLoaiThanhToan(!chuyenLoaiThanhToan)}
               checked={chuyenLoaiThanhToan}
-              style={{marginLeft:5}}
+              style={styles.checkBox}
             />
             </View>
             
-            <Text style={[styles.left,{marginLeft:10}]}>Chuyển loại thanh toán</Text>
+            <Text style={[styles.left,{marginLeft:20}]}>Chuyển loại thanh toán</Text>
           </View>
           <View>
             {listSelectDaNhan[0].LOAI === 'GIAO_HANG' && (
@@ -159,11 +148,11 @@ function XacNhanScreen({route, navigation}) {
                 <CheckBox
                   onPress={() => setDaGiaoHang(!daGiaoHang)}
                   checked={daGiaoHang}
-                  style={{marginLeft:5}}
+                  style={styles.checkBox}
                 />
                 </View>
                 
-                <Text style={[styles.left,{marginLeft:10}]}>Xác nhận giao hàng</Text>
+                <Text style={[styles.left,{marginLeft:20}]}>Xác nhận giao hàng</Text>
               </View>
             )}
             {listSelectDaNhan[0].LOAI != 'GIAO_HANG' && (
@@ -172,11 +161,11 @@ function XacNhanScreen({route, navigation}) {
                 <CheckBox
                   onPress={() => setDaLayHang(!daLayHang)}
                   checked={daLayHang}
-                  style={{marginLeft:5}}
+                  style={styles.checkBox}
                 />
                 </View>
                 
-                <Text style={[styles.left,{marginLeft:10}]}>Xác nhận lấy hàng</Text>
+                <Text style={[styles.left,{marginLeft:20}]}>Xác nhận lấy hàng</Text>
               </View>
             )}
           </View>
@@ -281,5 +270,11 @@ const styles = StyleSheet.create({
   iconImg: {
     color: '#2179A9',
     lineHeight:35,
+  },
+  checkBox: {
+    marginRight: 10,
+    width: 25,
+    height: 25,
+    borderRadius: 50,
   }
 });
