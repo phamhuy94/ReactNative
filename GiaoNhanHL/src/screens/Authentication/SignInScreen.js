@@ -49,7 +49,7 @@ const SignInScreen = ({navigation}) => {
       <View style={styles.container}>
         <ImageBackground style={styles.background}>
           <View style={styles.markWrap}>
-            <Image source={mark} style={styles.mark} resizeMode="center" />
+            <Image source={mark} style={styles.mark} resizeMode="contain" />
           </View>
           <View style={styles.markWrap}>
             <Image source={driver} resizeMode="contain" style={styles.driver} />
@@ -128,8 +128,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   mark: {
-    width: 100,
-    height: 100,
+    width,
+    height,
+    minWidth:100,
+    minHeight:100,
     flex: 1,
     justifyContent: 'space-between',
     textAlign: 'center',
