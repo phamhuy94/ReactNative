@@ -206,7 +206,6 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   datepicker: {
-
     color: '#444',
   },
   timesheet: {
