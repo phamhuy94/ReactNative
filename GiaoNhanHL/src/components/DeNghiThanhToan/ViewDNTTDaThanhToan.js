@@ -135,22 +135,23 @@ const ViewDNTTDaThanhToan = ({
           data={getDeNghiTTNVDaThanhToan}
           renderItem={({item, index}) => (
             <View style={styles.card}>
-              
-                
-                <View style={{alignContent:'center',alignSelf:'center',alignItems:'center',flexDirection:'row'}}>
-                  <Icon
-                    name="ios-checkmark-circle"
-                    size={24}
-                    style={styles.iconStatusCheck}
-                  />
-                  <Text style={styles.textHeader}>
-                    {moment(item.NGAY_DN).format('DD/MM/YYYY')}
-                  </Text>
-                  </View>
-                  
-                  
-                
-              
+              <View
+                style={{
+                  alignContent: 'center',
+                  alignSelf: 'center',
+                  alignItems: 'center',
+                  flexDirection: 'row',
+                }}>
+                <Icon
+                  name="ios-checkmark-circle"
+                  size={24}
+                  style={styles.iconStatusCheck}
+                />
+                <Text style={styles.textHeader}>
+                  {moment(item.NGAY_DN).format('DD/MM/YYYY')}
+                </Text>
+              </View>
+
               <View style={styles.flex}>
                 <Icon
                   name="ios-person-circle-outline"
@@ -187,13 +188,12 @@ const styles = StyleSheet.create({
   flex: {
     flexDirection: 'row',
     marginBottom: 10,
-    
   },
   flexCard: {
-    flexDirection:'row',
-    justifyContent:'center',
-    alignContent:'center',
-    alignItems:'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
   },
   textHeader: {
     color: '#444',
@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
   },
   iconStatusCheck: {
     color: 'green',
-    marginRight:5,
+    marginRight: 5,
   },
   iconStatusWait: {
     color: 'deepskyblue',
@@ -235,7 +235,7 @@ const styles = StyleSheet.create({
       height: 2,
     },
     shadowOpacity: 5.25,
-    shadowColor: Platform.OS === 'ios' ? ('#ccc') : ('transparent'),
+    shadowColor: Platform.OS === 'ios' ? '#ccc' : 'transparent',
     shadowRadius: 3.84,
     elevation: 6,
   },
