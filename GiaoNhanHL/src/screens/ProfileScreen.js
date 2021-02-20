@@ -9,10 +9,11 @@ import ViewKPI from '../components/ViewKPI';
 import ViewNghiPhep from '../components/ViewNghiPhep';
 import ViewXacNhan from '../components/ViewXacNhan';
 import DNTT from '../screens/DNTT/index';
+import TamUng from '../screens/TamUng/index';
+import QuangDuong from '../screens/QuangDuong/index';
 import {useDispatch, useSelector} from 'react-redux';
 import {logout} from '../redux/authentication/action';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-
 
 const ProfileScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -44,6 +45,7 @@ const ProfileScreen = ({navigation}) => {
     load();
   }, []);
 
+  // console.log(state)
   function Details({navigation}) {
     return (
       <ScrollView style={{flex:1,}}>
@@ -68,6 +70,8 @@ const ProfileScreen = ({navigation}) => {
         <Drawer.Screen name="Xin nghỉ phép" component={ViewNghiPhep} />
         <Drawer.Screen name="Xin xác nhận" component={ViewXacNhan} />
         <Drawer.Screen name="Đề nghị thanh toán" component={DNTT} />
+        <Drawer.Screen name="Tạm ứng" component={TamUng} />
+        <Drawer.Screen name="QL quãng đường" component={QuangDuong} />
       </Drawer.Navigator>
     </View>
   );
