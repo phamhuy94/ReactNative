@@ -6,7 +6,7 @@ import {
   postKmDau,
   postKmCuoi,
 } from '../../redux/quangDuong/action';
-import {Appbar} from 'react-native-paper';
+import {Appbar, IconButton} from 'react-native-paper';
 import {
   View,
   Text,
@@ -14,13 +14,14 @@ import {
   FlatList,
   Platform,
   TextInput,
-  Button
+  Button,
 } from 'react-native';
+import {Button as ButtonAction} from 'native-base';
 import DatePicker from '../../components/datePicker';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Modal from 'react-native-modal';
 import moment from 'moment';
-import { tr } from 'date-fns/locale';
+import {tr} from 'date-fns/locale';
 
 const dateTime = moment(new Date()).format('DD/MM/YYYY');
 const QuangDuong = () => {
@@ -109,41 +110,56 @@ const QuangDuong = () => {
   };
 
   useEffect(() => {
-      if(soDau != '') {setDisable(false)};
-      if(soDau == '') {setDisable(true)};
-      if(soCuoi != '') {setDisable1(false)};
-      if(soCuoi == '') {setDisable1(true)};
+    if (soDau != '') {
+      setDisable(false);
+    }
+    if (soDau == '') {
+      setDisable(true);
+    }
+    if (soCuoi != '') {
+      setDisable1(false);
+    }
+    if (soCuoi == '') {
+      setDisable1(true);
+    }
   }, [soDau, soCuoi]);
   return (
     <View style={styles.container}>
       <Appbar.Header style={styles.colorHeader}>
-        <Appbar.Content title="Quản lý quãng đường" color={'#2179A9'} />
+      <Appbar.Action icon="map-marker-radius" color={'#2179A9'} size={30} />
+        <Appbar.Content title="Quản lý quãng đường" color={'#2179A9'}  style={{marginLeft: -15}}/>
       </Appbar.Header>
-      <DatePicker
-        onPress={(text) => setDate(text)}
-        maxDate={new Date()}
-        style={styles.datepicker}
-      />
-
-      {dateTime == moment(date).format('DD/MM/YYYY') ? (
-        <View style={styles.buttonNote}>
-          <Button
-            disabled={listQuangDuong.length > 0 ? true : false}
-            style={{backgroundColor: '#2179A9'}}
-            name="ios-reader-outline"
-            onPress={() => toggleModal()}
-            title={'Thêm'}>
-          </Button>
-        </View>
-      ) : (
-        <View></View>
-      )}
+      <View style={styles.flex}>
+        <DatePicker
+          onPress={(text) => setDate(text)}
+          maxDate={new Date()}
+          style={styles.datepicker}
+        />
+        {dateTime == moment(date).format('DD/MM/YYYY') ? (
+          <View style={styles.buttonNote}>
+            <ButtonAction
+              disabled={listQuangDuong.length > 0 ? true : false}
+              style={
+                listQuangDuong.length == 0
+                  ? styles.buttonAddEnable
+                  : styles.buttonAddDisable
+              }
+              onPress={() => toggleModal()}>
+              <Icon name="ios-add-circle-outline" size={24} color={'#fff'} />
+              <Text style={{color: '#fff'}}>Thêm</Text>
+            </ButtonAction>
+          </View>
+        ) : (
+          <View></View>
+        )}
+      </View>
 
       <FlatList
         data={listQuangDuong}
         renderItem={({item, index}) => (
           <View style={styles.homeLayout}>
             <Text style={styles.textHeader}>{item.HO_VA_TEN}</Text>
+            <View style={styles.margin}>
             <View style={styles.timesheet}>
               <Text style={styles.title}>Số đầu: </Text>
               <Text style={styles.value}>{item.SO_DAU}</Text>
@@ -155,23 +171,25 @@ const QuangDuong = () => {
             {item.SO_CUOI ? (
               <View style={styles.timesheet}>
                 <Text style={styles.title}>Số Km: </Text>
-                <Text style={styles.value}>{item.SO_CUOI - item.SO_DAU}</Text>
+                <Text style={styles.value}>{item.SO_CUOI - item.SO_DAU} km</Text>
               </View>
             ) : (
               <View></View>
             )}
+            </View>
+        
 
             {/* Button them so cuoi */}
             <View style={styles.buttonNote}>
-              <Icon.Button
-                style={{backgroundColor: '#2179A9'}}
-                name="ios-reader-outline"
+              <ButtonAction
                 onPress={() => {
                   toggleModal1();
                   setID(item.ID);
-                }}>
-                Thêm
-              </Icon.Button>
+                }}
+                style={styles.buttonAddEnable}>
+                <Icon name="ios-add-circle-outline" size={24} color={'#fff'} />
+                <Text style={{color: '#fff'}}>Thêm</Text>
+              </ButtonAction>
             </View>
           </View>
         )}
@@ -189,19 +207,20 @@ const QuangDuong = () => {
             placeholderTextColor="#ccc"
           />
           <View style={styles.flexCheck}>
-            <Button
+            <ButtonAction
               onPress={() => saveSoDau()}
               disabled={disable}
-              name="ios-save-sharp"
-              style={{backgroundColor: '#2179A9'}}
-              title={'Lưu'}>
-            </Button>
-            <Button
-              name="ios-exit"
-              onPress={toggleModal}
-              style={{backgroundColor: '#2179A9'}}
-              title={'Đóng'}>
-            </Button>
+              // style={styles.buttonAdd}
+              style={disable ? styles.buttonAdd : styles.buttonClose}
+              >
+              <Icon name="ios-add-circle-outline" size={24} color={'#fff'} />
+              <Text style={{color: '#fff'}}>Lưu</Text>
+            </ButtonAction>
+
+            <ButtonAction onPress={toggleModal} style={styles.buttonClose}>
+              <Icon name="ios-exit" size={24} color={'#fff'} />
+              <Text style={{color: '#fff'}}>Đóng</Text>
+            </ButtonAction>
           </View>
         </View>
       </Modal>
@@ -218,19 +237,17 @@ const QuangDuong = () => {
             placeholderTextColor="#ccc"
           />
           <View style={styles.flexCheck}>
-            <Button
+            <ButtonAction
               onPress={() => saveSoCuoi(id, username, soCuoi)}
               disabled={disable1}
-              name="ios-save-sharp"
-              style={{backgroundColor: '#2179A9'}}
-              title={'Lưu'}>
-            </Button>
-            <Button
-              name="ios-exit"
-              onPress={toggleModal1}
-              style={{backgroundColor: '#2179A9'}}
-              title={'Đóng'}>
-            </Button>
+              style={disable1 ? styles.buttonAdd : styles.buttonClose}>
+              <Icon name="ios-add-circle-outline" size={24} color={'#fff'} />
+              <Text style={{color: '#fff'}}>Tạo</Text>
+            </ButtonAction>
+            <ButtonAction onPress={toggleModal1} style={styles.buttonClose}>
+              <Icon name="ios-exit" size={24} color={'#fff'} />
+              <Text style={{color: '#fff'}}>Đóng</Text>
+            </ButtonAction>
           </View>
         </View>
       </Modal>
@@ -244,6 +261,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  flex: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+  },
   colorHeader: {
     shadowColor: '#000',
     shadowOffset: {width: 1, height: 3},
@@ -253,6 +275,48 @@ const styles = StyleSheet.create({
   },
   datepicker: {
     color: '#444',
+  },
+  margin: {
+    marginHorizontal:20,
+  },
+  buttonAddEnable: {
+    justifyContent: 'center',
+    backgroundColor: '#2179A9',
+    paddingHorizontal: 10,
+    width: 120,
+    borderRadius: 50,
+    height: 35,
+  },
+  buttonAddDisable: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#ccc',
+    paddingHorizontal: 10,
+    width: 120,
+    borderRadius: 50,
+    height: 35,
+  },
+  input: {
+    borderBottomColor: '#eee',
+    borderBottomWidth: 1,
+    marginBottom: 10,
+  },
+  buttonAdd: {
+    justifyContent: 'center',
+   
+    height: 30,
+    width: 100,
+    paddingHorizontal: 10,
+    borderRadius: 50,
+  },
+  buttonClose: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 10,
+    borderRadius: 50,
+    backgroundColor: '#2179A9',
+    width: 100,
+    height: 30,
   },
   homeLayout: {
     margin: 15,
@@ -283,6 +347,11 @@ const styles = StyleSheet.create({
   },
   buttonNote: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
+    paddingBottom: 10,
+  },
+  flexCheck: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
 });
