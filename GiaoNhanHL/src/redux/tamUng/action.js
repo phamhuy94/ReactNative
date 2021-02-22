@@ -36,7 +36,7 @@ export const getApiDeleteTamUng = (id) => async dispatch => {
         callApiDeleteTamUng(id)
         .then(function(res) {
             return dispatch({type: DELETE_DON_TAM_UNG})
-        })
+        });
     } catch (error) {
         console.log(error);
     }
@@ -47,7 +47,7 @@ export const getApiTaoTamUng = (nguoiDeNghi, lyDoDN, soTienDN, SoTienChu, maCong
         callApiTaoTamUng(nguoiDeNghi, lyDoDN, soTienDN, SoTienChu, maCongTy)
         .then(function(res) {
             return dispatch({type: POST_DON_TAM_UNG})
-        })
+        });
     } catch (error) {
         console.log(error);
     }

@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import {useDispatch} from 'react-redux';
 import {
   View,
   Text,
@@ -12,13 +13,36 @@ import {Appbar} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import writtenNumber from 'written-number';
+import {getApiTaoTamUng, getApiTamUng, getApiDemDonTamUng} from '../../redux/tamUng/action';
 
-const CreateTamUng = ({navigation}) => {
+const CreateTamUng = ({navigation, route}) => {
+  const dispatch = useDispatch();
+  const body = route.params.body;
   const [dateTime, setDateTime] = useState(
     moment(new Date()).format('DD/MM/YYYY'),
   );
-  const [soTien, setSoTien] = useState('0');
+  const [soTien, setSoTien] = useState('');
+  const [soTienChu, setSoTienChu] = useState('');
+  const [lyDoDN, setLyDoDN] = useState('');
   const [disable, setDisable] = useState(true);
+
+    useEffect(() => {
+      if(soTien != '' && lyDoDN != '') {
+        setDisable(false);
+      };
+      if(soTien == '' || lyDoDN == '') {
+        setDisable(true);
+      };
+      setSoTienChu(writtenNumber(soTien, {lang: 'vi'}));
+    }, [soTien, lyDoDN]);
+
+    const buttonCreate = () => {
+       dispatch(getApiTaoTamUng(body.username, lyDoDN, soTien, soTienChu, body.macongty, body));
+       dispatch(getApiTamUng(body));
+       dispatch(getApiDemDonTamUng(body));
+      navigation.navigate('Tạm ứng');
+    };
+
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -53,6 +77,7 @@ const CreateTamUng = ({navigation}) => {
               style={[styles.input]}
               numberOfLines={3}
               placeholder="Nội dung đề nghị"
+              onChangeText={(text) => setLyDoDN(text)}
               multiline={true}
               underlineColorAndroid="transparent"
             />
@@ -74,7 +99,7 @@ const CreateTamUng = ({navigation}) => {
             <View style={styles.icon}>
               <Icon name="ios-cash" size={22} style={styles.iconImg} />
             </View>
-            <Text>{writtenNumber(soTien, {lang: 'vi'})}</Text>
+            <Text>{writtenNumber(soTien, {lang: 'vi'})} đồng</Text>
           </View>
         </View>
         <Button

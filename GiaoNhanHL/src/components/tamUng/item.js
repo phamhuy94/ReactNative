@@ -1,25 +1,25 @@
 import React, {useState, useCallback} from 'react';
+import {useDispatch} from 'react-redux';
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
-import {Card} from 'react-native-elements';
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {getApiDeleteTamUng} from '../../redux/tamUng/action';
-const Item = ({data}) => {
-  //   console.log(data);
-  const [textShow, setTextShow] = useState(false); //show remaining Text
-  const [lengthMore, setLengthMore] = useState(false); //show read more & read less
+import {getApiDeleteTamUng, getApiTamUng, getApiDemDonTamUng} from '../../redux/tamUng/action';
+
+const Item = ({data, body}) => {
+  const dispatch = useDispatch();
+  const [textShow, setTextShow] = useState(false); 
+  const [lengthMore, setLengthMore] = useState(false);
   const toggleNumberOfLines = () => {
-    //To toggle the show text or hide it
     setTextShow(!textShow);
   };
   const onTextLayout = useCallback((e) => {
-    setLengthMore(e.nativeEvent.lines.length >= 4); // check text 4 lines
-    // console.log(e.nativeEvent);
+    setLengthMore(e.nativeEvent.lines.length >= 4);
   }, []);
 
-  const deleteTamUng = async (id) => {
-    console.log(id);
-    await dispatch(getApiDeleteTamUng(id));
+  const deleteTamUng = (id) => {
+     dispatch(getApiDeleteTamUng(id));
+     dispatch(getApiTamUng(body));
+     dispatch(getApiDemDonTamUng(body));
   };
 
   const checkStatus = (
@@ -74,7 +74,6 @@ const Item = ({data}) => {
   };
   return (
     <View style={styles.card}>
-      <View>
         <View style={styles.position}>
           <Icon name="ios-time-sharp" size={24} style={styles.icon} />
           <Text>{moment(data.NGAY_DE_NGHI).format('DD/MM/YYYY')}</Text>
@@ -127,7 +126,6 @@ const Item = ({data}) => {
             )}
           </View>
         </View>
-      </View>
     </View>
   );
 };
