@@ -60,7 +60,7 @@ const ViewTaoDonXacNhan = ({navigation}) => {
   }, [noiDungCanXacNhan, ngayCanXacNhan]);
 
   return (
-   
+    <ScrollView>
       <View style={styles.container}>
         <View style={styles.header}>
           <Appbar.Header style={styles.colorHeader}>
@@ -112,7 +112,7 @@ const ViewTaoDonXacNhan = ({navigation}) => {
           </Button>
         </View>
       </View>
-  
+    </ScrollView>
   );
 };
 

@@ -31,22 +31,26 @@ export const getApiDemDonTamUng = (body) => async dispatch => {
     }
 };
 
-export const getApiDeleteTamUng = (id) => async dispatch => {
+export const getApiDeleteTamUng = (id, body) => async dispatch => {
     try {
         callApiDeleteTamUng(id)
-        .then(function(res) {
-            return dispatch({type: DELETE_DON_TAM_UNG})
+        .then(async() => {
+            await dispatch({type: DELETE_DON_TAM_UNG});
+            await dispatch(getApiTamUng(body));
+            await dispatch(getApiDemDonTamUng(body));
         });
     } catch (error) {
         console.log(error);
     }
 };
 
-export const getApiTaoTamUng = (nguoiDeNghi, lyDoDN, soTienDN, SoTienChu, maCongTy) => async dispatch => {
+export const getApiTaoTamUng = (nguoiDeNghi, lyDoDN, soTienDN, SoTienChu, maCongTy, body) => async dispatch => {
     try {
         callApiTaoTamUng(nguoiDeNghi, lyDoDN, soTienDN, SoTienChu, maCongTy)
-        .then(function(res) {
-            return dispatch({type: POST_DON_TAM_UNG})
+        .then(async() => {
+            await dispatch({type: POST_DON_TAM_UNG});
+            await dispatch(getApiTamUng(body));
+            await dispatch(getApiDemDonTamUng(body));
         });
     } catch (error) {
         console.log(error);

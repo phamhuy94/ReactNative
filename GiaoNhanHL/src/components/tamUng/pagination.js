@@ -2,7 +2,7 @@ import React from 'react';
 import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const Pagination = (sotrang, onPressAdd, onPressSub, totalPages) => {
+const Pagination = ({sotrang, onPressAdd, onPressSub, totalItem}) => {
     return (
         <View style={styles.flexCenter}>
           <TouchableOpacity
@@ -20,12 +20,12 @@ const Pagination = (sotrang, onPressAdd, onPressSub, totalPages) => {
               styles.button,
               {
                 backgroundColor:
-                  sotrang > parseFloat(totalPages) / 15
+                  sotrang > parseFloat(totalItem) / 15
                     ? '#aaa'
                     : '#2179A9',
               },
             ]}
-            disabled={sotrang > parseFloat(totalPages) / 15}
+            disabled={sotrang > parseFloat(totalItem) / 15}
             onPress={onPressAdd}>
             <Icon
               name="ios-chevron-forward"

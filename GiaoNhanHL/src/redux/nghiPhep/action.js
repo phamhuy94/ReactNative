@@ -1,9 +1,9 @@
 import {_getDonXinNghiNV,_demDonXinNghiPhepNV,_getTongSoNgayNghiNV, _postDonXinNghiNV, _donXinNghiPhepDaDuyet,_deleteDonNghiPhep,_updateDonNghiPhep} from '../../api/nghiPhep/nghiPhep';
 
-export const GetDonXinNghiNV = (trucThuoc,username,isadmin,tukhoa,tukhoa2,sotrang,sobanghi) => {
+export const GetDonXinNghiNV = (trucThuoc, username, isadmin, tukhoa, tukhoa1, tukhoa2, sotrang, sobanghi) => {
     return async (dispatch) => {
         try {
-            const response = await _getDonXinNghiNV(trucThuoc,username,isadmin,tukhoa,tukhoa2,sotrang,sobanghi);
+            const response = await _getDonXinNghiNV(trucThuoc, username, isadmin, tukhoa, tukhoa1, tukhoa2, sotrang, sobanghi);
             dispatch({
                 type: 'GET_DON_XIN_NGHI_NV',
                 data: response
@@ -14,10 +14,10 @@ export const GetDonXinNghiNV = (trucThuoc,username,isadmin,tukhoa,tukhoa2,sotran
     }
 };
 
-export const DemDonXinNghiPhepNV = (trucThuoc,username,isadmin,tukhoa,tukhoa2) => {
+export const DemDonXinNghiPhepNV = (trucThuoc, username, isadmin, tukhoa, tukhoa1, tukhoa2) => {
     return async (dispatch) => {
         try {
-            const response = await _demDonXinNghiPhepNV(trucThuoc,username,isadmin,tukhoa,tukhoa2);
+            const response = await _demDonXinNghiPhepNV(trucThuoc, username, isadmin, tukhoa, tukhoa1, tukhoa2);
             dispatch({
                 type:'DEM_DON_XIN_NGHI_NV',
                 data:response

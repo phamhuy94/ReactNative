@@ -9,13 +9,11 @@ import {
   ScrollView,
   Button,
   TouchableOpacity,
+  Dimensions,
   Platform,
-  SafeAreaView
+  SafeAreaView,
 } from 'react-native';
-import {
-  getApiTamUng,
-  getApiDemDonTamUng,
-} from '../../redux/tamUng/action';
+import {getApiTamUng, getApiDemDonTamUng} from '../../redux/tamUng/action';
 import Item from '../../components/tamUng/item';
 import Pagination from './pagination';
 
@@ -29,38 +27,58 @@ const ListTamUng = ({body}) => {
   const dispatch = useDispatch();
   const listTamUng = useSelector((store) => store.tamUng.listTamUng);
   const countTamUng = useSelector((store) => store.tamUng.countTamUng);
+  const [sotrang, setSoTrang] = useState(body.sotrang);
   const [refreshing, setRefreshing] = useState(false);
+  body.sotrang = sotrang;
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     wait(500).then(() => setRefreshing(false));
     dispatch(getApiTamUng(body));
-  }, []);
+  }, [body]);
 
   useEffect(() => {
     dispatch(getApiTamUng(body));
     dispatch(getApiDemDonTamUng(body));
-  }, [body]);
-    // console.log(listTamUng);
+  }, [body, sotrang]);
+  // console.log(listTamUng);
   //   console.log(countTamUng);
   return (
-    <View
-        contentContainerStyle={styles.scrollView}
+    <View style={styles.container}>
+      <View style={styles.scrollView}>
+      <ScrollView
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
         <FlatList
           data={listTamUng}
-          renderItem={({item, index}) => <Item data={item} body={body} />}
+          renderItem={({item, index}) => (
+            <View style={{flex: 1}}>
+              <Item data={item} body={body} />
+            </View>
+          )}
         />
-        <Pagination />
+
+        <Pagination
+          sotrang={sotrang}
+          onPressAdd={() => setSoTrang(sotrang + 1)}
+          onPressSub={() => setSoTrang(sotrang - 1)}
+          totalItem={countTamUng}
+        />
+      </ScrollView>
+      </View>
+
     </View>
   );
 };
 
 export default ListTamUng;
+const height = Dimensions.get('window').height; //full height
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+   flex:1,
   },
+  scrollView: {
+    height:height * 0.82,
+  }
 });
