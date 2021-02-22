@@ -37,7 +37,7 @@ export const callApiTaoTamUng = async(nguoiDeNghi, lyDoDN, soTienDN, SoTienChu, 
 // Delete don tam ung
 export const callApiDeleteTamUng = async(id) => {
     return new Promise((resolve, reject) => {
-        axios.get(`${originErp}api/Api_DeNghiTamUng/DeleteDeNghiTamUng/${id}`)
+        axios.post(`${originErp}api/Api_DeNghiTamUng/DeleteDeNghiTamUng/${id}`)
         .then(res => resolve(res.data))
         .catch(err => reject(err))
     })

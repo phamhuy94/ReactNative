@@ -80,7 +80,7 @@ const TamUng = ({navigation}) => {
         />
         <TouchableOpacity
           title="Click"
-          onPress={() => navigation.navigate('Tạo tạm ứng')}>
+          onPress={() => navigation.navigate('Tạo tạm ứng', {body})}>
           <Icon name="ios-add-circle" size={30} style={styles.iconAdd} />
         </TouchableOpacity>
       </Appbar.Header>

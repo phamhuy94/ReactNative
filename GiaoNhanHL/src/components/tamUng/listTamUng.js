@@ -10,13 +10,14 @@ import {
   Button,
   TouchableOpacity,
   Platform,
+  SafeAreaView
 } from 'react-native';
 import {
   getApiTamUng,
   getApiDemDonTamUng,
-  getApiDeleteTamUng,
 } from '../../redux/tamUng/action';
 import Item from '../../components/tamUng/item';
+import Pagination from './pagination';
 
 const wait = (timeout) => {
   return new Promise((resolve) => {
@@ -29,6 +30,7 @@ const ListTamUng = ({body}) => {
   const listTamUng = useSelector((store) => store.tamUng.listTamUng);
   const countTamUng = useSelector((store) => store.tamUng.countTamUng);
   const [refreshing, setRefreshing] = useState(false);
+
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     wait(500).then(() => setRefreshing(false));
@@ -39,20 +41,19 @@ const ListTamUng = ({body}) => {
     dispatch(getApiTamUng(body));
     dispatch(getApiDemDonTamUng(body));
   }, [body]);
-  //   console.log(listTamUng);
+    // console.log(listTamUng);
   //   console.log(countTamUng);
   return (
-    <View >
-      <ScrollView
+    <View
         contentContainerStyle={styles.scrollView}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
         <FlatList
           data={listTamUng}
-          renderItem={({item, index}) => <Item data={item} />}
+          renderItem={({item, index}) => <Item data={item} body={body} />}
         />
-      </ScrollView>
+        <Pagination />
     </View>
   );
 };

@@ -356,9 +356,7 @@ const styles = StyleSheet.create({
     color: '#2179A9',
   },
   flex: {
-    
     flexDirection: 'row',
-    
   },
   colorHeader: {
     shadowColor: '#000',
@@ -390,7 +388,6 @@ const styles = StyleSheet.create({
   iconPage: {
     color: '#fff',
   },
-
   button: {
     width: 40,
     height: 40,
