@@ -38,8 +38,6 @@ const CreateTamUng = ({navigation, route}) => {
 
     const buttonCreate = () => {
        dispatch(getApiTaoTamUng(body.username, lyDoDN, soTien, soTienChu, body.macongty, body));
-       dispatch(getApiTamUng(body));
-       dispatch(getApiDemDonTamUng(body));
       navigation.navigate('Tạm ứng');
     };
 

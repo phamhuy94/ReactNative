@@ -64,7 +64,7 @@ const ViewXacNhan = ({navigation}) => {
         sobanghi,
       ),
     );
-  }, [macongty, username,sotrang]);
+  }, [macongty, username, sotrang]);
 
   const getToken = async () => {
     const username = await AsyncStorage.getItem('userToken');
@@ -90,7 +90,7 @@ const ViewXacNhan = ({navigation}) => {
         sobanghi,
       ),
     );
-  }, [macongty, username,sotrang]);
+  }, [macongty, username, sotrang, refreshing]);
   useEffect(() => {
     dispatch(
       DemDonXacNhanNV(
@@ -104,7 +104,7 @@ const ViewXacNhan = ({navigation}) => {
         sobanghi,
       ),
     );
-  }, [macongty, username,sotrang]);
+  }, [macongty, username, sotrang, refreshing]);
 
   const deleteDXN = async (id) => {
     await dispatch(DeleteDonXacNhan(id));
@@ -150,9 +150,10 @@ const ViewXacNhan = ({navigation}) => {
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
-            alignItems: 'center'
+            alignItems: 'center',
+            alignContent:'center',alignSelf:'center'
           }}>
-          <View style={{left: 105}}>
+          <View style={{left: 105,flex:1,}}>
             <Icon
               name="ios-refresh-circle"
               size={24}

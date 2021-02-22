@@ -54,6 +54,7 @@ const ViewNghiPhep = ({navigation}) => {
   const [macongty, setMacongty] = useState();
   const [isadmin, setIsadmin] = useState(false);
   const [tukhoa, setTukhoa] = useState('');
+  const [tukhoa1, setTukhoa1] = useState('');
   const [tukhoa2, setTukhoa2] = useState('');
   const [sotrang, setSotrang] = useState(1);
   const [sobanghi, setSobanghi] = useState(15);
@@ -71,6 +72,7 @@ const ViewNghiPhep = ({navigation}) => {
         username,
         isadmin,
         tukhoa,
+        tukhoa1,
         tukhoa2,
         sotrang,
         sobanghi,
@@ -101,12 +103,13 @@ const ViewNghiPhep = ({navigation}) => {
         username,
         isadmin,
         tukhoa,
+        tukhoa1,
         tukhoa2,
         sotrang,
         sobanghi,
       ),
     );
-  }, [username, macongty]);
+  }, [username, macongty, sotrang, refreshing]);
 
   useEffect(() => {
     dispatch(
@@ -129,10 +132,11 @@ const ViewNghiPhep = ({navigation}) => {
         username,
         isadmin,
         tukhoa,
+        tukhoa1,
         tukhoa2
       ),
     );
-  }, [username, macongty]);
+  }, [username, macongty, sotrang, refreshing]);
 
   const deleteDNP = async (id) => {
     await dispatch(DeleteDonNghiPhep(id));
@@ -142,13 +146,14 @@ const ViewNghiPhep = ({navigation}) => {
         username,
         isadmin,
         tukhoa,
+        tukhoa1,
         tukhoa2,
         sotrang,
         sobanghi,
       ),
     );
   };
- console.log(demDonXinNghiPhepNV);
+
   const checkIcon = (
     TRUONG_PHONG_DA_DUYET,
     TRUONG_PHONG_HUY_DUYET,

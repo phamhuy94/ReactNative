@@ -1,12 +1,13 @@
 import axiosInstance from '../baseUrl';
 import moment from 'moment';
 // Lay toan bo don xin nghi phep
-export const _getDonXinNghiNV = async(trucThuoc,username,isadmin,tukhoa,tukhoa2,sotrang,sobanghi) => {
+export const _getDonXinNghiNV = async(trucThuoc, username, isadmin, tukhoa, tukhoa1, tukhoa2, sotrang, sobanghi) => {
     const response = await axiosInstance.post('/api/Api_DonXinNghiPhep/GetDonXinNghiNV', {
         macongty: trucThuoc,
         username: username,
         isadmin: isadmin,
         tukhoa: tukhoa,
+        tukhoa1: tukhoa1,
         tukhoa2: tukhoa2,
         sotrang: sotrang,
         sobanghi: sobanghi,
@@ -15,13 +16,14 @@ export const _getDonXinNghiNV = async(trucThuoc,username,isadmin,tukhoa,tukhoa2,
 }
 
 //Dem so luong don xin nghi phep NV
-export const _demDonXinNghiPhepNV = async(trucThuoc,username,isadmin,tukhoa,tukhoa2) => {
+export const _demDonXinNghiPhepNV = async(trucThuoc, username, isadmin, tukhoa, tukhoa1, tukhoa2) => {
     const response = await axiosInstance.post('/api/Api_DonXinNghiPhep/DemDonXinNghiPhepNV', {
         macongty:trucThuoc,
         username:username,
         isadmin:isadmin,
         tukhoa:tukhoa,
-        tukhoa2:tukhoa2
+        tukhoa1: tukhoa1,
+        tukhoa2: tukhoa2
     })
     return response.data
 }

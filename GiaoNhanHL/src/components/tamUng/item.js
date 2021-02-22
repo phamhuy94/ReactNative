@@ -1,13 +1,18 @@
 import React, {useState, useCallback} from 'react';
 import {useDispatch} from 'react-redux';
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {Card} from 'react-native-elements';
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {getApiDeleteTamUng, getApiTamUng, getApiDemDonTamUng} from '../../redux/tamUng/action';
+import {
+  getApiDeleteTamUng,
+  getApiTamUng,
+  getApiDemDonTamUng,
+} from '../../redux/tamUng/action';
 
 const Item = ({data, body}) => {
   const dispatch = useDispatch();
-  const [textShow, setTextShow] = useState(false); 
+  const [textShow, setTextShow] = useState(false);
   const [lengthMore, setLengthMore] = useState(false);
   const toggleNumberOfLines = () => {
     setTextShow(!textShow);
@@ -16,10 +21,8 @@ const Item = ({data, body}) => {
     setLengthMore(e.nativeEvent.lines.length >= 4);
   }, []);
 
-  const deleteTamUng = (id) => {
-     dispatch(getApiDeleteTamUng(id));
-     dispatch(getApiTamUng(body));
-     dispatch(getApiDemDonTamUng(body));
+  const deleteTamUng = (id, body) => {
+    dispatch(getApiDeleteTamUng(id, body));
   };
 
   const checkStatus = (
@@ -61,12 +64,13 @@ const Item = ({data, body}) => {
       );
     } else
       return (
-        <View style={{flexDirection:'row',alignItems:'center'}}>
-          <Text>Cẩn duyệt</Text>
-          <View style={{marginLeft:200}}>
-            <TouchableOpacity onPress={() => deleteTamUng(MA_SO_DN)} style={styles.iconStatusWait}>
-
-              <Text>Xóa</Text>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Text style={{color: '#111'}}>Cẩn duyệt</Text>
+          <View style={{marginLeft: 200}}>
+            <TouchableOpacity
+              onPress={() => deleteTamUng(MA_SO_DN, body)}
+              style={styles.iconStatusWait}>
+              <Text style={{color: '#fff'}}>Xóa</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -74,58 +78,58 @@ const Item = ({data, body}) => {
   };
   return (
     <View style={styles.card}>
-        <View style={styles.position}>
-          <Icon name="ios-time-sharp" size={24} style={styles.icon} />
-          <Text>{moment(data.NGAY_DE_NGHI).format('DD/MM/YYYY')}</Text>
-        </View>
-        <View style={styles.flex}>
-          <Icon name="ios-logo-usd" size={24} style={styles.icon} />
+      <View style={styles.position}>
+        <Icon name="ios-time-sharp" size={24} style={styles.icon} />
+        <Text>{moment(data.NGAY_DE_NGHI).format('DD/MM/YYYY')}</Text>
+      </View>
+      <View style={styles.flex}>
+        <Icon name="ios-logo-usd" size={24} style={styles.icon} />
 
-          <Text style={styles.wrap}>{`${data.SO_TIEN_DE_NGHI.toString().replace(
-            /(\d)(?=(\d\d\d)+(?!\d))/g,
-            '$1,',
-          )} đ`}</Text>
-        </View>
-        <View style={styles.flex}>
-          <Icon name="ios-file-tray-full-sharp" size={24} style={styles.icon} />
-          <Text style={styles.wrap}>{`${data.SO_TIEN_BANG_CHU} đồng`}</Text>
-        </View>
-        <View style={styles.flex}>
-          <Icon name="ios-document-text" size={24} style={styles.icon} />
-          <View>
+        <Text style={styles.wrap}>{`${data.SO_TIEN_DE_NGHI.toString().replace(
+          /(\d)(?=(\d\d\d)+(?!\d))/g,
+          '$1,',
+        )} đ`}</Text>
+      </View>
+      <View style={styles.flex}>
+        <Icon name="ios-file-tray-full-sharp" size={24} style={styles.icon} />
+        <Text style={styles.wrap}>{`${data.SO_TIEN_BANG_CHU} đồng`}</Text>
+      </View>
+      <View style={styles.flex}>
+        <Icon name="ios-document-text" size={24} style={styles.icon} />
+        <View>
+          <Text
+            onTextLayout={onTextLayout}
+            numberOfLines={textShow ? undefined : 4}
+            style={styles.wrap}>
+            {data.LY_DO_DN}
+          </Text>
+          {lengthMore ? (
             <Text
-              onTextLayout={onTextLayout}
-              numberOfLines={textShow ? undefined : 4}
-              style={styles.wrap}>
-              {data.LY_DO_DN}
+              onPress={toggleNumberOfLines}
+              style={[
+                styles.text,
+                {
+                  marginRight: 30,
+                },
+              ]}>
+              {textShow ? '...Đóng' : '...Xem thêm'}
             </Text>
-            {lengthMore ? (
-              <Text
-                onPress={toggleNumberOfLines}
-                style={[
-                  styles.text,
-                  {
-                    marginRight: 30,
-                  },
-                ]}>
-                {textShow ? '...Đóng' : '...Xem thêm'}
-              </Text>
-            ) : null}
-          </View>
+          ) : null}
         </View>
-        <View style={styles.flex}>
-          <Icon name="ios-warning" size={24} style={styles.icon} />
-          <View style={styles.icon}>
-            {checkStatus(
-              data.DA_DUYET,
-              data.DA_THANH_TOAN,
-              data.TRUONG_PHONG_DA_DUYET,
-              data.TRUONG_PHONG_HUY_DUYET,
-              data.DA_HUY,
-              data.MA_SO_DN,
-            )}
-          </View>
+      </View>
+      <View style={styles.flex}>
+        <Icon name="ios-warning" size={24} style={styles.icon} />
+        <View style={styles.icon}>
+          {checkStatus(
+            data.DA_DUYET,
+            data.DA_THANH_TOAN,
+            data.TRUONG_PHONG_DA_DUYET,
+            data.TRUONG_PHONG_HUY_DUYET,
+            data.DA_HUY,
+            data.MA_SO_DN,
+          )}
         </View>
+      </View>
     </View>
   );
 };
@@ -150,7 +154,7 @@ const styles = StyleSheet.create({
   flex: {
     flexDirection: 'row',
     alignContent: 'center',
-    
+
     alignItems: 'center',
     justifyContent: 'flex-start',
     marginBottom: 10,
@@ -172,12 +176,12 @@ const styles = StyleSheet.create({
   },
   iconStatusWait: {
     color: '#fff',
-    borderRadius:10,
-    width:40,
-    borderWidth:1,
-    padding:5,
-    backgroundColor:'#2179A9',
-    borderColor:'#2179A9',
+    borderRadius: 10,
+    width: 40,
+    borderWidth: 1,
+    padding: 5,
+    backgroundColor: '#2179A9',
+    borderColor: '#2179A9',
   },
   text: {
     textAlign: 'center',
