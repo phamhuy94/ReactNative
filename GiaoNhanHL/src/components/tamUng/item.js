@@ -65,7 +65,7 @@ const Item = ({data, body}) => {
     } else
       return (
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Text style={{color: '#111'}}>Cẩn duyệt</Text>
+          <Text style={{color: '#111'}}>Cần duyệt</Text>
           <View style={{marginLeft: 200}}>
             <TouchableOpacity
               onPress={() => deleteTamUng(MA_SO_DN, body)}
