@@ -262,9 +262,14 @@ function DanhSachDaNhanScreen({navigation}) {
       <View style={styles.button}>
         <Icon.Button
           name="ios-add-circle"
-          style={{backgroundColor: '#2179A9'}}
+          style={
+            listSelectDaNhan.length == 0
+              ? {backgroundColor: '#bbb'}
+              : {backgroundColor: '#2179A9'}
+          }
+          disabled={listSelectDaNhan.length == 0 ? true : false}
           onPress={() =>
-            navigation.navigate('Tạo đề nghị thanh toán', {
+            navigation.navigate('ViewTaoDNTTNhanh', {
               listSelectDaNhan: listSelectDaNhan
             })
           }>
