@@ -11,6 +11,7 @@ import DNTTScreen from './GiaoNhan/DNTTScreen';
 import ViewTaoDonNghiPhep from '../components/ViewTaoDonNghiPhep';
 import ViewTaoDonXacNhan from '../components/ViewTaoDonXacNhan';
 import ViewTaoDNTT from '../components/DeNghiThanhToan/ViewTaoDNTT';
+import ViewTaoDNTTNhanh from '../components/DeNghiThanhToan/ViewTaoDNTTNhanh';
 import CreateTamUng from '../components/tamUng/createTamUng';
 
 const Stack = createStackNavigator();
@@ -29,6 +30,7 @@ const MainScreen = () => {
         <Stack.Screen name="Tạo đơn xác nhận" component={ViewTaoDonXacNhan} />
         <Stack.Screen name="Tạo đề nghị thanh toán" component={ViewTaoDNTT} />
         <Stack.Screen name="Tạo tạm ứng" component={CreateTamUng} />
+        <Stack.Screen name="ViewTaoDNTTNhanh" component={ViewTaoDNTTNhanh} />
       </Stack.Navigator>
     );
   }
