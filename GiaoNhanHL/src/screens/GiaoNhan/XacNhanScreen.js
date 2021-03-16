@@ -79,15 +79,17 @@ function XacNhanScreen({route, navigation}) {
   useEffect(() => {
       // // chon Api, NCC => NguoiGiaoNhanNCC, KHH => NguoiGiaoNhanKH
     if(listSelectDaNhan[0].KHACH_HANG.indexOf('NCC') == -1){
-      setLink('NguoiGiaoNhanKH')
+      // setLink('NguoiGiaoNhanKH')
+      dispatch(khachHangNhan(listSelectDaNhan[0].KHACH_HANG, tuKhoa, 'NguoiGiaoNhanKH'))
     } else {
-      setLink('NguoiGiaoNhanNCC')
+      // setLink('NguoiGiaoNhanNCC')
+      dispatch(khachHangNhan(listSelectDaNhan[0].KHACH_HANG, tuKhoa, 'NguoiGiaoNhanNCC'))
     }
   }, [listSelectDaNhan])
 
-  useEffect(() => {
-    dispatch(khachHangNhan(listSelectDaNhan[0].KHACH_HANG, tuKhoa, link))
-  }, [listSelectDaNhan, tuKhoa, link])
+  // useEffect(() => {
+  //   dispatch(khachHangNhan(listSelectDaNhan[0].KHACH_HANG, tuKhoa, link))
+  // }, [listSelectDaNhan, tuKhoa, link])
 
   const selectKH = (value) => {
     setNguoiNhanHang(value.TEN_NGUOI_GIAO_NHAN);
