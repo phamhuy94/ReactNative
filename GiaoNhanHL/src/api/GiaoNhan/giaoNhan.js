@@ -54,3 +54,11 @@ export const _huyDonHang = async (data) => {
     const response = await giaonhan.post('/api/Api_GiaoHang/HuyTrangThaiDon', data1);
     return response.data;
 }
+
+export const _khachHangNhan = async (maKhachHang, tuKhoa, link) => {
+    const response = await giaonhan.post(`/api/Api_GiaoHang/${link}`, {
+        madoituong: maKhachHang,
+        tukhoa: tuKhoa
+    });
+    return response.data;
+}

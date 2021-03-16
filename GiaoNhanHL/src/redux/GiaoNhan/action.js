@@ -6,7 +6,8 @@ import {
     _xacNhanGiaoHang,
     _noteNoiDung,
     _updateGiaoHang,
-    _huyDonHang
+    _huyDonHang,
+    _khachHangNhan
 } from '../../api/GiaoNhan/giaoNhan'
 
 export const getCanNhan = (data) => {
@@ -115,6 +116,20 @@ export const huyDonHang = (arrayListDaNhan, data) => {
                 dispatch(getListCanNhan(data))
                 dispatch(getCanNhan(data))
                 dispatch(getDaNhan(data))
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+export const khachHangNhan = (maKhachHang, tuKhoa, link) => {
+    return async (dispatch) => {
+        try {
+            const response = await _khachHangNhan(maKhachHang, tuKhoa, link);
+            dispatch({
+                type: 'KHACH_HANG_NHAN',
+                data: response
+            });
         } catch (error) {
             console.log(error);
         }
