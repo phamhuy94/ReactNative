@@ -17,13 +17,14 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-community/async-storage';
 import {Card} from 'react-native-elements';
 import {useDispatch, useSelector} from 'react-redux';
-import {getListDaNhan, saveUpdateGiaoHang, getCanNhan, getDaNhan} from '../../redux/GiaoNhan/action';
+import {saveUpdateGiaoHang, khachHangNhan} from '../../redux/GiaoNhan/action';
+import PickKH from './pickKH';
 
 function XacNhanScreen({route, navigation}) {
   const {listSelectDaNhan} = route.params;
   const {dataUser} = route.params;
   const dispatch = useDispatch();
-
+  const listKhachHangNhan = useSelector((store) => store.giaoNhan.listKhachHangNhan);
   const [username, setUsername] = useState();
   const [nguoiNhanHang, setNguoiNhanHang] = useState('');
   const [sdtNguoiNhanHang, setSdtNguoiNhanHang] = useState('');
@@ -31,6 +32,8 @@ function XacNhanScreen({route, navigation}) {
   const [chuyenLoaiThanhToan, setChuyenLoaiThanhToan] = useState();
   const [daGiaoHang, setDaGiaoHang] = useState();
   const [daLayHang, setDaLayHang] = useState();
+  const [link, setLink] = useState('');
+  const [tuKhoa, setTuKhoa] = useState('');
   const [disabled, setDisabled] = useState(true);
 
   useEffect(() => {
@@ -73,6 +76,24 @@ function XacNhanScreen({route, navigation}) {
     getToken();
   }, []);
 
+  useEffect(() => {
+      // // chon Api, NCC => NguoiGiaoNhanNCC, KHH => NguoiGiaoNhanKH
+    if(listSelectDaNhan[0].KHACH_HANG.indexOf('NCC') == -1){
+      setLink('NguoiGiaoNhanKH')
+    } else {
+      setLink('NguoiGiaoNhanNCC')
+    }
+  }, [listSelectDaNhan])
+
+  useEffect(() => {
+    dispatch(khachHangNhan(listSelectDaNhan[0].KHACH_HANG, tuKhoa, link))
+  }, [listSelectDaNhan, tuKhoa, link])
+
+  const selectKH = (value) => {
+    setNguoiNhanHang(value.TEN_NGUOI_GIAO_NHAN);
+    setSdtNguoiNhanHang(value.SDT_NGUOI_GIAO_NHAN);
+  };
+
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -93,6 +114,11 @@ function XacNhanScreen({route, navigation}) {
             </View>
             <Text style={styles.text}>{listSelectDaNhan[0].TEN_CONG_TY}</Text>
           </View>
+
+          <View >
+            <PickKH listKhachHangNhan={listKhachHangNhan} onValueChange={selectKH}/>
+          </View>
+
           <View style={styles.flex}>
           <View style={styles.icon}>
               <Icon name="ios-person" size={22} style={styles.iconImg} />
