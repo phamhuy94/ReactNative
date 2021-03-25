@@ -92,7 +92,6 @@ function DanhSachCanNhanScreen({navigation}) {
   useEffect(() => {
     dispatch(getListCanNhan(data));
   }, [username, macongty]);
-
   return (
     <SafeAreaView style={styles.container}>
       <Appbar.Header style={styles.colorHeader}>

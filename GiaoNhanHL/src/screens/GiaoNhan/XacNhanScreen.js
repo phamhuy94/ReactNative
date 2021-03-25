@@ -77,13 +77,15 @@ function XacNhanScreen({route, navigation}) {
   }, []);
 
   useEffect(() => {
-      // // chon Api, NCC => NguoiGiaoNhanNCC, KHH => NguoiGiaoNhanKH
+    if(listSelectDaNhan[0].KHACH_HANG != null) {
+            // // chon Api, NCC => NguoiGiaoNhanNCC, KHH => NguoiGiaoNhanKH
     if(listSelectDaNhan[0].KHACH_HANG.indexOf('NCC') == -1){
       // setLink('NguoiGiaoNhanKH')
       dispatch(khachHangNhan(listSelectDaNhan[0].KHACH_HANG, tuKhoa, 'NguoiGiaoNhanKH'))
     } else {
       // setLink('NguoiGiaoNhanNCC')
       dispatch(khachHangNhan(listSelectDaNhan[0].KHACH_HANG, tuKhoa, 'NguoiGiaoNhanNCC'))
+    }
     }
   }, [listSelectDaNhan])
 
@@ -92,8 +94,10 @@ function XacNhanScreen({route, navigation}) {
   // }, [listSelectDaNhan, tuKhoa, link])
 
   const selectKH = (value) => {
-    setNguoiNhanHang(value.TEN_NGUOI_GIAO_NHAN);
-    setSdtNguoiNhanHang(value.SDT_NGUOI_GIAO_NHAN);
+    if (value) {
+      setNguoiNhanHang(value.TEN_NGUOI_GIAO_NHAN);
+      setSdtNguoiNhanHang(value.SDT_NGUOI_GIAO_NHAN);
+    }
   };
 
   return (
@@ -117,7 +121,7 @@ function XacNhanScreen({route, navigation}) {
             <Text style={styles.text}>{listSelectDaNhan[0].TEN_CONG_TY}</Text>
           </View>
 
-          <View style={styles.flex}>
+          <View style={styles.flex1}>
             
             <PickKH listKhachHangNhan={listKhachHangNhan} onValueChange={selectKH}/>
           </View>
@@ -220,6 +224,10 @@ const styles = StyleSheet.create({
   },
   flex: {
     flexDirection: 'row',
+    marginBottom: 30,
+  },
+  flex1: {
+    // flexDirection: 'row',
     marginBottom: 30,
   },
   colorHeader: {

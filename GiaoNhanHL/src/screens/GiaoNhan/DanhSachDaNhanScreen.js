@@ -139,7 +139,6 @@ function DanhSachDaNhanScreen({navigation}) {
   const functionHuyDonHang = () => {
     dispatch(huyDonHang(arrayListDaNhan, data));
   };
-
   return (
     <SafeAreaView style={styles.container}>
       <Appbar.Header style={styles.colorHeader}>

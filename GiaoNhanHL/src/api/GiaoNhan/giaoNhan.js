@@ -56,7 +56,6 @@ export const _huyDonHang = async (data) => {
 }
 
 export const _khachHangNhan = async (maKhachHang, tuKhoa, link) => {
-    console.log(link)
     const response = await giaonhan.post(`/api/Api_GiaoHang/${link}`, {
         madoituong: maKhachHang,
         tukhoa: tuKhoa
