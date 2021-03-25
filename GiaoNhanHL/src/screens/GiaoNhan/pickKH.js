@@ -1,31 +1,33 @@
-import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {Picker, Form} from 'native-base';
+import React, {useState} from 'react';
+import {StyleSheet} from 'react-native';
+import {Picker, Form,Text,View} from 'native-base';
 import Icon from 'react-native-vector-icons/Ionicons';
 const PickKH = ({listKhachHangNhan, onValueChange}) => {
-    if(listKhachHangNhan != undefined) {
-        return(
-            <Form style={styles.contact}>
-                <Picker
-                    mode="dropdown"
-                    style={[styles.textHeader,{marginRight:5,}]}
-                    iosHeader="Chọn liên hệ"
-                    iosIcon={<Icon name="arrow-down" />}
-                    selectedValue={listKhachHangNhan}
-                    onValueChange={onValueChange}
-                    >
-                        <Picker.Item label="Chọn liên hệ"/>
-                    {listKhachHangNhan.map((item, index) => {
-                        return (
-                            <Picker.Item label={`${item.TEN_NGUOI_GIAO_NHAN} - ${item.SDT_NGUOI_GIAO_NHAN}`} value={item} key={index} />
-                        );
-                    })}
-                </Picker>
-            </Form>
-        )
-    }
-    return (
-        <View></View>
+    return(
+        <Form style={styles.contact}>
+            <View style={styles.flex}>
+            
+            <Picker
+                mode="dropdown"
+                style={[styles.textHeader,{marginRight:5,}]}
+                iosHeader="Chọn liên hệ"
+                placeholder="Chọn liên hệ "
+                placeholderStyle={{color:'#000'}}
+                iosIcon={<Icon name="arrow-down" />}
+                selectedValue={listKhachHangNhan}
+                onValueChange={onValueChange}
+                >
+                    
+                    <Picker.Item label="Chọn liên hệ"/>
+                {listKhachHangNhan.map((item, index) => {
+                    return (
+                        <Picker.Item label={`${item.TEN_NGUOI_GIAO_NHAN} - ${item.SDT_NGUOI_GIAO_NHAN}`} value={item} key={index} />
+                    );
+                })}
+            </Picker>
+            </View>
+            
+        </Form>
     )
 };
 
@@ -37,4 +39,7 @@ const styles = StyleSheet.create({
         color: '#444',
         lineHeight:25,
       },
+      flex: {
+          flexDirection:'row'
+      }
 })

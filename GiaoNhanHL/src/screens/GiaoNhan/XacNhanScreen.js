@@ -117,7 +117,8 @@ function XacNhanScreen({route, navigation}) {
             <Text style={styles.text}>{listSelectDaNhan[0].TEN_CONG_TY}</Text>
           </View>
 
-          <View >
+          <View style={styles.flex}>
+            
             <PickKH listKhachHangNhan={listKhachHangNhan} onValueChange={selectKH}/>
           </View>
 
