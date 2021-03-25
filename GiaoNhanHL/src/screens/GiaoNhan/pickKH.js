@@ -1,18 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet} from 'react-native';
-import {Picker, Form} from 'native-base';
+import {Picker, Form,Text,View} from 'native-base';
 import Icon from 'react-native-vector-icons/Ionicons';
 const PickKH = ({listKhachHangNhan, onValueChange}) => {
     return(
         <Form style={styles.contact}>
+            <View style={styles.flex}>
+            
             <Picker
                 mode="dropdown"
                 style={[styles.textHeader,{marginRight:5,}]}
                 iosHeader="Chọn liên hệ"
+                placeholder="Chọn liên hệ "
+                placeholderStyle={{color:'#000'}}
                 iosIcon={<Icon name="arrow-down" />}
                 selectedValue={listKhachHangNhan}
                 onValueChange={onValueChange}
                 >
+                    
                     <Picker.Item label="Chọn liên hệ"/>
                 {listKhachHangNhan.map((item, index) => {
                     return (
@@ -20,6 +25,8 @@ const PickKH = ({listKhachHangNhan, onValueChange}) => {
                     );
                 })}
             </Picker>
+            </View>
+            
         </Form>
     )
 };
@@ -32,4 +39,7 @@ const styles = StyleSheet.create({
         color: '#444',
         lineHeight:25,
       },
+      flex: {
+          flexDirection:'row'
+      }
 })
