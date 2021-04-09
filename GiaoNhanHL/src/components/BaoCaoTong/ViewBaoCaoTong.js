@@ -110,7 +110,7 @@ export default function ViewBaoCaoTong() {
         </View>
       </View>
 
-      <View style={styles.flex}>
+      
         <ScrollView
           contentContainerStyle={styles.scrollView}
           refreshControl={
@@ -124,15 +124,12 @@ export default function ViewBaoCaoTong() {
             keyExtractor={(item2, index) => index.toString()}
           />
         </ScrollView>
-      </View>
+     
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
 
   flex: {
     flex: 20,

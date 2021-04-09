@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollView: {
-    marginTop: 50,
+  
   },
   flex: {
     flex: 20,
@@ -188,14 +188,14 @@ const styles = StyleSheet.create({
     justifyContent:'center',
   },
   flexTime: {
-    margin:80,
+    margin:20,
       flexDirection: 'column',
     marginTop: 0,
     justifyContent:'center',
-
+    marginTop:-30,
     borderRadius: 5,
     height: 60,
-    top: -30,
+    top: 0,
     backgroundColor: '#fff',
     shadowOffset: {
       width: 0,
@@ -235,13 +235,18 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   homeLayout: {
+    backgroundColor:'#fff',
     margin: 10,
-    flex: 1,
+    borderRadius: 5,
     padding: 10,
-    shadowOffset: {width: 2, height: 2},
-    borderColor: '#ddd',
-    shadowOpacity: 0.5,
-    elevation: 2,
+    shadowColor: Platform.OS === 'ios' ? '#f5f5f5' : 'transparent',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 5.25,
+    shadowRadius: 3.84,
+    elevation: 4,
   },
   textStyle: {
     color: 'white',

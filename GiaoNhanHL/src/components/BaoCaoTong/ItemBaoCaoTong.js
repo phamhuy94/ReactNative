@@ -117,7 +117,7 @@ const ItemBaoCaoTong = ({data, onRefresh}) => {
   };
 
   return (
-    <View>
+    <View >
       <Swipeout
         right={swipeoutBtn}
         close={true}
