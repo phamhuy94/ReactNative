@@ -121,7 +121,7 @@ const ItemBaoCaoTong = ({data, onRefresh}) => {
       <Swipeout
         right={swipeoutBtn}
         close={true}
-        style={{backgroundColor: '#f5f6f6'}}>
+        style={{backgroundColor: '#f5f6f6',flex:1,}}>
         <View
           style={[
             styles.homeLayout,
@@ -356,7 +356,7 @@ const styles = StyleSheet.create({
     margin: 15,
     padding: 10,
     borderRadius: 5,
-   
+
     shadowColor: Platform.OS === 'ios' ? '#f5f5f5' : 'transparent',
     shadowOffset: {
       width: 0,

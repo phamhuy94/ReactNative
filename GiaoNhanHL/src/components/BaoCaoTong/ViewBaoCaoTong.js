@@ -9,6 +9,7 @@ import {
   FlatList,
   RefreshControl,
   ScrollView,
+  Dimensions,
   Platform,
 } from 'react-native';
 import {Appbar} from 'react-native-paper';
@@ -109,28 +110,43 @@ export default function ViewBaoCaoTong() {
           </View>
         </View>
       </View>
-
-      
-        <ScrollView
-          contentContainerStyle={styles.scrollView}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }>
-          <FlatList
-            data={listBaoCaoTong}
-            renderItem={({item, index}) => (
-              <ItemBaoCaoTong data={item} onRefresh={onRefresh} />
-            )}
-            keyExtractor={(item2, index) => index.toString()}
-          />
-        </ScrollView>
-     
+      <View style={styles.container}>
+        <View style={styles.scrollView}>
+          <ScrollView
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }>
+            <FlatList
+              data={listBaoCaoTong}
+              renderItem={({item, index}) => (
+                <ItemBaoCaoTong data={item} onRefresh={onRefresh} />
+              )}
+              keyExtractor={(item2, index) => index.toString()}
+            />
+          </ScrollView>
+        </View>
+      </View>
     </View>
   );
 }
+const height = Dimensions.get('window').height;
+const width = Dimensions.get('window').width;
 
+const guidelineBaseWidth = 360;
+const guidelineBaseHeight = 592;
+
+const scale = (size) => (width / guidelineBaseWidth) * size;
+const verticalScale = (size) => (height / guidelineBaseHeight) * size;
+const moderateScale = (size, factor = 0.5) =>
+  size + (scale(size) - size) * factor;
 const styles = StyleSheet.create({
-
+  container: {
+    flex: 1,
+  },
+  scrollView: {
+    overflow: 'scroll',
+    maxHeight: verticalScale(400),
+  },
   flex: {
     flex: 20,
     flexDirection: 'row',
@@ -154,8 +170,8 @@ const styles = StyleSheet.create({
     marginTop: 0,
     backgroundColor: '#fff',
     borderRadius: 5,
-    marginTop:-40,
-    height:80,
+    marginTop: -40,
+    height: 80,
     shadowOffset: {
       width: 0,
       height: 2,
