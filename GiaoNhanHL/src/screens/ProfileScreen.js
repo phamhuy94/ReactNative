@@ -11,6 +11,8 @@ import ViewXacNhan from '../components/ViewXacNhan';
 import DNTT from '../screens/DNTT/index';
 import TamUng from '../screens/TamUng/index';
 import QuangDuong from '../screens/QuangDuong/index';
+import BaoCaoTong from '../components/BaoCaoTong/ViewBaoCaoTong';
+import BaoCaoThuTien from '../components/BaoCaoThuTien/ViewBaoCaoThuTien';
 import {useDispatch, useSelector} from 'react-redux';
 import {logout} from '../redux/authentication/action';
 import {createDrawerNavigator} from '@react-navigation/drawer';
@@ -66,12 +68,15 @@ const ProfileScreen = ({navigation}) => {
         <Drawer.Screen name="Thông tin" component={Details} />
         <Drawer.Screen name="Bảng chấm công" component={ViewTimeSheet} />
         <Drawer.Screen name="Bảng lương" component={ViewPayRoll} />
-        <Drawer.Screen name="KPI" component={ViewKPI} />
+  
         <Drawer.Screen name="Xin nghỉ phép" component={ViewNghiPhep} />
         <Drawer.Screen name="Xin xác nhận" component={ViewXacNhan} />
         <Drawer.Screen name="Đề nghị thanh toán" component={DNTT} />
         <Drawer.Screen name="Tạm ứng" component={TamUng} />
         <Drawer.Screen name="QL quãng đường" component={QuangDuong} />
+        <Drawer.Screen name="KPI" component={ViewKPI} />
+        <Drawer.Screen name="Báo cáo tổng" component={BaoCaoTong} />
+        <Drawer.Screen name="Báo cáo thu tiền" component={BaoCaoThuTien} />
       </Drawer.Navigator>
     </View>
   );

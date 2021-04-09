@@ -23,6 +23,7 @@ export default function ViewKPI() {
 
   //lay username
   const [username, setUsername] = useState();
+
   const getToken = async () => {
     const username = await AsyncStorage.getItem('userToken');
     const macongty = await AsyncStorage.getItem('maCongTy');
