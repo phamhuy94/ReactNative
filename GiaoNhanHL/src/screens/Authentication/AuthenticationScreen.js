@@ -29,11 +29,9 @@ export default function Authentication() {
                     <Stack.Screen
                         name="SignIn"
                         component={SignInScreen}
-                        options={{
-                            title: 'Đăng nhập',
-                            // animationTypeForReplace: isSignout ? 'pop' : 'push',
-                        }}
+                        options={{title: 'Đăng nhập'}}
                     />
+                    
                 ) : (
                         <Stack.Screen name="Main" component={MainScreen} />
                     )}
