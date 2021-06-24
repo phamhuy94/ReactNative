@@ -22,7 +22,7 @@ import {
 } from 'react-native';
 import {Card} from 'react-native-elements';
 import {Appbar} from 'react-native-paper';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/Ionicons';
 

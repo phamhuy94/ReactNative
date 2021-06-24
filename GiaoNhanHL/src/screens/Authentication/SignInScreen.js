@@ -20,10 +20,8 @@ const {width, height} = Dimensions.get('window');
 
 const mark = require('../../images/login1_mark.png');
 const driver = require('../../images/driver-01.png');
-const lockIcon = require('../../images/login1_lock.png');
-const personIcon = require('../../images/login1_person.png');
 
-const SignInScreen = ({navigation}) => {
+const SignInScreen = () => {
   const dispatch = useDispatch();
   const isSignInFailed = useSelector(
     (store) => store.authentication.isSignInFailed,
@@ -133,8 +131,8 @@ const styles = StyleSheet.create({
     minWidth:100,
     minHeight:100,
     flex: 1,
-    justifyContent: 'space-between',
-    textAlign: 'center',
+    // justifyContent: 'space-between',
+    // textAlign: 'center',
   },
   background: {
     width,

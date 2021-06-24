@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 import {Appbar} from 'react-native-paper';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function ViewPayRoll() {
   const dispatch = useDispatch();

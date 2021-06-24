@@ -11,7 +11,7 @@ import {
 import {Appbar} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Button, Picker, Form} from 'native-base';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {PostDeNghiTT} from '../../redux/DNTT/action';
 
 const ViewTaoDNTTNhanh = ({navigation, route}) => {

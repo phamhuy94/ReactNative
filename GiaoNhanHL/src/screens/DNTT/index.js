@@ -5,7 +5,7 @@ import ViewDNTTCanThanhToan from '../../components/DeNghiThanhToan/ViewDNTTCanTh
 import ViewDNTTDaThanhToan from '../../components/DeNghiThanhToan/ViewDNTTDaThanhToan';
 import ViewDNTTDaHuy from '../../components/DeNghiThanhToan/ViewDNTTDaHuy';
 import DropDownDNTT from '../../components/DeNghiThanhToan/DropdownDNTT';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const DNTT = ({navigation}) => {
   const [page, setPage] = useState('daThanhToan');

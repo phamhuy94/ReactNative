@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useContext, useCallback} from 'react';
 import {Button, View, StyleSheet, Text,TouchableOpacity,ScrollView} from 'react-native';
 
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import ViewDetail from '../components/ViewDetail';
 import ViewTimeSheet from '../components/ViewTimeSheet';
 import ViewPayRoll from '../components/ViewPayRoll';
@@ -33,7 +33,7 @@ const ProfileScreen = ({navigation}) => {
 
   const LoadAPI = (username) => {
     const url =
-      'http://sales.hoplong.com/api/Api_NhanVien/GetChiTietNhanVien/' +
+      'http://app.hoplong.com/api/Api_NhanVien/GetChiTietNhanVien/' +
       username;
     fetch(url)
       .then((res) => res.json())

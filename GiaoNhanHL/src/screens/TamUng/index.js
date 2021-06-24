@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import ListTamUng from '../../components/tamUng/listTamUng';
 import {Appbar} from 'react-native-paper';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
@@ -39,7 +39,7 @@ const TamUng = ({navigation}) => {
   };
   const LoadAPI = (username) => {
     const url =
-      'http://sales.hoplong.com/api/Api_NhanVien/GetChiTietNhanVien/' +
+      'http://app.hoplong.com/api/Api_NhanVien/GetChiTietNhanVien/' +
       username;
     fetch(url)
       .then((res) => res.json())

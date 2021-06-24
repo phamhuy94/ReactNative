@@ -1,5 +1,5 @@
 import axios from 'axios';
-const originErp = 'http://sales.hoplong.com/';
+const originErp = 'http://app.hoplong.com/';
 
 // Lay toan bo don tam ung
 export const callApiTamUng = async(body) => {

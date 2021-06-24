@@ -70,7 +70,7 @@ function DataScreen({ navigation }) {
                             })
                         }>
                             <View style={styles.left}>
-                                <FastImage style={styles.image} source={{ uri: 'http://sales.hoplong.com/Content/Images/Avatar/' + item.AVATAR }} />
+                                <FastImage style={styles.image} source={{ uri: 'http://app.hoplong.com/Content/Images/Avatar/' + item.AVATAR }} />
                             </View>
                             <View style={styles.right}>
                                 <Text style={styles.title}>{item.HO_VA_TEN}</Text>

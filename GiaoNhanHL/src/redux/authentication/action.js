@@ -1,5 +1,6 @@
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {login} from '../../api/authentication/authentication'
+import  message  from "../mesage";
 
 const token_key = 'userToken';
 const ma_cong_ty = 'maCongTy';
@@ -30,9 +31,11 @@ export const _login = (data) => {
     try {
       const response = await login(data);
       if(response.notification.indexOf('thành công') >= 0){
-        saveToken(response)
+        saveToken(response);
+        message('Đăng nhập thành công', 200);
         dispatch({ type: SIGN_IN, token: response.user.USERNAME });
       }else{
+        message(response.notification, 200);
         dispatch({ type: SIGN_IN_FAILED,alertText:response.notification});
       }     
     } catch (e) {
@@ -44,5 +47,6 @@ export const _login = (data) => {
 export const logout = () => async dispatch => {
   await AsyncStorage.removeItem(token_key);
   await AsyncStorage.removeItem(ma_cong_ty);
+  message('Đăng xuất thành công', 200);
   dispatch({ type: SIGN_OUT });
 }

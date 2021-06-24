@@ -3,7 +3,7 @@ import * as AxiosLogger from 'axios-logger';
 
 // const baseURL = 'http://localhost:3000';
 // Please change baseURL when build production
-const baseURL = 'http://sales.hoplong.com/';
+const baseURL = 'http://app.hoplong.com/';
 const headers = {
   Accept: 'application/json',
   'Content-Type': 'application/json;charset=UTF-8',
