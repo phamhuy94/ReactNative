@@ -13,11 +13,11 @@ import {
   Platform,
 } from 'react-native';
 import Modal from 'react-native-modal';
-import {CheckBox} from 'native-base';
+import {CheckBox, Picker} from 'native-base';
 import {useDispatch, useSelector} from 'react-redux';
 import {ReactNativeNumberFormat} from '../../components/FormatNumber';
-import {Picker} from '@react-native-community/picker';
-import AsyncStorage from '@react-native-community/async-storage';
+// import {Picker} from '@react-native-community/picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   getListDaNhan,
   noteNoiDung,

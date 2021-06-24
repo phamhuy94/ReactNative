@@ -18,7 +18,7 @@ import {
 import {Card} from 'react-native-elements';
 import {Appbar} from 'react-native-paper';
 import moment from 'moment';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 

@@ -15,7 +15,7 @@ const clock = require('../images/clock.png');
 // import Icon from 'react-native-vector-icons/FontAwesome5'
 
 import {Appbar} from 'react-native-paper';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function ViewTimeSheet() {
   const dispatch = useDispatch();
 

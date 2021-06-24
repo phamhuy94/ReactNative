@@ -58,7 +58,7 @@ export default function ViewDetail({data}) {
                     style={styles.userImage}
                     source={{
                       uri:
-                        'http://sales.hoplong.com/Content/Images/Avatar/' +
+                        'http://app.hoplong.com/Content/Images/Avatar/' +
                         state.AVATAR,
                     }}
                   />

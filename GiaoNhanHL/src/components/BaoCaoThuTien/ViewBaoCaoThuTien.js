@@ -11,7 +11,7 @@ import {
   Platform,
 } from 'react-native';
 import {Appbar} from 'react-native-paper';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import DatePicker from '../../components/datePicker';
 import Icon from 'react-native-vector-icons/Ionicons';
 const wait = (timeout) => {

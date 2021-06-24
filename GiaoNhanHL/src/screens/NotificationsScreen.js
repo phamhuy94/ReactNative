@@ -33,7 +33,7 @@ function NotificationsScreen({navigation}) {
 
   const LoadAPI = () => {
     const url =
-      'http://sales.hoplong.com/api/Api_POST_CATEGORIES/DanhSachBaiViet';
+      'http://app.hoplong.com/api/Api_POST_CATEGORIES/DanhSachBaiViet';
     fetch(url, {
       method: 'POST',
       headers: {
@@ -87,7 +87,7 @@ function NotificationsScreen({navigation}) {
                     style={styles.image}
                     source={{
                       uri:
-                        'http://sales.hoplong.com/Content/Images/BaiViet/' +
+                        'http://app.hoplong.com/Content/Images/BaiViet/' +
                         item.ANH_BAI_VIET,
                     }}
                     resizeMode="stretch"

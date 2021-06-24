@@ -13,7 +13,7 @@ import {
 import {useDispatch, useSelector} from 'react-redux';
 import {getCanNhan, getDaNhan} from '../../redux/GiaoNhan/action';
 import {Appbar} from 'react-native-paper';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const wait = (timeout) => {
   return new Promise((resolve) => {

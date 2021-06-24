@@ -16,18 +16,6 @@ const setAxiosInstance = () => {
     headers,
   });
 
-  // axiosInstance.interceptors.request.use(
-  //   AxiosLogger.requestLogger,
-  //   AxiosLogger.errorLogger,
-  // );
-
-  // axiosInstance.interceptors.response.use(
-  //   AxiosLogger.responseLogger,
-  //   AxiosLogger.errorLogger,
-  // );
-
-  // Do whatever you want with axiosInstance
-
   return axiosInstance;
 };
 

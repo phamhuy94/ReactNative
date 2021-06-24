@@ -18,7 +18,7 @@ import {getListCanNhan, xacNhanGiaoHang, getDaNhan} from '../../redux/GiaoNhan/a
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import IconIon from 'react-native-vector-icons/Ionicons';
 import {Appbar} from 'react-native-paper';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const wait = (timeout) => {

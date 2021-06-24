@@ -2,7 +2,7 @@ import React from 'react';
 import {
     StyleSheet,
 } from 'react-native';
-import {Picker} from '@react-native-community/picker';
+import {Picker} from 'native-base';
 
 export default function SelectPhongBan({ data,action }) {
     
