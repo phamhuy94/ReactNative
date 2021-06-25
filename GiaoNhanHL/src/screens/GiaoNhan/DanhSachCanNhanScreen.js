@@ -112,7 +112,7 @@ function DanhSachCanNhanScreen({navigation}) {
             style={[
               styles.item,
               styles.card,
-              {backgroundColor: index % 2 == 0 ? '#f2f2f2' : '#fff'},
+              {backgroundColor: item.LOAI === 'GIAO_HANG' ? '#fff' : '#0a7cf521'},
             ]}>
             <View style={styles.flexCheck}>
               {slDaNhan > 0 ? (
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   icon: {
-    color: '#aaa',
+    color: '#000000ab',
     marginRight: 5,
   },
   textHeader: {
@@ -239,12 +239,12 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   name: {
-    color: '#aaa',
+    color: '#000000ab',
     fontSize: 16,
     flexShrink:1,
   },
   phone: {
-    color: '#aaa',
+    color: '#000000ab',
     fontSize: 16,
   },
   left: {

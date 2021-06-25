@@ -139,6 +139,7 @@ function DanhSachDaNhanScreen({navigation}) {
   const functionHuyDonHang = () => {
     dispatch(huyDonHang(arrayListDaNhan, data));
   };
+
   return (
     <SafeAreaView style={styles.container}>
       <Appbar.Header style={styles.colorHeader}>
@@ -157,7 +158,7 @@ function DanhSachDaNhanScreen({navigation}) {
               style={[
                 styles.item,
                 styles.card,
-                {backgroundColor: index % 2 == 0 ? '#f2f2f2' : '#fff'},
+                {backgroundColor: item.LOAI === 'GIAO_HANG' ? '#fff' : '#0a7cf521'},
               ]}>
               <View style={styles.flexCheck}>
                 <CheckBox
