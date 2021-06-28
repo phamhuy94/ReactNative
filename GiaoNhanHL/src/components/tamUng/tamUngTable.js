@@ -84,7 +84,8 @@ const styles = StyleSheet.create({
     listWrapper: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        borderBottomWidth: 0.5
+        borderBottomWidth: 1,
+    borderBottomColor:'#ccc'
     },
     row: {
         backgroundColor: '#fff',

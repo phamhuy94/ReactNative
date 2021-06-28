@@ -21,7 +21,7 @@ const TamUng = ({navigation}) => {
   const [sotrang, setSotrang] = useState(1);
   const [sobanghi, setSobanghi] = useState(15);
   const [state, setState] = useState([]);
-
+  const [showList, setShowList] = useState(false);
   const getToken = async () => {
     const username = await AsyncStorage.getItem('userToken');
     const macongty = await AsyncStorage.getItem('maCongTy');
@@ -78,13 +78,31 @@ const TamUng = ({navigation}) => {
           color={'#2179A9'}
           style={{marginLeft: -15}}
         />
+         <View style={styles.btnList}>
+          <TouchableOpacity
+          style={styles.btnEye}
+          onPress={() => setShowList(!showList)}>
+            {showList ? (  <Icon
+            name={'ios-grid-outline'}
+        
+            size={22}
+            color={'#2179A9'}
+          />) : (  <Icon
+            
+            name={'ios-list-outline'}
+            size={22}
+            color={'#2179A9'}
+          />)}
+          </TouchableOpacity>
+          </View>
         <TouchableOpacity
           title="Click"
           onPress={() => navigation.navigate('Tạo tạm ứng', {body})}>
           <Icon name="ios-add-circle" size={30} style={styles.iconAdd} />
         </TouchableOpacity>
+       
       </Appbar.Header>
-      <ListTamUng body={body} />
+      <ListTamUng body={body} showList={showList}/>
     </View>
   );
 };
@@ -101,4 +119,10 @@ const styles = StyleSheet.create({
   iconAdd: {
     color: '#2179A9',
   },
+  btnList: {
+    
+    flexDirection:'row',
+    justifyContent:'flex-end',
+    right:20
+  }
 })

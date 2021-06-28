@@ -13,6 +13,7 @@ import {
   FlatList,
   Button,
   ScrollView,
+  Dimensions
 } from 'react-native';
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -201,10 +202,12 @@ const ViewTable = ({data}) => {
 };
 
 export default ViewDNTTDaThanhToan;
+const height = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    height: height * 0.75
   },
   flex: {
     flexDirection: 'row',
@@ -263,7 +266,8 @@ const styles = StyleSheet.create({
   listWrapper: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    borderBottomWidth: 0.5,
+    borderBottomWidth: 1,
+    borderBottomColor:'#ccc'
   },
   row: {
     backgroundColor: '#fff',

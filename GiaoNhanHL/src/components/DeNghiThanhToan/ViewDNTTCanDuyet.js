@@ -14,6 +14,7 @@ import {
   FlatList,
   ScrollView,
   Platform,
+  Dimensions
 } from 'react-native';
 import {Card} from 'react-native-elements';
 import moment from 'moment';
@@ -302,10 +303,12 @@ const ViewTable = ({data}) => {
 }
 
 export default ViewDNTTCanDuyet;
+const height = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f0f2f2',
+    height:height * 0.75
   },
   flex: {
     flexDirection: 'row',
@@ -350,7 +353,8 @@ const styles = StyleSheet.create({
   listWrapper: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    borderBottomWidth: 0.5,
+    borderBottomWidth: 1,
+    borderBottomColor:'#ccc'
   },
   row: {
     backgroundColor: '#fff',

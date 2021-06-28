@@ -331,6 +331,9 @@ const styles = StyleSheet.create({
   flexCenter: {
     flexDirection: 'row',
     justifyContent: 'center',
+    alignContent: 'space-between',
+    height:50,
+    alignItems:'center'
   },
   icon: {
     marginRight: 5,

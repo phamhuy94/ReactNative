@@ -13,6 +13,7 @@ import {
   Button,
   TouchableOpacity,
   ScrollView,
+  Dimensions
 } from 'react-native';
 import {Card} from 'react-native-elements';
 import {Appbar} from 'react-native-paper';
@@ -201,9 +202,11 @@ const ViewTable = ({data}) => {
 };
 
 export default ViewDNTTDaHuy;
+const height = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: height * 0.75
   },
   flex: {
     flexDirection: 'row',
@@ -256,7 +259,8 @@ const styles = StyleSheet.create({
   listWrapper: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    borderBottomWidth: 0.5,
+    borderBottomWidth: 1,
+    borderBottomColor:'#ccc'
   },
   row: {
     backgroundColor: '#fff',

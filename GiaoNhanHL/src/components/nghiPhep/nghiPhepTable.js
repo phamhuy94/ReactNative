@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, FlatList} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, FlatList,Dimensions} from 'react-native';
 import moment from 'moment';
 
 const NghiPhepTable = ({data, checkIcon}) => {
@@ -32,15 +32,18 @@ const NghiPhepTable = ({data, checkIcon}) => {
 };
 
 export default NghiPhepTable;
+const height = Dimensions.get('window').height; //full height
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff'
+      backgroundColor: '#fff',
+      height: height * 0.68
     },
     listWrapper: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        borderBottomWidth: 0.5
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      borderBottomWidth: 1,
+      borderBottomColor:'#ccc'
     },
     row: {
         backgroundColor: '#fff',

@@ -338,6 +338,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignContent: 'space-between',
+    height:50,
+    alignItems:'center'
   },
   textHeader: {
     color: '#444',

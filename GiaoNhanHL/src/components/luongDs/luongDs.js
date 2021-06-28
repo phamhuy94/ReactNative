@@ -45,7 +45,7 @@ const LuongDs = () => {
       Alert.alert('Sai mật khẩu');
     }
   };
-  //   console.log(luongDs)
+    // console.log(UserDetail)
   return (
     <View style={styles.container}>
       <Appbar.Header style={styles.colorHeader}>
@@ -238,6 +238,7 @@ const styles = StyleSheet.create({
   },
   flex: {
     flexDirection: 'row',
+    marginBottom:5
   },
 
   colorHeader: {
@@ -270,6 +271,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     flexShrink: 1,
     width: '100%',
+    height:40,
   },
   textHeader: {
     color: '#2179A9',
@@ -298,7 +300,8 @@ const styles = StyleSheet.create({
   listWrapper: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    borderBottomWidth: 0.5,
+    borderBottomWidth: 1,
+    borderBottomColor:'#ccc'
   },
   row: {
     backgroundColor: '#fff',
