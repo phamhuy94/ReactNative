@@ -20,11 +20,12 @@ import {
   Alert,
   Platform
 } from 'react-native';
-import {Card} from 'react-native-elements';
 import {Appbar} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/Ionicons';
+import NghiPhepTask from './nghiPhep/nghiPhepTask';
+import NghiPhepTable from './nghiPhep/nghiPhepTable';
 
 const wait = (timeout) => {
   return new Promise((resolve) => {
@@ -62,6 +63,7 @@ const ViewNghiPhep = ({navigation}) => {
   const [thang, setThang] = useState('');
   const [nam, setNam] = useState(new Date().getFullYear());
   const [refreshing, setRefreshing] = useState(false);
+  const [showList, setShowList] = useState(false);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -239,59 +241,47 @@ const ViewNghiPhep = ({navigation}) => {
             <Icon name="ios-add-circle" size={30} style={styles.iconAdd} />
           </TouchableOpacity>
         </Appbar.Header>
-
-        <View style={styles.flexTitle}>
-          <Text style={[styles.textHeader, {color: '#2179A9'}]}>
-            Tổng số ngày nghỉ trong năm:
-          </Text>
-          <Text>&nbsp;&nbsp;</Text>
-          <Text style={[styles.textHeader, {color: '#2179A9'}]}>
-            {getTongSoNgayNghiNV.length == 0
-              ? '0'
-              : getTongSoNgayNghiNV[0].TONG_SO_NGAY_NGHI}
-          </Text>
-          {/* <Text style={styles.textHeader}>{item.TONG_SO_NGAY_NGHI_TRONG_NAM}</Text> */}
-        </View>
       </View>
       <ScrollView
         contentContainerStyle={styles.scrollView}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
-        <FlatList
-          data={getListDonXinNghiNV}
-          renderItem={({item, index}) => (
-            <View style={styles.card}>
-              <Card.Title style={styles.flex}>
-                <View style={styles.icon}>
-                  {checkIcon(
-                    item.TRUONG_PHONG_DA_DUYET,
-                    item.TRUONG_PHONG_HUY_DUYET,
-                    item.MA_SO_XIN_NGHI,
-                    item.NGAY_LAM_DON,
-                  )}
-                </View>
-              </Card.Title>
-
-              <View style={styles.flex}>
-                <Icon name="ios-bookmark-sharp" size={24} style={styles.icon} />
-                <Text style={styles.textHeader}>{item.LOAI_NGHI_PHEP}</Text>
-              </View>
-              <View style={styles.flex}>
-                <Icon name="ios-time" size={24} style={styles.icon} />
-                <Text style={styles.textHeader}>{item.THOI_GIAN_NGHI}</Text>
-              </View>
-              <View style={styles.flex}>
-                <Icon name="md-alert-circle" size={24} style={styles.icon} />
-                <Text style={styles.textHeader}>{item.TONG_SO_NGAY_NGHI}</Text>
-              </View>
-              <View style={styles.flex}>
-                <Icon name="ios-reader" size={24} style={styles.icon} />
-                <Text style={styles.textHeader}>{item.LY_DO_XIN_NGHI}</Text>
-              </View>
-            </View>
-          )}
-        />
+        <View style={styles.flexTitle}>
+         <View style={{flexDirection: 'row'}}>
+          <Text style={[styles.textHeader, {color: '#2179A9'}]}>
+              Tổng số ngày nghỉ trong năm:
+            </Text>
+            <Text>&nbsp;&nbsp;</Text>
+            <Text style={[styles.textHeader, {color: '#2179A9'}]}>
+              {getTongSoNgayNghiNV.length == 0
+                ? '0'
+                : getTongSoNgayNghiNV[0].TONG_SO_NGAY_NGHI}
+            </Text>
+         </View>
+          <View>
+          <TouchableOpacity
+            style={styles.btnEye}
+            onPress={() => setShowList(!showList)}>
+              {showList ? (  <Icon
+              name={'ios-grid-outline'}
+          
+              size={22}
+              color={'#2179A9'}
+            />) : (  <Icon
+              
+              name={'ios-list-outline'}
+              size={22}
+              color={'#2179A9'}
+            />)}
+            </TouchableOpacity>
+          </View>
+        </View>
+        {showList ? (
+          <NghiPhepTable data={getListDonXinNghiNV} checkIcon={checkIcon}/>
+        ) : (
+          <NghiPhepTask data={getListDonXinNghiNV} checkIcon={checkIcon}/>
+        )}
 
         {/* Phan trang */}
         <View style={styles.flexCenter}>
@@ -359,6 +349,7 @@ const styles = StyleSheet.create({
     margin: 20,
     marginTop: 10,
     color: '#2179A9',
+    justifyContent: 'space-between'
   },
   flex: {
     flexDirection: 'row',
@@ -370,7 +361,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     elevation: 1,
   },
-
   icon: {
     marginRight: 5,
     color: '#2179A9',

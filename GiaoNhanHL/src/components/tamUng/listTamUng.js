@@ -14,8 +14,10 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {getApiTamUng, getApiDemDonTamUng} from '../../redux/tamUng/action';
-import Item from '../../components/tamUng/item';
 import Pagination from './pagination';
+import Icon from 'react-native-vector-icons/Ionicons';
+import TamUngTask from './tamUngTask';
+import TamUngTable from './tamUngTable';
 
 const wait = (timeout) => {
   return new Promise((resolve) => {
@@ -29,6 +31,7 @@ const ListTamUng = ({body}) => {
   const countTamUng = useSelector((store) => store.tamUng.countTamUng);
   const [sotrang, setSoTrang] = useState(body.sotrang);
   const [refreshing, setRefreshing] = useState(false);
+  const [showList, setShowList] = useState(false);
   body.sotrang = sotrang;
 
   const onRefresh = useCallback(() => {
@@ -41,8 +44,6 @@ const ListTamUng = ({body}) => {
     dispatch(getApiTamUng(body));
     dispatch(getApiDemDonTamUng(body));
   }, [body, sotrang]);
-  // console.log(listTamUng);
-  //   console.log(countTamUng);
   return (
     <View style={styles.container}>
       <View style={styles.scrollView}>
@@ -50,15 +51,31 @@ const ListTamUng = ({body}) => {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
-        <FlatList
-          data={listTamUng}
-          renderItem={({item, index}) => (
-            <View style={{flex: 1}}>
-              <Item data={item} body={body} />
-            </View>
-          )}
-        />
+          <View style={{marginHorizontal:15}}>
+          <TouchableOpacity
+          style={styles.btnEye}
+          onPress={() => setShowList(!showList)}>
+            {showList ? (  <Icon
+            name={'ios-grid-outline'}
+        
+            size={22}
+            color={'#2179A9'}
+          />) : (  <Icon
+            
+            name={'ios-list-outline'}
+            size={22}
+            color={'#2179A9'}
+          />)}
+          </TouchableOpacity>
+          </View>
 
+        {
+          showList ? (
+            <TamUngTable data={listTamUng} body={body}/>
+          ) : (
+            <TamUngTask data={listTamUng} body={body}/>
+          )
+        }
         <Pagination
           sotrang={sotrang}
           onPressAdd={() => setSoTrang(sotrang + 1)}
@@ -76,7 +93,7 @@ export default ListTamUng;
 const height = Dimensions.get('window').height; //full height
 const styles = StyleSheet.create({
   container: {
-   flex:1,
+  //  flex:1,
   },
   scrollView: {
     height:height * 0.82,

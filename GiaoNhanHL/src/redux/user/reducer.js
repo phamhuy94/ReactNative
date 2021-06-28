@@ -3,6 +3,7 @@ const initialState = {
   UserDetail: [],
   timeSheet: [],
   payRoll: [],
+  luongDs: [],
   KPI: [],
   demDanhSachBaiViet: [],
   isLoading: true,
@@ -40,6 +41,12 @@ const user = (state = initialState, action) => {
         ...state,
         payRoll: action.data,
         isLoading: false,
+      };
+    case 'GET_LUONG_DS':
+      return {
+        ...state,
+        luongDs: action.data,
+        isLoading: false
       };
     case 'GET_KPI':
       return {

@@ -5,6 +5,7 @@ import {
   _getPayRoll,
   _getKPI,
   _getDemDanhSachBaiViet,
+  _getLuongDs
 } from '../../api/user/user';
 import user from './reducer';
 
@@ -71,6 +72,20 @@ export const getPayRoll = (username) => {
       console.log(e);
     }
   };
+};
+
+export const getLuongDs = (username) => {
+  return async (dispatch) => {
+    try {
+      const response = await _getLuongDs(username);
+      dispatch({
+        type: 'GET_LUONG_DS',
+        data: response
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
 };
 
 export const getKPI = (macongty, username, startDate, endDate) => {

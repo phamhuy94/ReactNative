@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import ViewDNTTCanDuyet from '../../components/DeNghiThanhToan/ViewDNTTCanDuyet';
 import ViewDNTTCanThanhToan from '../../components/DeNghiThanhToan/ViewDNTTCanThanhToan';
 import ViewDNTTDaThanhToan from '../../components/DeNghiThanhToan/ViewDNTTDaThanhToan';
 import ViewDNTTDaHuy from '../../components/DeNghiThanhToan/ViewDNTTDaHuy';
 import DropDownDNTT from '../../components/DeNghiThanhToan/DropdownDNTT';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Appbar} from 'react-native-paper';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const DNTT = ({navigation}) => {
   const [page, setPage] = useState('daThanhToan');
@@ -25,6 +27,7 @@ const DNTT = ({navigation}) => {
   const [tukhoa5, setTukhoa5] = useState('');
   const [sotrang, setSotrang] = useState(1);
   const [sobanghi, setSobanghi] = useState(15);
+  const [showList, setShowList] = useState(false);
 
   const getToken = async () => {
     const username = await AsyncStorage.getItem('userToken');
@@ -39,6 +42,43 @@ const DNTT = ({navigation}) => {
 
   return (
     <View style={styles.container}>
+        <Appbar.Header style={styles.colorHeader}>
+        <Appbar.Action icon="powershell" color={'#2179A9'} size={30} />
+        <Appbar.Content
+          title="Đề nghị thanh toán"
+          color={'#2179A9'}
+          style={{marginLeft: -15}}
+        />
+        <TouchableOpacity
+          title="Click"
+          onPress={() => navigation.navigate('Tạo đề nghị thanh toán')}>
+          <Icon
+            name="ios-add-circle"
+            size={30}
+            style={styles.iconAdd}
+          />
+        </TouchableOpacity>
+      </Appbar.Header>
+      <View style={styles.subTitle}>
+        <DropDownDNTT page={page} setPage={setPage} />
+        <View>
+          <TouchableOpacity
+            style={styles.btnEye}
+            onPress={() => setShowList(!showList)}>
+              {showList ? (  <Icon
+              name={'ios-grid-outline'}
+          
+              size={22}
+              color={'#2179A9'}
+            />) : (  <Icon
+              
+              name={'ios-list-outline'}
+              size={22}
+              color={'#2179A9'}
+            />)}
+            </TouchableOpacity>
+          </View>
+      </View>
       {page === 'canDuyet' && (
         <ViewDNTTCanDuyet
           isadmin={isadmin}
@@ -54,6 +94,7 @@ const DNTT = ({navigation}) => {
           sotrang={sotrang}
           sobanghi={sobanghi}
           navigation={navigation}
+          showList={showList}
         />
       )}
 
@@ -72,6 +113,7 @@ const DNTT = ({navigation}) => {
           sotrang={sotrang}
           sobanghi={sobanghi}
           navigation={navigation}
+          showList={showList}
         />
       )}
 
@@ -90,6 +132,7 @@ const DNTT = ({navigation}) => {
           sotrang={sotrang}
           sobanghi={sobanghi}
           navigation={navigation}
+          showList={showList}
         />
       )}
 
@@ -108,20 +151,32 @@ const DNTT = ({navigation}) => {
           sotrang={sotrang}
           sobanghi={sobanghi}
           navigation={navigation}
+          showList={showList}
         />
       )}
-      <DropDownDNTT page={page} setPage={setPage} />
     </View>
   );
 };
 
 export default DNTT;
 const styles = StyleSheet.create({
-  // header: {
-  //     flex:1,
-  // },
   container: {
     flex: 1,
-
   },
+  colorHeader: {
+    shadowColor: '#000',
+    shadowOffset: {width: 1, height: 3},
+    shadowOpacity: Platform.OS === 'ios' ? 0 : 0.2,
+    backgroundColor: 'transparent',
+    elevation: 1,
+  },
+  iconAdd: {
+    color: '#2179A9',
+  },
+  subTitle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginHorizontal: 15,
+  }
 });

@@ -92,6 +92,7 @@ function DanhSachCanNhanScreen({navigation}) {
   useEffect(() => {
     dispatch(getListCanNhan(data));
   }, [username, macongty]);
+
   return (
     <SafeAreaView style={styles.container}>
       <Appbar.Header style={styles.colorHeader}>
@@ -216,7 +217,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 5.25,
     shadowRadius: 3.84,
 
-    elevation: 6,
+    elevation: 0,
   },
   colorHeader: {
     shadowColor: '#000',

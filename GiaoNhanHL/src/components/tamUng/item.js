@@ -65,7 +65,7 @@ const Item = ({data, body}) => {
     } else
       return (
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Text style={{color: '#111'}}>Cần duyệt</Text>
+          <Text style={{color: '#111', fontSize: 16}}>Cần duyệt</Text>
           <View style={{marginLeft: 200}}>
             <TouchableOpacity
               onPress={() => deleteTamUng(MA_SO_DN, body)}
@@ -173,6 +173,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     flexShrink: 1,
     marginRight: 25,
+    fontSize: 16
   },
   iconStatusWait: {
     color: '#fff',
@@ -192,11 +193,14 @@ const styles = StyleSheet.create({
   },
   colorRed: {
     color: 'red',
+    fontSize: 16
   },
   colorGreen: {
     color: 'green',
+    fontSize: 16
   },
   colorBlue: {
     color: 'blue',
+    fontSize: 16
   },
 });

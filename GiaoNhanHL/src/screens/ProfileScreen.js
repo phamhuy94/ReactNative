@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import ViewDetail from '../components/ViewDetail';
 import ViewTimeSheet from '../components/ViewTimeSheet';
 import ViewPayRoll from '../components/ViewPayRoll';
+import LuongDs from '../components/luongDs/luongDs';
 import ViewKPI from '../components/ViewKPI';
 import ViewNghiPhep from '../components/ViewNghiPhep';
 import ViewXacNhan from '../components/ViewXacNhan';
@@ -68,7 +69,7 @@ const ProfileScreen = ({navigation}) => {
         <Drawer.Screen name="Thông tin" component={Details} />
         <Drawer.Screen name="Bảng chấm công" component={ViewTimeSheet} />
         <Drawer.Screen name="Bảng lương" component={ViewPayRoll} />
-  
+        <Drawer.Screen name='LuongDs' component={LuongDs}/>
         <Drawer.Screen name="Xin nghỉ phép" component={ViewNghiPhep} />
         <Drawer.Screen name="Xin xác nhận" component={ViewXacNhan} />
         <Drawer.Screen name="Đề nghị thanh toán" component={DNTT} />

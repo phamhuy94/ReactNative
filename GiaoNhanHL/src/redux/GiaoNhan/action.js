@@ -7,7 +7,8 @@ import {
     _noteNoiDung,
     _updateGiaoHang,
     _huyDonHang,
-    _khachHangNhan
+    _khachHangNhan,
+    _chiTietDon
 } from '../../api/GiaoNhan/giaoNhan'
 
 export const getCanNhan = (data) => {
@@ -132,6 +133,20 @@ export const khachHangNhan = (maKhachHang, tuKhoa, link) => {
             });
         } catch (error) {
             console.log(error);
+        }
+    }
+}
+
+export const chiTietDon = (tukhoa) => {
+    return async(dispatch) => {
+        try {
+            const response = await _chiTietDon(tukhoa);
+            dispatch({
+                type: 'CHI_TIET_DON',
+                data: response
+            })
+        } catch (error) {
+            console.log(error)
         }
     }
 }

@@ -26,6 +26,11 @@ export const _getPayRoll = async (username) => {
   return response.data;
 };
 
+export const _getLuongDs = async (username) => {
+  const response = await axiosInstance.get('/api/Api_BangLuong/DanhSachLuongKho/' + username);
+  return response.data
+};
+
 export const _getKPI = async (macongty, username, startDate, endDate) => {
   const start = moment(startDate).format('DD/MM/YYYY');
   const end = moment(endDate).format('DD/MM/YYYY');
