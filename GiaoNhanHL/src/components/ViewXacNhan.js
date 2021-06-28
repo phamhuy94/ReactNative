@@ -16,7 +16,7 @@ import {
   ScrollView,
   Button,
   TouchableOpacity,
-  Platform
+  Platform,
 } from 'react-native';
 import moment from 'moment';
 
@@ -24,6 +24,8 @@ import {Card} from 'react-native-elements';
 import {Appbar} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {_deleteDonXacNhan} from '../api/xacNhan/xacNhan';
+import XacNhanTask from './xacNhan/xacNhanTask';
+import XacNhanTable from './xacNhan/xacNhanTable';
 
 const wait = (timeout) => {
   return new Promise((resolve) => {
@@ -47,6 +49,7 @@ const ViewXacNhan = ({navigation}) => {
   const [tukhoa, setTukhoa] = useState('');
   const [sotrang, setSotrang] = useState(1);
   const [sobanghi, setSobanghi] = useState(15);
+  const [showList, setShowList] = useState(false);
 
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = useCallback(() => {
@@ -129,15 +132,27 @@ const ViewXacNhan = ({navigation}) => {
   ) => {
     if (TRUONG_PHONG_DA_DUYET === true && TRUONG_PHONG_HUY_DUYET === false) {
       return (
-        <View style={{width:'100%',flexDirection: 'row',justifyContent:'center', alignItems: 'center'}}>
-          <View style={{alignContent:'center',alignSelf:'center',alignItems:'center',width:30}}>
-          <Icon
-            name="ios-checkmark-circle"
-            size={24}
-            style={styles.iconStatusCheck}
-          />
+        <View
+          style={{
+            width: '100%',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <View
+            style={{
+              alignContent: 'center',
+              alignSelf: 'center',
+              alignItems: 'center',
+              width: 30,
+            }}>
+            <Icon
+              name="ios-checkmark-circle"
+              size={24}
+              style={styles.iconStatusCheck}
+            />
           </View>
-          
+
           <Text style={styles.textHeader}>
             {moment(NGAY_LAM_DON).format('DD/MM/YYYY')}
           </Text>
@@ -151,16 +166,17 @@ const ViewXacNhan = ({navigation}) => {
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
-            alignContent:'center',alignSelf:'center'
+            alignContent: 'center',
+            alignSelf: 'center',
           }}>
-          <View style={{left: 105,flex:1,}}>
+          <View style={{left: 105, flex: 1}}>
             <Icon
               name="ios-refresh-circle"
               size={24}
               style={styles.iconStatusWait}
             />
           </View>
-          <Text style={[styles.textHeader, {left: 105,}]}>
+          <Text style={[styles.textHeader, {left: 105}]}>
             {moment(NGAY_LAM_DON).format('DD/MM/YYYY')}
           </Text>
           <View style={{marginLeft: 200}}>
@@ -173,7 +189,14 @@ const ViewXacNhan = ({navigation}) => {
     }
     if (TRUONG_PHONG_HUY_DUYET !== false) {
       return (
-        <View style={{left: 40, flexDirection: 'row', width: '100%', justifyContent: 'center', alignItems: 'center'}}>
+        <View
+          style={{
+            left: 40,
+            flexDirection: 'row',
+            width: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
           <Text>
             <Icon
               name="ios-close-circle-sharp"
@@ -206,59 +229,40 @@ const ViewXacNhan = ({navigation}) => {
             <Icon name="ios-add-circle" size={30} style={styles.iconAdd} />
           </TouchableOpacity>
         </Appbar.Header>
-
-        <View style={styles.flexTitle}>
-          <Text style={[styles.textHeader, {color: '#2179A9'}]}>
-            Tổng số đơn xác nhận trong năm:
-          </Text>
-          <Text>&nbsp;&nbsp;</Text>
-          <Text style={[styles.textHeader, {color: '#2179A9'}]}>
-            {demDonXacNhanNV.length == 0 ? '0' : demDonXacNhanNV}
-          </Text>
-          {/* <Text style={styles.textHeader}>{item.TONG_SO_NGAY_NGHI_TRONG_NAM}</Text> */}
-        </View>
       </View>
       <ScrollView
         contentContainerStyle={styles.scrollView}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
-        <FlatList
-          data={getDonXacNhanNV}
-          renderItem={({item, index}) => (
-            <View style={styles.card}>
-              <Card.Title style={styles.flex}>
-                <View style={styles.icon}>
-                  {checkIcon(
-                    item.TRUONG_PHONG_DA_DUYET,
-                    item.TRUONG_PHONG_HUY_DUYET,
-                    item.MA_SO_XAC_NHAN,
-                    item.NGAY_LAM_DON,
-                  )}
-                </View>
-              </Card.Title>
-              <View style={styles.flex}>
-                <Icon name="ios-reader" size={24} style={styles.icon} />
-                <Text style={styles.textHeader}>
-                  {item.NOI_DUNG_CAN_XAC_NHAN}
-                </Text>
-              </View>
-              {item.LY_DO_HUY ? (
-                <View style={styles.flex}>
-                  <Icon name="ios-time" size={24} style={styles.icon} />
-                  <Text style={styles.textHeader}>{item.LY_DO_HUY}</Text>
-                </View>
+        <View style={styles.flexTitle}>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={[styles.textHeader, {color: '#2179A9'}]}>
+              Tổng số đơn xác nhận trong năm:
+            </Text>
+            <Text>&nbsp;&nbsp;</Text>
+            <Text style={[styles.textHeader, {color: '#2179A9'}]}>
+              {demDonXacNhanNV.length == 0 ? '0' : demDonXacNhanNV}
+            </Text>
+          </View>
+          <View>
+            <TouchableOpacity
+              style={styles.btnEye}
+              onPress={() => setShowList(!showList)}>
+              {showList ? (
+                <Icon name={'ios-grid-outline'} size={22} color={'#2179A9'} />
               ) : (
-                <Text></Text>
+                <Icon name={'ios-list-outline'} size={22} color={'#2179A9'} />
               )}
-
-              <View style={styles.flex}>
-                <Icon name="ios-time" size={24} style={styles.icon} />
-                <Text style={styles.textHeader}>{item.NGAY_CAN_XAC_NHAN}</Text>
-              </View>
-            </View>
-          )}
-        />
+            </TouchableOpacity>
+          </View>
+        </View>
+        {showList ? (
+          <XacNhanTable data={getDonXacNhanNV} checkIcon={checkIcon}/>
+        ) : (
+          <XacNhanTask data={getDonXacNhanNV} checkIcon={checkIcon}/>
+        )}
+      
         <View style={styles.flexCenter}>
           <TouchableOpacity
             style={[
@@ -319,6 +323,7 @@ const styles = StyleSheet.create({
     margin: 20,
     marginTop: 10,
     color: '#2179A9',
+    justifyContent: 'space-between'
   },
   iconAdd: {
     color: '#2179A9',
@@ -366,7 +371,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
-    shadowColor: Platform.OS === 'ios' ? ('#ccc') : ('transparent'),
+    shadowColor: Platform.OS === 'ios' ? '#ccc' : 'transparent',
     shadowOpacity: 5.25,
     shadowRadius: 3.84,
     elevation: 6,

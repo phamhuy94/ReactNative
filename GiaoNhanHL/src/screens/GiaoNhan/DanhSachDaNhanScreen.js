@@ -22,9 +22,11 @@ import {
   getListDaNhan,
   noteNoiDung,
   huyDonHang,
+  chiTietDon
 } from '../../redux/GiaoNhan/action';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Appbar} from 'react-native-paper';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 const listSuCo = ['Sai mã', 'Thiếu mã', 'Thừa mã'];
 
 const wait = (timeout) => {
@@ -35,9 +37,11 @@ const wait = (timeout) => {
 
 function DanhSachDaNhanScreen({navigation}) {
   const dispatch = useDispatch();
+  const listChiTietDon = useSelector((store) => store.giaoNhan.listChiTietDon);
 
   const [username, setUsername] = useState();
   const [isModalVisible, setModalVisible] = useState(false);
+  const [modalDetai, setModalDetail] = useState(false);
   const [selected, setSelected] = useState('');
   const [suCo, setSuCo] = useState('Sai mã');
   const [noiDungSuCo, setNoiDungSuCo] = useState();
@@ -46,6 +50,7 @@ function DanhSachDaNhanScreen({navigation}) {
   const [isAdmin, setIsAdmin] = useState(false);
   const [maphongban, setMaphongban] = useState('');
   const [disabled, setDisabled] = useState(false);
+  const [tukhoa, setTukhoa] = useState('');
 
   const getToken = async () => {
     const username = await AsyncStorage.getItem('userToken');
@@ -73,6 +78,9 @@ function DanhSachDaNhanScreen({navigation}) {
     setSelected(state.SO_CHUNG_TU);
     setModalVisible(!isModalVisible);
   };
+  const toggleModalDetail = () => {
+    setModalDetail(!modalDetai);
+  }
 
   const pressNoteNoiDung = async () => {
     if (suCo === '' || suCo === undefined) {
@@ -140,6 +148,11 @@ function DanhSachDaNhanScreen({navigation}) {
     dispatch(huyDonHang(arrayListDaNhan, data));
   };
 
+  useEffect(() => {
+    dispatch(chiTietDon(tukhoa));
+  }, [tukhoa])
+
+// console.log(listChiTietDon)
   return (
     <SafeAreaView style={styles.container}>
       <Appbar.Header style={styles.colorHeader}>
@@ -168,8 +181,12 @@ function DanhSachDaNhanScreen({navigation}) {
                 />
                 <Text style={styles.header}>{item.SO_CHUNG_TU}</Text>
               </View>
-
-              <Text style={styles.company}>{item.TEN_CONG_TY}</Text>
+              <TouchableOpacity onPress={() => {
+                setModalDetail(true)
+                setTukhoa(item.SO_CHUNG_TU)
+              }}>
+                <Text style={styles.company}>{item.TEN_CONG_TY}</Text>
+              </TouchableOpacity>
 
               {item.DIA_CHI_GIAO_HANG ? (
                 <View style={styles.flex}>
@@ -336,6 +353,33 @@ function DanhSachDaNhanScreen({navigation}) {
           </View>
         </View>
       </Modal>
+      <Modal isVisible={modalDetai}>
+        <View style={{backgroundColor: 'white', padding: 15}}>
+          <View>
+            <View style={styles.titleModal}>
+              <Text>Mã hàng</Text>
+              <Text>Số lượng</Text>
+            </View>
+            <FlatList
+              data={listChiTietDon}
+              renderItem={({item, index}) => (
+                <View style={styles.listChiTiet}>
+                  <Text>{item.MA_CHUAN}</Text>
+                  <Text>{item.SO_LUONG}</Text>
+                </View>
+              )}
+            />
+          </View>
+          <View style={styles.flexCheck}>
+            <Icon.Button
+              name="ios-exit"
+              onPress={toggleModalDetail}
+              style={{backgroundColor: '#2179A9'}}>
+              Đóng
+            </Icon.Button>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -362,7 +406,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     shadowOffset: {width: 1, height: 3},
     shadowColor: Platform.OS === 'ios' ? ('#ccc') : ('transparent'),
-    elevation: 6,
+    elevation: 0,
   },
   flexCheck: {
     flexDirection: 'row',
@@ -449,6 +493,14 @@ const styles = StyleSheet.create({
   iconImg: {
     color: '#2179A9',
     lineHeight:35,
+  },
+  titleModal: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
+  listChiTiet: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
   }
 });
 export default DanhSachDaNhanScreen;

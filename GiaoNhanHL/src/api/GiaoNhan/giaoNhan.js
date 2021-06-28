@@ -62,3 +62,10 @@ export const _khachHangNhan = async (maKhachHang, tuKhoa, link) => {
     });
     return response.data;
 }
+
+export const _chiTietDon = async (tukhoa) => {
+    const response = await giaonhan.post(`/api/Api_GiaoHang/ChitietDonDieuPhoi`, {
+        tukhoa: tukhoa
+    });
+    return response.data
+}

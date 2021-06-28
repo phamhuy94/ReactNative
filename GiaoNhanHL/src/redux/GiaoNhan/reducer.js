@@ -6,7 +6,8 @@
     listSelect: [],
     loaiGiaoHang: "",
     listSelectDaNhan: [],
-    listKhachHangNhan: []
+    listKhachHangNhan: [],
+    listChiTietDon: []
 }
 const giaoNhan = (state = initialState, action) => {
     switch (action.type) {
@@ -73,6 +74,11 @@ const giaoNhan = (state = initialState, action) => {
             return {
                 ...state,
                 listKhachHangNhan: action.data
+            }
+        case 'CHI_TIET_DON':
+            return {
+                ...state,
+                listChiTietDon: action.data
             }
         default:
             return state;
