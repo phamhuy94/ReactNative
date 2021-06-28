@@ -294,6 +294,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     flexShrink: 1,
     width: '100%',
+    height:40
   },
   homeLayout: {
     margin: 15,

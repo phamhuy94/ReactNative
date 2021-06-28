@@ -18,6 +18,7 @@ import Pagination from './pagination';
 import Icon from 'react-native-vector-icons/Ionicons';
 import TamUngTask from './tamUngTask';
 import TamUngTable from './tamUngTable';
+import { Row } from 'native-base';
 
 const wait = (timeout) => {
   return new Promise((resolve) => {
@@ -25,13 +26,12 @@ const wait = (timeout) => {
   });
 };
 
-const ListTamUng = ({body}) => {
+const ListTamUng = ({body, showList}) => {
   const dispatch = useDispatch();
   const listTamUng = useSelector((store) => store.tamUng.listTamUng);
   const countTamUng = useSelector((store) => store.tamUng.countTamUng);
   const [sotrang, setSoTrang] = useState(body.sotrang);
   const [refreshing, setRefreshing] = useState(false);
-  const [showList, setShowList] = useState(false);
   body.sotrang = sotrang;
 
   const onRefresh = useCallback(() => {
@@ -51,23 +51,7 @@ const ListTamUng = ({body}) => {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
-          <View style={{marginHorizontal:15}}>
-          <TouchableOpacity
-          style={styles.btnEye}
-          onPress={() => setShowList(!showList)}>
-            {showList ? (  <Icon
-            name={'ios-grid-outline'}
-        
-            size={22}
-            color={'#2179A9'}
-          />) : (  <Icon
-            
-            name={'ios-list-outline'}
-            size={22}
-            color={'#2179A9'}
-          />)}
-          </TouchableOpacity>
-          </View>
+          
 
         {
           showList ? (
@@ -76,15 +60,17 @@ const ListTamUng = ({body}) => {
             <TamUngTask data={listTamUng} body={body}/>
           )
         }
+        <View style={styles.page}>
         <Pagination
           sotrang={sotrang}
           onPressAdd={() => setSoTrang(sotrang + 1)}
           onPressSub={() => setSoTrang(sotrang - 1)}
           totalItem={countTamUng}
         />
+        </View>
+        
       </ScrollView>
       </View>
-
     </View>
   );
 };
@@ -96,6 +82,20 @@ const styles = StyleSheet.create({
   //  flex:1,
   },
   scrollView: {
-    height:height * 0.82,
+    height:height * 0.8,
+  },
+  btnList: {
+    marginHorizontal:15,
+    marginBottom:10,
+    flexDirection:'row',
+    justifyContent:'flex-end',
+    right:20
+  },
+  page: {
+    alignContent:'center',
+    flexDirection:'row',
+    alignItems:'center',
+    alignSelf:'center',
+    height:60
   }
 });

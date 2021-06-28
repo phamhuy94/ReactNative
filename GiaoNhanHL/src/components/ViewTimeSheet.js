@@ -59,7 +59,7 @@ export default function ViewTimeSheet() {
                 <View>
                   <View style={styles.flex}>
                     <View style={styles.number}>
-                      <Image source={setting} style={styles.setting} resizeMode="center"/>
+                      <Image source={setting} style={styles.setting} resizeMode="stretch"/>
                       <View>
                         <Text style={styles.titleHeader}>Ngày chuẩn</Text>
                         <Text style={styles.date}>{item.NGAY_CHUAN} ngày</Text>
