@@ -257,12 +257,19 @@ const ViewXacNhan = ({navigation}) => {
             </TouchableOpacity>
           </View>
         </View>
-        {showList ? (
-          <XacNhanTable data={getDonXacNhanNV} checkIcon={checkIcon}/>
+       
+   
+      <ScrollView>
+      {showList ? (
+          <ScrollView horizontal={true}>
+            <XacNhanTable data={getDonXacNhanNV} checkIcon={checkIcon}/>
+          </ScrollView>
         ) : (
           <XacNhanTask data={getDonXacNhanNV} checkIcon={checkIcon}/>
         )}
-      
+   </ScrollView>
+   
+      {/* Phan trang */}
         <View style={styles.flexCenter}>
           <TouchableOpacity
             style={[
@@ -307,6 +314,7 @@ export default ViewXacNhan;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#f0f2f2',
   },
   flex: {
     flexDirection: 'row',

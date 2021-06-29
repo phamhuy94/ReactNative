@@ -87,11 +87,6 @@ const SignInScreen = () => {
                 <Icon name={'eye'} size={20} color={'#2179A9'} />
               </TouchableOpacity>
             </View>
-            {/* <TouchableOpacity activeOpacity={.5}>
-                            <View>
-
-                            </View>
-                        </TouchableOpacity> */}
             <TouchableOpacity
               activeOpacity={0.5}
               onPress={() => signIn({username, password})}>

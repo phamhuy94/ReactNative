@@ -18,7 +18,7 @@ import {
   Button,
   TouchableOpacity,
   Alert,
-  Platform
+  Platform,
 } from 'react-native';
 import {Appbar} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -47,7 +47,7 @@ const ViewNghiPhep = ({navigation}) => {
   const demDonXinNghiPhepNV = useSelector(
     (store) => store.nghiPhep.demDonXinNghiPhepNV,
   );
-
+  console.log(demDonXinNghiPhepNV);
   //lay username
   const [username, setUsername] = useState();
 
@@ -135,7 +135,7 @@ const ViewNghiPhep = ({navigation}) => {
         isadmin,
         tukhoa,
         tukhoa1,
-        tukhoa2
+        tukhoa2,
       ),
     );
   }, [username, macongty, sotrang, refreshing]);
@@ -164,7 +164,13 @@ const ViewNghiPhep = ({navigation}) => {
   ) => {
     if (TRUONG_PHONG_DA_DUYET === true && TRUONG_PHONG_HUY_DUYET === false) {
       return (
-        <View style={{flexDirection: 'row',width:'100%',justifyContent:'center', alignItems: 'center'}}>
+        <View
+          style={{
+            flexDirection: 'row',
+            width: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
           <Icon
             name="ios-checkmark-circle"
             size={24}
@@ -182,19 +188,19 @@ const ViewNghiPhep = ({navigation}) => {
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
-            alignItems: 'center'
+            alignItems: 'center',
           }}>
-                  <View style={{left: 105}}>
+          <View style={{left: 105}}>
             <Icon
               name="ios-refresh-circle"
               size={24}
               style={styles.iconStatusWait}
             />
           </View>
-          <Text style={[styles.textHeader, {left: 105,}]}>
+          <Text style={[styles.textHeader, {left: 105}]}>
             {moment(NGAY_LAM_DON).format('DD/MM/YYYY')}
           </Text>
-          <View style={{marginLeft:200}}>
+          <View style={{marginLeft: 200}}>
             <TouchableOpacity onPress={() => deleteDNP(id)}>
               <Icon name="trash" size={24} style={styles.iconStatusWait} />
             </TouchableOpacity>
@@ -204,15 +210,21 @@ const ViewNghiPhep = ({navigation}) => {
     }
     if (TRUONG_PHONG_HUY_DUYET !== false) {
       return (
-        <View style={{flexDirection:'row',width:'100%',justifyContent:'center',alignItems:'center'}}>
+        <View
+          style={{
+            flexDirection: 'row',
+            width: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
           <Text>
-          <Icon
-            name="ios-close-circle-sharp"
-            size={24}
-            style={styles.iconStatusCancel}
-          />
+            <Icon
+              name="ios-close-circle-sharp"
+              size={24}
+              style={styles.iconStatusCancel}
+            />
           </Text>
-      
+
           <Text style={styles.textHeader}>
             {moment(NGAY_LAM_DON).format('DD/MM/YYYY')}
           </Text>
@@ -242,14 +254,14 @@ const ViewNghiPhep = ({navigation}) => {
           </TouchableOpacity>
         </Appbar.Header>
       </View>
+
       <ScrollView
-        contentContainerStyle={styles.scrollView}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
         <View style={styles.flexTitle}>
-         <View style={{flexDirection: 'row'}}>
-          <Text style={[styles.textHeader, {color: '#2179A9'}]}>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={[styles.textHeader, {color: '#2179A9'}]}>
               Tổng số ngày nghỉ trong năm:
             </Text>
             <Text>&nbsp;&nbsp;</Text>
@@ -258,65 +270,59 @@ const ViewNghiPhep = ({navigation}) => {
                 ? '0'
                 : getTongSoNgayNghiNV[0].TONG_SO_NGAY_NGHI}
             </Text>
-         </View>
+          </View>
           <View>
-          <TouchableOpacity
-            style={styles.btnEye}
-            onPress={() => setShowList(!showList)}>
-              {showList ? (  <Icon
-              name={'ios-grid-outline'}
-          
-              size={22}
-              color={'#2179A9'}
-            />) : (  <Icon
-              
-              name={'ios-list-outline'}
-              size={22}
-              color={'#2179A9'}
-            />)}
+            <TouchableOpacity
+              style={styles.btnEye}
+              onPress={() => setShowList(!showList)}>
+              {showList ? (
+                <Icon name={'ios-grid-outline'} size={22} color={'#2179A9'} />
+              ) : (
+                <Icon name={'ios-list-outline'} size={22} color={'#2179A9'} />
+              )}
             </TouchableOpacity>
           </View>
         </View>
+   
+        <ScrollView>
         {showList ? (
-          <NghiPhepTable data={getListDonXinNghiNV} checkIcon={checkIcon}/>
-        ) : (
-          <NghiPhepTask data={getListDonXinNghiNV} checkIcon={checkIcon}/>
-        )}
-
-        {/* Phan trang */}
-        <View style={styles.flexCenter}>
-          <TouchableOpacity
-            style={[
-              styles.button,
-              {backgroundColor: sotrang <= 1 ? '#aaa' : '#2179A9'},
-            ]}
-            disabled={sotrang <= 1}
-            onPress={() => {
-              setSotrang(sotrang - 1);
-            }}>
-            <Icon name="ios-chevron-back" size={24} style={styles.iconPage} />
-          </TouchableOpacity>
-          <Text>&nbsp;&nbsp;</Text>
-          <TouchableOpacity
-            style={[
-              styles.button,
-              {
-                backgroundColor:
-                  sotrang > parseFloat(demDonXinNghiPhepNV) / 15
-                    ? '#aaa'
-                    : '#2179A9',
-              },
-            ]}
-            disabled={sotrang > parseFloat(demDonXinNghiPhepNV) / 15}
-            onPress={() => {
-              setSotrang(sotrang + 1);
-            }}>
-            <Icon
-              name="ios-chevron-forward"
-              size={24}
-              style={styles.iconPage}
-            />
-          </TouchableOpacity>
+        <ScrollView horizontal={true} >
+          <NghiPhepTable data={getListDonXinNghiNV} checkIcon={checkIcon} />
+        </ScrollView>
+      ) : (
+        <NghiPhepTask data={getListDonXinNghiNV} checkIcon={checkIcon} />
+      )}
+     </ScrollView>
+      {/* Phan trang */}
+      <View style={styles.flexCenter}>
+        <TouchableOpacity
+          style={[
+            styles.button,
+            {backgroundColor: sotrang <= 1 ? '#aaa' : '#2179A9'},
+          ]}
+          disabled={sotrang <= 1}
+          onPress={() => {
+            setSotrang(sotrang - 1);
+          }}>
+          <Icon name="ios-chevron-back" size={24} style={styles.iconPage} />
+        </TouchableOpacity>
+        <Text>&nbsp;&nbsp;</Text>
+        <TouchableOpacity
+          style={[
+            styles.button,
+            {
+              backgroundColor:
+                sotrang > parseFloat(demDonXinNghiPhepNV) / 15
+                  ? '#aaa'
+                  : '#2179A9',
+            },
+          ]}
+          disabled={sotrang > parseFloat(demDonXinNghiPhepNV) / 15}
+          onPress={() => {
+            setSotrang(sotrang + 1);
+          }}>
+          <Icon name="ios-chevron-forward" size={24} style={styles.iconPage} />
+        </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
@@ -328,19 +334,16 @@ const height = Dimensions.get('window').height; //full height
 export default ViewNghiPhep;
 
 const styles = StyleSheet.create({
-  
+  scrollView: {
+    flex: 1,
+    zIndex: 9,
+  },
   header: {},
   container: {
     flex: 1,
     backgroundColor: '#f0f2f2',
   },
-  flexCenter: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignContent: 'space-between',
-    height:50,
-    alignItems:'center'
-  },
+
   textHeader: {
     color: '#444',
     fontSize: 16,
@@ -351,7 +354,7 @@ const styles = StyleSheet.create({
     margin: 20,
     marginTop: 10,
     color: '#2179A9',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   flex: {
     flexDirection: 'row',
@@ -385,6 +388,13 @@ const styles = StyleSheet.create({
   iconPage: {
     color: '#fff',
   },
+  flexCenter: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignContent: 'space-between',
+    height: 50,
+    alignItems: 'center',
+  },
   button: {
     width: 40,
     height: 40,
@@ -398,7 +408,7 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 5,
     backgroundColor: '#fff',
-    shadowColor: Platform.OS === 'ios' ? ('#ccc') : ('transparent'),
+    shadowColor: Platform.OS === 'ios' ? '#ccc' : 'transparent',
     shadowOffset: {
       width: 0,
       height: 2,
