@@ -19,7 +19,7 @@ import {
   Platform,
 } from 'react-native';
 import moment from 'moment';
-
+import {width, height, widthScale, heightScale, moderateScale } from '../js/size';
 import {Card} from 'react-native-elements';
 import {Appbar} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -328,8 +328,8 @@ const styles = StyleSheet.create({
   },
   flexTitle: {
     flexDirection: 'row',
-    margin: 20,
-    marginTop: 10,
+    margin: moderateScale(20),
+    marginTop: moderateScale(10),
     color: '#2179A9',
     justifyContent: 'space-between'
   },
@@ -340,7 +340,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignContent: 'space-between',
-    height:50,
+    height:heightScale(50),
     alignItems:'center'
   },
   icon: {
@@ -352,11 +352,11 @@ const styles = StyleSheet.create({
   },
   textHeader: {
     color: '#444',
-    fontSize: 16,
+    fontSize: moderateScale(16),
     flexShrink: 1,
   },
   iconStatusCheck: {
-    marginRight: 5,
+    marginRight: moderateScale(5),
     color: 'green',
   },
   iconStatusWait: {
@@ -366,17 +366,17 @@ const styles = StyleSheet.create({
     color: 'red',
   },
   button: {
-    width: 40,
-    height: 40,
-    borderRadius: 50,
+    width: moderateScale(40),
+    height: moderateScale(40),
+    borderRadius: moderateScale(50),
     justifyContent: 'center',
     alignItems: 'center',
   },
   card: {
     marginTop: 0,
-    margin: 15,
-    padding: 15,
-    borderRadius: 5,
+    margin: moderateScale(15),
+    padding: moderateScale(15),
+    borderRadius: moderateScale(5),
     backgroundColor: '#fff',
     shadowOffset: {
       width: 0,

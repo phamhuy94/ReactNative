@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, FlatList,Dimensions} from 'react-native';
 import moment from 'moment';
-
+import {width, height, widthScale, heightScale, moderateScale } from '../../js/size';
 const NghiPhepTable = ({data, checkIcon}) => {
     return(
 
@@ -31,12 +31,11 @@ const NghiPhepTable = ({data, checkIcon}) => {
 };
 
 export default NghiPhepTable;
-const height = Dimensions.get('window').height; //full height
 const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#fff',
-      height: height * 1
+      maxHeight:heightScale(500)
     },
     listWrapper: {
       flexDirection: 'row',
@@ -49,27 +48,18 @@ const styles = StyleSheet.create({
       flexWrap:'wrap',
       flexDirection:'row',
       justifyContent:'flex-start',
-      fontSize: 16,
+      fontSize: moderateScale(16),
       flexShrink:1,
-      paddingHorizontal: 10,
-      paddingVertical: 10,
+      padding: moderateScale(10),
+      
       color: '#444',
     },
-    row1: {
-      backgroundColor: '#fff',
-      width:400,
-      flex: 1,
-      fontSize: 16,
-      paddingHorizontal: 10,
-      paddingVertical: 10,
-      color: '#444',
-    },
+
     rowHeader: {
       backgroundColor: '#2179A9',
       color: '#fff',
-      paddingHorizontal: 10,
-      paddingVertical: 10,
-      fontSize: 16,
+      padding: moderateScale(10),
+      fontSize: moderateScale(16),
       flexShrink: 1,
     },
   });

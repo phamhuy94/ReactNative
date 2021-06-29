@@ -17,7 +17,7 @@ import {
 } from 'react-native';
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/Ionicons';
-
+import { width, height, widthScale, heightScale, moderateScale  } from '../../js/size';
 const wait = (timeout) => {
   return new Promise((resolve) => {
     setTimeout(resolve, timeout);
@@ -248,19 +248,19 @@ const ViewTable = ({data}) => {
 };
 
 export default ViewDNTTDaHuy;
-const height = Dimensions.get('window').height;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    maxHeight: height * 1,
+    maxHeight:heightScale(500)
   },
   flex: {
     flexDirection: 'row',
-    marginBottom: 10,
+    marginBottom: moderateScale(10),
   },
   textHeader: {
     color: '#444',
-    fontSize: 16,
+    fontSize: moderateScale(16),
     flexShrink: 1,
   },
   colorHeader: {
@@ -271,7 +271,7 @@ const styles = StyleSheet.create({
     elevation: 1,
   },
   icon: {
-    marginRight: 10,
+    marginRight: moderateScale(5),
     color: '#2179A9',
   },
   iconAdd: {
@@ -289,9 +289,9 @@ const styles = StyleSheet.create({
   },
   card: {
     marginTop: 0,
-    margin: 15,
-    padding: 15,
-    borderRadius: 5,
+    margin: moderateScale(15),
+    padding: moderateScale(15),
+    borderRadius: moderateScale(5),
     backgroundColor: '#fff',
     shadowOffset: {
       width: 0,
@@ -313,28 +313,18 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    fontSize: 16,
+    fontSize: moderateScale(16),
     flexShrink: 1,
-    paddingHorizontal: 10,
-    paddingVertical: 10,
+    padding:moderateScale(10),
     color: '#444',
   },
-  row1: {
-    backgroundColor: '#fff',
-    width: 400,
-    flex: 1,
-    fontSize: 16,
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    color: '#444',
-  },
+
   rowHeader: {
     backgroundColor: '#2179A9',
     color: '#fff',
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    fontSize: 16,
+    fontSize: moderateScale(16),
     flexShrink: 1,
+    padding:moderateScale(10),
   },
   iconPage: {
     color: '#fff',
@@ -343,13 +333,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignContent: 'space-between',
-    height: 50,
+    height: moderateScale(50),
     alignItems: 'center',
   },
   button: {
-    width: 40,
-    height: 40,
-    borderRadius: 50,
+    width: moderateScale(40),
+    height: moderateScale(40),
+    borderRadius: moderateScale(50),
     justifyContent: 'center',
     alignItems: 'center',
   },
