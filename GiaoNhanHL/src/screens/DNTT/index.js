@@ -25,7 +25,6 @@ const DNTT = ({navigation}) => {
   const [tukhoa3, setTukhoa3] = useState('');
   const [tukhoa4, setTukhoa4] = useState('');
   const [tukhoa5, setTukhoa5] = useState('');
-  const [sotrang, setSotrang] = useState(1);
   const [sobanghi, setSobanghi] = useState(15);
   const [showList, setShowList] = useState(false);
 
@@ -91,7 +90,6 @@ const DNTT = ({navigation}) => {
           tukhoa3={tukhoa3}
           tukhoa4={tukhoa4}
           tukhoa5={tukhoa5}
-          sotrang={sotrang}
           sobanghi={sobanghi}
           navigation={navigation}
           showList={showList}
@@ -110,7 +108,6 @@ const DNTT = ({navigation}) => {
           tukhoa3={tukhoa3}
           tukhoa4={tukhoa4}
           tukhoa5={tukhoa5}
-          sotrang={sotrang}
           sobanghi={sobanghi}
           navigation={navigation}
           showList={showList}
@@ -129,7 +126,6 @@ const DNTT = ({navigation}) => {
           tukhoa3={tukhoa3}
           tukhoa4={tukhoa4}
           tukhoa5={tukhoa5}
-          sotrang={sotrang}
           sobanghi={sobanghi}
           navigation={navigation}
           showList={showList}
@@ -148,7 +144,6 @@ const DNTT = ({navigation}) => {
           tukhoa3={tukhoa3}
           tukhoa4={tukhoa4}
           tukhoa5={tukhoa5}
-          sotrang={sotrang}
           sobanghi={sobanghi}
           navigation={navigation}
           showList={showList}

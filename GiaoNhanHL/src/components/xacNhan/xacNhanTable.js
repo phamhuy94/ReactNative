@@ -4,12 +4,12 @@ import moment from 'moment';
 
 const XacNhanTable = ({data, checkIcon}) => {
     return (
-        <ScrollView horizontal={true}>
+      
             <View style={styles.container}>
                 <View style={styles.listWrapper}>
                     <Text style={[styles.rowHeader,{width:140}]}>Ngày</Text>
                     <Text style={[styles.rowHeader,{width:140}]}>Ngày xác nhận</Text>
-                    <Text style={[styles.rowHeader,{width:400}]}>Nội dung</Text>
+                    <Text style={[styles.rowHeader,{width:495}]}>Nội dung</Text>
                 </View>
                 <FlatList
                     // initialNumToRender={6}
@@ -18,12 +18,11 @@ const XacNhanTable = ({data, checkIcon}) => {
                         <View style={styles.listWrapper}>
                             <Text style={[styles.row,{width:140}]}>{moment(item.NGAY_LAM_DON).format('DD/MM/YYYY')}</Text>
                             <Text style={[styles.row,{width:140}]}>{item.NGAY_CAN_XAC_NHAN}</Text>
-                            <Text style={[styles.row,{width:400}]}>{item.NOI_DUNG_CAN_XAC_NHAN}</Text>
+                            <Text style={[styles.row,{width:495}]}>{item.NOI_DUNG_CAN_XAC_NHAN}</Text>
                         </View> 
                     )}
                 />
             </View>
-        </ScrollView>
     )
 };
 
@@ -33,7 +32,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        height:height * 0.68
+        height:height * 1
     },
     listWrapper: {
         flexDirection: 'row',

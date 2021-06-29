@@ -13,6 +13,7 @@ import {
   Button,
   RefreshControl,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native';
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -33,10 +34,9 @@ const ViewDNTTCanThanhToan = ({
   tukhoa3,
   tukhoa4,
   tukhoa5,
-  sotrang,
   sobanghi,
   navigation,
-  showList
+  showList,
 }) => {
   const dispatch = useDispatch();
 
@@ -46,6 +46,8 @@ const ViewDNTTCanThanhToan = ({
   const countDNTTCanThanhToan = useSelector(
     (store) => store.DNTT.demListDeNghiTTNVCanThanhToan,
   );
+
+  const [sotrang, setSotrang] = useState(1);
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -66,7 +68,7 @@ const ViewDNTTCanThanhToan = ({
         sobanghi,
       ),
     );
-  }, [username, macongty]);
+  }, [username, macongty, sotrang]);
 
   useEffect(() => {
     dispatch(
@@ -85,7 +87,7 @@ const ViewDNTTCanThanhToan = ({
         sobanghi,
       ),
     );
-  }, [username, macongty]);
+  }, [username, macongty, sotrang]);
 
   useEffect(() => {
     dispatch(
@@ -104,7 +106,7 @@ const ViewDNTTCanThanhToan = ({
         sobanghi,
       ),
     );
-  }, [username, macongty]);
+  }, [username, macongty, sotrang]);
   const checkStatus = (
     DA_THANH_TOAN,
     DA_DUYET,
@@ -155,19 +157,61 @@ const ViewDNTTCanThanhToan = ({
   };
   return (
     <View style={styles.container}>
-      <ScrollView
-        contentContainerStyle={styles.scrollView}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }>
-          {
-            showList ? (
-              <ViewTable data={getDeNghiTTNVCanThanhToan} checkStatus={checkStatus}/>
-            ) : (
-              <ViewTask data={getDeNghiTTNVCanThanhToan} checkStatus={checkStatus}/>
-            )
-          }
-        </ScrollView>
+      <ScrollView>
+        {showList ? (
+          <ViewTable
+            data={getDeNghiTTNVCanThanhToan}
+            checkStatus={checkStatus}
+          />
+        ) : (
+          <ScrollView
+            contentContainerStyle={styles.scrollView}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }>
+            <ViewTask
+              data={getDeNghiTTNVCanThanhToan}
+              checkStatus={checkStatus}
+            />
+          </ScrollView>
+        )}
+        <View>
+          <View style={styles.flexCenter}>
+            <TouchableOpacity
+              style={[
+                styles.button,
+                {backgroundColor: sotrang <= 1 ? '#aaa' : '#2179A9'},
+              ]}
+              disabled={sotrang <= 1}
+              onPress={() => {
+                setSotrang(sotrang - 1);
+              }}>
+              <Icon name="ios-chevron-back" size={24} style={styles.iconPage} />
+            </TouchableOpacity>
+            <Text>&nbsp;&nbsp;</Text>
+            <TouchableOpacity
+              style={[
+                styles.button,
+                {
+                  backgroundColor:
+                    sotrang > parseFloat(countDNTTCanThanhToan) / 15
+                      ? '#aaa'
+                      : '#2179A9',
+                },
+              ]}
+              disabled={sotrang > parseFloat(countDNTTCanThanhToan) / 15}
+              onPress={() => {
+                setSotrang(sotrang + 1);
+              }}>
+              <Icon
+                name="ios-chevron-forward"
+                size={24}
+                style={styles.iconPage}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -234,27 +278,33 @@ const ViewTable = ({data}) => {
     <ScrollView horizontal={true}>
       <View style={styles.container}>
         <View style={styles.listWrapper}>
-          <Text style={[styles.rowHeader,{width:140}]}>Ngày</Text>
-          <Text style={[styles.rowHeader,{width:140}]}>Số tiền</Text>
-          <Text style={[styles.rowHeader,{width:200}]}>Người DN</Text>
-          <Text style={[styles.rowHeader,{width:200}]}>Người hưởng</Text>
-          <Text style={[styles.rowHeader,{width:400}]}>Nội dung</Text>
+          <Text style={[styles.rowHeader, {width: 140}]}>Ngày</Text>
+          <Text style={[styles.rowHeader, {width: 140}]}>Số tiền</Text>
+          <Text style={[styles.rowHeader, {width: 200}]}>Người DN</Text>
+          <Text style={[styles.rowHeader, {width: 200}]}>Người hưởng</Text>
+          <Text style={[styles.rowHeader, {width: 400}]}>Nội dung</Text>
         </View>
         <FlatList
           data={data}
           renderItem={({item, index}) => (
             <View style={styles.listWrapper}>
-              <Text style={[styles.row,{width:140}]}>{moment(item.NGAY_DN).format('DD/MM/YYYY')}</Text>
-              <Text style={[styles.row,{width:140}]}>{item.TONG_TIEN}</Text>
-              <Text style={[styles.row,{width:200}]}>{item.HO_VA_TEN}</Text>
-              <Text style={[styles.row,{width:200}]}>{item.HO_VA_TEN_NGUOI_DN}</Text>
-              <Text style={[styles.row,{width:400}]}>{item.NOI_DUNG_DNTT}</Text>
+              <Text style={[styles.row, {width: 140}]}>
+                {moment(item.NGAY_DN).format('DD/MM/YYYY')}
+              </Text>
+              <Text style={[styles.row, {width: 140}]}>{item.TONG_TIEN}</Text>
+              <Text style={[styles.row, {width: 200}]}>{item.HO_VA_TEN}</Text>
+              <Text style={[styles.row, {width: 200}]}>
+                {item.HO_VA_TEN_NGUOI_DN}
+              </Text>
+              <Text style={[styles.row, {width: 400}]}>
+                {item.NOI_DUNG_DNTT}
+              </Text>
             </View>
           )}
         />
       </View>
     </ScrollView>
-  )
+  );
 };
 
 export default ViewDNTTCanThanhToan;
@@ -262,7 +312,7 @@ const height = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height:height * 0.75
+    height: height * 1,
   },
   flex: {
     flexDirection: 'row',
@@ -318,7 +368,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     borderBottomWidth: 1,
-    borderBottomColor:'#ccc'
+    borderBottomColor: '#ccc',
   },
   row: {
     backgroundColor: '#fff',
@@ -347,5 +397,22 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     fontSize: 16,
     flexShrink: 1,
-}
+  },
+  iconPage: {
+    color: '#fff',
+  },
+  flexCenter: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignContent: 'space-between',
+    height: 50,
+    alignItems: 'center',
+  },
+  button: {
+    width: 40,
+    height: 40,
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });

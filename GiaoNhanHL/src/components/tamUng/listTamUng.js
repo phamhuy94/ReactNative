@@ -18,7 +18,7 @@ import Pagination from './pagination';
 import Icon from 'react-native-vector-icons/Ionicons';
 import TamUngTask from './tamUngTask';
 import TamUngTable from './tamUngTable';
-import { Row } from 'native-base';
+import {Row} from 'native-base';
 
 const wait = (timeout) => {
   return new Promise((resolve) => {
@@ -46,31 +46,30 @@ const ListTamUng = ({body, showList}) => {
   }, [body, sotrang]);
   return (
     <View style={styles.container}>
-      <View style={styles.scrollView}>
-      <ScrollView
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }>
-          
-
-        {
-          showList ? (
-            <TamUngTable data={listTamUng} body={body}/>
-          ) : (
-            <TamUngTask data={listTamUng} body={body}/>
-          )
-        }
-        <View style={styles.page}>
-        <Pagination
-          sotrang={sotrang}
-          onPressAdd={() => setSoTrang(sotrang + 1)}
-          onPressSub={() => setSoTrang(sotrang - 1)}
-          totalItem={countTamUng}
-        />
+     <ScrollView
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }>
+        {showList ? (
+          <TamUngTable data={listTamUng} body={body} />
+        ) : (
+          <ScrollView
+           >
+            <TamUngTask data={listTamUng} body={body} />
+          </ScrollView>
+        )}
+      <View>
+      <View style={styles.page}>
+          <Pagination
+            sotrang={sotrang}
+            onPressAdd={() => setSoTrang(sotrang + 1)}
+            onPressSub={() => setSoTrang(sotrang - 1)}
+            totalItem={countTamUng}
+          />
         </View>
-        
-      </ScrollView>
       </View>
+     
+      </ScrollView>
     </View>
   );
 };
@@ -79,23 +78,26 @@ export default ListTamUng;
 const height = Dimensions.get('window').height; //full height
 const styles = StyleSheet.create({
   container: {
-  //  flex:1,
+
+    height: height * 0.85,
   },
-  scrollView: {
-    height:height * 0.8,
-  },
+  // scrollView: {
+  //   height: height * 0.85,
+  // },
   btnList: {
-    marginHorizontal:15,
-    marginBottom:10,
-    flexDirection:'row',
-    justifyContent:'flex-end',
-    right:20
+    marginHorizontal: 15,
+    marginBottom: 10,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    right: 20,
   },
   page: {
-    alignContent:'center',
-    flexDirection:'row',
-    alignItems:'center',
-    alignSelf:'center',
-    height:60
-  }
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignContent: 'space-between',
+    height:50,
+    bottom:0,
+ 
+    alignItems: 'center',
+  },
 });

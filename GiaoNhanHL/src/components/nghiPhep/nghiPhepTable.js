@@ -4,7 +4,7 @@ import moment from 'moment';
 
 const NghiPhepTable = ({data, checkIcon}) => {
     return(
-    <ScrollView horizontal={true}>
+
       <View style={styles.container}>
           <View style={styles.listWrapper}>
             <Text style={[styles.rowHeader,{width:140}]}>Ngày</Text>
@@ -26,7 +26,6 @@ const NghiPhepTable = ({data, checkIcon}) => {
             )}
           />
       </View>
-    </ScrollView>
 
     )
 };
@@ -37,7 +36,7 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#fff',
-      height: height * 0.68
+      height: height * 1
     },
     listWrapper: {
       flexDirection: 'row',
@@ -46,24 +45,24 @@ const styles = StyleSheet.create({
       borderBottomColor:'#ccc'
     },
     row: {
-        backgroundColor: '#fff',
-        flexWrap:'wrap',
-        flexDirection:'row',
-        justifyContent:'flex-start',
-        fontSize: 16,
-        flexShrink:1,
-        paddingHorizontal: 10,
-        paddingVertical: 10,
-        color: '#444',
+      backgroundColor: '#fff',
+      flexWrap:'wrap',
+      flexDirection:'row',
+      justifyContent:'flex-start',
+      fontSize: 16,
+      flexShrink:1,
+      paddingHorizontal: 10,
+      paddingVertical: 10,
+      color: '#444',
     },
     row1: {
-        backgroundColor: '#fff',
-        width:400,
-        flex: 1,
-        fontSize: 16,
-        paddingHorizontal: 10,
-        paddingVertical: 10,
-        color: '#444',
+      backgroundColor: '#fff',
+      width:400,
+      flex: 1,
+      fontSize: 16,
+      paddingHorizontal: 10,
+      paddingVertical: 10,
+      color: '#444',
     },
     rowHeader: {
       backgroundColor: '#2179A9',
