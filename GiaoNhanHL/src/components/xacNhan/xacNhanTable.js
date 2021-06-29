@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, ScrollView, StyleSheet, FlatList,Dimensions } from 'react-native';
 import moment from 'moment';
-
+import {width, height, widthScale, heightScale, moderateScale } from '../../js/size';
 const XacNhanTable = ({data, checkIcon}) => {
     return (
       
@@ -27,12 +27,12 @@ const XacNhanTable = ({data, checkIcon}) => {
 };
 
 export default XacNhanTable;
-const height = Dimensions.get('window').height; //full height
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        height:height * 1
+        maxHeight:heightScale(500)
     },
     listWrapper: {
         flexDirection: 'row',

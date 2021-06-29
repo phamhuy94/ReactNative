@@ -20,6 +20,7 @@ import {
   Alert,
   Platform,
 } from 'react-native';
+import { width, height, widthScale, heightScale, moderateScale  } from '../js/size';
 import {Appbar} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment';
@@ -328,9 +329,6 @@ const ViewNghiPhep = ({navigation}) => {
     </View>
   );
 };
-const width = Dimensions.get('window').width; //full width
-const height = Dimensions.get('window').height; //full height
-
 export default ViewNghiPhep;
 
 const styles = StyleSheet.create({
@@ -346,13 +344,13 @@ const styles = StyleSheet.create({
 
   textHeader: {
     color: '#444',
-    fontSize: 16,
+    fontSize: moderateScale(16),
     flexShrink: 1,
   },
   flexTitle: {
     flexDirection: 'row',
-    margin: 20,
-    marginTop: 10,
+    margin: moderateScale(20),
+    marginTop: moderateScale(10),
     color: '#2179A9',
     justifyContent: 'space-between',
   },
@@ -367,7 +365,7 @@ const styles = StyleSheet.create({
     elevation: 1,
   },
   icon: {
-    marginRight: 5,
+    marginRight: moderateScale(5),
     color: '#2179A9',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -392,21 +390,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignContent: 'space-between',
-    height: 50,
+    height: moderateScale(50),
     alignItems: 'center',
   },
   button: {
-    width: 40,
-    height: 40,
-    borderRadius: 50,
+    width: moderateScale(40),
+    height: moderateScale(40),
+    borderRadius: moderateScale(50),
     justifyContent: 'center',
     alignItems: 'center',
   },
   card: {
     marginTop: 0,
-    margin: 15,
-    padding: 15,
-    borderRadius: 5,
+    margin: moderateScale(15),
+    padding: moderateScale(15),
+    borderRadius: moderateScale(5),
     backgroundColor: '#fff',
     shadowColor: Platform.OS === 'ios' ? '#ccc' : 'transparent',
     shadowOffset: {

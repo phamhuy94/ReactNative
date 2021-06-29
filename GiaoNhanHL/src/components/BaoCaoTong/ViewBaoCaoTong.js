@@ -18,6 +18,7 @@ import DatePicker from '../../components/datePicker';
 import Swipeout from 'react-native-swipeout';
 import Icon from 'react-native-vector-icons/Ionicons';
 import ItemBaoCaoTong from '../BaoCaoTong/ItemBaoCaoTong';
+import { width, height, widthScale, heightScale, moderateScale  } from '../../js/size';
 const wait = (timeout) => {
   return new Promise((resolve) => {
     setTimeout(resolve, timeout);
@@ -129,23 +130,14 @@ export default function ViewBaoCaoTong() {
     </View>
   );
 }
-const height = Dimensions.get('window').height;
-const width = Dimensions.get('window').width;
 
-const guidelineBaseWidth = 360;
-const guidelineBaseHeight = 592;
-
-const scale = (size) => (width / guidelineBaseWidth) * size;
-const verticalScale = (size) => (height / guidelineBaseHeight) * size;
-const moderateScale = (size, factor = 0.5) =>
-  size + (scale(size) - size) * factor;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
   scrollView: {
     overflow: 'scroll',
-    maxHeight: verticalScale(400),
+    maxHeight: heightScale(380),
   },
   flex: {
     flex: 20,
@@ -166,12 +158,12 @@ const styles = StyleSheet.create({
   flexTime: {
     flexDirection: 'row',
     top: 0,
-    margin: 20,
+    margin: moderateScale(20),
     marginTop: 0,
     backgroundColor: '#fff',
     borderRadius: 5,
-    marginTop: -40,
-    height: 80,
+    marginTop: moderateScale(-40),
+    height: heightScale(70),
     shadowOffset: {
       width: 0,
       height: 2,
@@ -187,7 +179,7 @@ const styles = StyleSheet.create({
     shadowOpacity: Platform.OS === 'ios' ? 0 : 0.2,
     backgroundColor: '#2179A9',
     elevation: 1,
-    height: 100,
+    height: heightScale(90),
   },
   datepicker: {
     color: '#444',
@@ -195,6 +187,6 @@ const styles = StyleSheet.create({
 
   textDate: {
     color: '#444',
-    fontSize: 16,
+    fontSize: moderateScale(16),
   },
 });
