@@ -51,10 +51,8 @@ const styles = StyleSheet.create({
       fontSize: moderateScale(16),
       flexShrink:1,
       padding: moderateScale(10),
-      
       color: '#444',
     },
-
     rowHeader: {
       backgroundColor: '#2179A9',
       color: '#fff',
