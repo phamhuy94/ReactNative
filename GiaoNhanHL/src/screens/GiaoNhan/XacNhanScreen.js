@@ -2,12 +2,9 @@ import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
-  FlatList,
   TextInput,
-  TouchableOpacity,
   Alert,
   Platform
 } from 'react-native';
@@ -15,7 +12,6 @@ import {Button, CheckBox} from 'native-base';
 import {Appbar} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Card} from 'react-native-elements';
 import {useDispatch, useSelector} from 'react-redux';
 import {saveUpdateGiaoHang, khachHangNhan} from '../../redux/GiaoNhan/action';
 import PickKH from './pickKH';
@@ -32,7 +28,6 @@ function XacNhanScreen({route, navigation}) {
   const [chuyenLoaiThanhToan, setChuyenLoaiThanhToan] = useState();
   const [daGiaoHang, setDaGiaoHang] = useState();
   const [daLayHang, setDaLayHang] = useState();
-  const [link, setLink] = useState('');
   const [tuKhoa, setTuKhoa] = useState('');
   const [disabled, setDisabled] = useState(true);
 
@@ -79,19 +74,15 @@ function XacNhanScreen({route, navigation}) {
   useEffect(() => {
     if(listSelectDaNhan[0].KHACH_HANG != null) {
             // // chon Api, NCC => NguoiGiaoNhanNCC, KHH => NguoiGiaoNhanKH
-    if(listSelectDaNhan[0].KHACH_HANG.indexOf('NCC') == -1){
-      // setLink('NguoiGiaoNhanKH')
-      dispatch(khachHangNhan(listSelectDaNhan[0].KHACH_HANG, tuKhoa, 'NguoiGiaoNhanKH'))
-    } else {
-      // setLink('NguoiGiaoNhanNCC')
-      dispatch(khachHangNhan(listSelectDaNhan[0].KHACH_HANG, tuKhoa, 'NguoiGiaoNhanNCC'))
-    }
+      if(listSelectDaNhan[0].KHACH_HANG.indexOf('NCC') == -1){
+        // setLink('NguoiGiaoNhanKH')
+        dispatch(khachHangNhan(listSelectDaNhan[0].KHACH_HANG, tuKhoa, 'NguoiGiaoNhanKH'))
+      } else {
+        // setLink('NguoiGiaoNhanNCC')
+        dispatch(khachHangNhan(listSelectDaNhan[0].KHACH_HANG, tuKhoa, 'NguoiGiaoNhanNCC'))
+      }
     }
   }, [listSelectDaNhan])
-
-  // useEffect(() => {
-  //   dispatch(khachHangNhan(listSelectDaNhan[0].KHACH_HANG, tuKhoa, link))
-  // }, [listSelectDaNhan, tuKhoa, link])
 
   const selectKH = (value) => {
     if (value) {
@@ -202,7 +193,6 @@ function XacNhanScreen({route, navigation}) {
             )}
           </View>
 
-          {/* <Button title="Lưu" onPress={() => updateGiaoHang()} /> */}
         </View>
         <Button 
           disabled={disabled} 
@@ -227,13 +217,11 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   flex1: {
-    // flexDirection: 'row',
     marginBottom: 30,
   },
   colorHeader: {
     shadowColor: '#000',
     shadowOffset: {width: 1, height: 3},
-    // shadowOpacity: 0.2,
     shadowOpacity: Platform.OS === 'ios' ? 0 : 0.2,
     backgroundColor: 'transparent',
     elevation: 1,

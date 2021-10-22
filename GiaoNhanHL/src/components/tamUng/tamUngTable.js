@@ -100,7 +100,6 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         color: '#444',
     },
-
     rowHeader: {
         backgroundColor: '#2179A9',
         color: '#fff',

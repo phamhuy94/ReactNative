@@ -10,6 +10,10 @@ target 'GiaoNhanHL' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
+
   target 'GiaoNhanHLTests' do
     inherit! :complete
     # Pods for testing
